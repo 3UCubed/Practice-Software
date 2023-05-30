@@ -72,13 +72,12 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 
-	char *rawdata = 0;
-	char *voltage = 0;
+	//char *rawdatachar[10];
+	float rawdata = 0;
+	float voltage = 0;
 	char *buffer[20];
-	float floatdata = 0;
 	int rawbufferlength = 0;
 	int voltbufferlength = 0;
-	int intdata = 0;
 
 
   /* USER CODE END 1 */
@@ -112,25 +111,22 @@ int main(void)
   while (1)
   {
 
-	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_RESET);
+	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
 
-	  HAL_SPI_Receive(&hspi1, (uint8_t *)rawdata, 2, 100);
+	  HAL_SPI_Receive(&hspi1, (uint8_t*) &rawdata, 2, 100);
 
-	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);
+	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_SET);
 
-	  floatdata = atof(rawdata);
 
-	  rawbufferlength = sprintf(&buffer, "  Raw Value: %f\r\n", floatdata);
+	  rawbufferlength = sprintf(buffer, "  Raw Value: %f\r\n", rawdata);
 	  HAL_UART_Transmit(&huart1, (uint8_t *)buffer, rawbufferlength, 100);
-	  intdata = atoi(rawdata);
 
-	  voltage = (intdata / 65536) * 5;
+	  voltage = (rawdata / 65536) * 5;
 
-	  voltbufferlength = sprintf(&buffer, "ADC Voltage: %f\r\n\n", voltage);
+	  voltbufferlength = sprintf(buffer, "ADC Voltage: %f\r\n\n", voltage);
 	  HAL_UART_Transmit(&huart1, (uint8_t *)buffer, voltbufferlength, 100);
 
 	  HAL_Delay(1000);
-
 
     /* USER CODE END WHILE */
 
@@ -199,7 +195,7 @@ static void MX_SPI1_Init(void)
   /* SPI1 parameter configuration*/
   hspi1.Instance = SPI1;
   hspi1.Init.Mode = SPI_MODE_MASTER;
-  hspi1.Init.Direction = SPI_DIRECTION_1LINE;
+  hspi1.Init.Direction = SPI_DIRECTION_2LINES_RXONLY;
   hspi1.Init.DataSize = SPI_DATASIZE_16BIT;
   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
@@ -210,7 +206,7 @@ static void MX_SPI1_Init(void)
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
   hspi1.Init.CRCPolynomial = 7;
   hspi1.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
-  hspi1.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
+  hspi1.Init.NSSPMode = SPI_NSS_PULSE_ENABLE;
   if (HAL_SPI_Init(&hspi1) != HAL_OK)
   {
     Error_Handler();
@@ -272,7 +268,7 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : PA0 */
   GPIO_InitStruct.Pin = GPIO_PIN_0;
@@ -280,8 +276,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PB7 */
-  GPIO_InitStruct.Pin = GPIO_PIN_7;
+  /*Configure GPIO pin : PB6 */
+  GPIO_InitStruct.Pin = GPIO_PIN_6;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
