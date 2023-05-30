@@ -27,9 +27,9 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000028  00000000  00000000  000201dc  2**0
                   CONTENTS, READONLY
- 12 .debug_info   00009d1a  00000000  00000000  00020204  2**0
+ 12 .debug_info   00009d19  00000000  00000000  00020204  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 00001797  00000000  00000000  00029f1e  2**0
+ 13 .debug_abbrev 00001797  00000000  00000000  00029f1d  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  14 .debug_aranges 00000878  00000000  00000000  0002b6b8  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
@@ -4757,24 +4757,24 @@ Disassembly of section .text:
 int main(void)
 {
  80025bc:	b580      	push	{r7, lr}
- 80025be:	b098      	sub	sp, #96	; 0x60
+ 80025be:	b08a      	sub	sp, #40	; 0x28
  80025c0:	af00      	add	r7, sp, #0
   /* USER CODE BEGIN 1 */
 
-	//char *rawdatachar[10];
+	//char rawdatachar[10];
 	float rawdata = 0;
  80025c2:	2300      	movs	r3, #0
- 80025c4:	653b      	str	r3, [r7, #80]	; 0x50
+ 80025c4:	61bb      	str	r3, [r7, #24]
 	float voltage = 0;
  80025c6:	2300      	movs	r3, #0
- 80025c8:	65fb      	str	r3, [r7, #92]	; 0x5c
-	char *buffer[20];
+ 80025c8:	627b      	str	r3, [r7, #36]	; 0x24
+	char buffer[20];
 	int rawbufferlength = 0;
  80025ca:	2300      	movs	r3, #0
- 80025cc:	65bb      	str	r3, [r7, #88]	; 0x58
+ 80025cc:	623b      	str	r3, [r7, #32]
 	int voltbufferlength = 0;
  80025ce:	2300      	movs	r3, #0
- 80025d0:	657b      	str	r3, [r7, #84]	; 0x54
+ 80025d0:	61fb      	str	r3, [r7, #28]
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -4812,8 +4812,8 @@ int main(void)
  80025ec:	0018      	movs	r0, r3
  80025ee:	f000 fde5 	bl	80031bc <HAL_GPIO_WritePin>
 
-	  HAL_SPI_Receive(&hspi1, (uint8_t*) &rawdata, 2, 100);
- 80025f2:	2350      	movs	r3, #80	; 0x50
+	  HAL_SPI_Receive(&hspi1, &rawdata, 2, 100);
+ 80025f2:	2318      	movs	r3, #24
  80025f4:	18f9      	adds	r1, r7, r3
  80025f6:	4822      	ldr	r0, [pc, #136]	; (8002680 <main+0xc4>)
  80025f8:	2364      	movs	r3, #100	; 0x64
@@ -4828,27 +4828,26 @@ int main(void)
  8002608:	f000 fdd8 	bl	80031bc <HAL_GPIO_WritePin>
 
 	  rawbufferlength = sprintf(buffer, "  Raw Value: %f\r\n", rawdata);
- 800260c:	6d3b      	ldr	r3, [r7, #80]	; 0x50
+ 800260c:	69bb      	ldr	r3, [r7, #24]
  800260e:	1c18      	adds	r0, r3, #0
  8002610:	f7ff ff6e 	bl	80024f0 <__aeabi_f2d>
  8002614:	0002      	movs	r2, r0
  8002616:	000b      	movs	r3, r1
  8002618:	491a      	ldr	r1, [pc, #104]	; (8002684 <main+0xc8>)
- 800261a:	0038      	movs	r0, r7
+ 800261a:	1d38      	adds	r0, r7, #4
  800261c:	f003 f9e6 	bl	80059ec <siprintf>
  8002620:	0003      	movs	r3, r0
- 8002622:	65bb      	str	r3, [r7, #88]	; 0x58
-
+ 8002622:	623b      	str	r3, [r7, #32]
 	  HAL_UART_Transmit(&huart1, (uint8_t *)buffer, rawbufferlength, 100);
- 8002624:	6dbb      	ldr	r3, [r7, #88]	; 0x58
+ 8002624:	6a3b      	ldr	r3, [r7, #32]
  8002626:	b29a      	uxth	r2, r3
- 8002628:	0039      	movs	r1, r7
+ 8002628:	1d39      	adds	r1, r7, #4
  800262a:	4817      	ldr	r0, [pc, #92]	; (8002688 <main+0xcc>)
  800262c:	2364      	movs	r3, #100	; 0x64
  800262e:	f002 f933 	bl	8004898 <HAL_UART_Transmit>
 
 	  voltage = (rawdata / 65536) * 5;
- 8002632:	6d3b      	ldr	r3, [r7, #80]	; 0x50
+ 8002632:	69bb      	ldr	r3, [r7, #24]
  8002634:	218f      	movs	r1, #143	; 0x8f
  8002636:	05c9      	lsls	r1, r1, #23
  8002638:	1c18      	adds	r0, r3, #0
@@ -4858,23 +4857,22 @@ int main(void)
  8002642:	1c18      	adds	r0, r3, #0
  8002644:	f7fe f848 	bl	80006d8 <__aeabi_fmul>
  8002648:	1c03      	adds	r3, r0, #0
- 800264a:	65fb      	str	r3, [r7, #92]	; 0x5c
+ 800264a:	627b      	str	r3, [r7, #36]	; 0x24
 
 	  voltbufferlength = sprintf(buffer, "ADC Voltage: %f\r\n\n", voltage);
- 800264c:	6df8      	ldr	r0, [r7, #92]	; 0x5c
+ 800264c:	6a78      	ldr	r0, [r7, #36]	; 0x24
  800264e:	f7ff ff4f 	bl	80024f0 <__aeabi_f2d>
  8002652:	0002      	movs	r2, r0
  8002654:	000b      	movs	r3, r1
  8002656:	490e      	ldr	r1, [pc, #56]	; (8002690 <main+0xd4>)
- 8002658:	0038      	movs	r0, r7
+ 8002658:	1d38      	adds	r0, r7, #4
  800265a:	f003 f9c7 	bl	80059ec <siprintf>
  800265e:	0003      	movs	r3, r0
- 8002660:	657b      	str	r3, [r7, #84]	; 0x54
-
+ 8002660:	61fb      	str	r3, [r7, #28]
 	  HAL_UART_Transmit(&huart1, (uint8_t *)buffer, voltbufferlength, 100);
- 8002662:	6d7b      	ldr	r3, [r7, #84]	; 0x54
+ 8002662:	69fb      	ldr	r3, [r7, #28]
  8002664:	b29a      	uxth	r2, r3
- 8002666:	0039      	movs	r1, r7
+ 8002666:	1d39      	adds	r1, r7, #4
  8002668:	4807      	ldr	r0, [pc, #28]	; (8002688 <main+0xcc>)
  800266a:	2364      	movs	r3, #100	; 0x64
  800266c:	f002 f914 	bl	8004898 <HAL_UART_Transmit>
