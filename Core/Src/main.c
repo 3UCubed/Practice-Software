@@ -72,7 +72,7 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 
-	//char rawdatachar[10];
+	char rawdatachar[10];
 	float rawdata = 0;
 	float voltage = 0;
 	char buffer[20];
@@ -113,9 +113,11 @@ int main(void)
 
 	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
 
-	  HAL_SPI_Receive(&hspi1, &rawdata, 2, 100);
+	  HAL_SPI_Receive(&hspi1, rawdatachar, 2, 100);
 
 	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_SET);
+
+	  rawdata = atof(rawdatachar);
 
 	  rawbufferlength = sprintf(buffer, "  Raw Value: %f\r\n", rawdata);
 	  HAL_UART_Transmit(&huart1, (uint8_t *)buffer, rawbufferlength, 100);
@@ -126,6 +128,7 @@ int main(void)
 	  HAL_UART_Transmit(&huart1, (uint8_t *)buffer, voltbufferlength, 100);
 
 	  HAL_Delay(1000);
+
 
     /* USER CODE END WHILE */
 
