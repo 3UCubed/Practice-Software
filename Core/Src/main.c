@@ -73,9 +73,8 @@ int main(void)
   /* USER CODE BEGIN 1 */
 
 	const int WRITE = 0x1;
-	char rawdatachar[10];
 	int raw = 0;
-	float rawdata = 0;
+	float rawfloat = 0;
 	float voltage = 0;
 	char buffer[20];
 	int rawbufferlength = 0;
@@ -121,17 +120,17 @@ int main(void)
 
 	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_SET);
 
-	  //rawdata = atof(rawdatachar);
-
-	  rawbufferlength = sprintf(buffer, "  Raw Value: %f\r\n", raw);
+	  rawbufferlength = sprintf(buffer, "  Raw Value: %d\r\n", raw);
 	  HAL_UART_Transmit(&huart1, (uint8_t *)buffer, rawbufferlength, 100);
 
-	  voltage = (raw / 65536) * 5;
+	  rawfloat = raw;
 
-	  voltbufferlength = sprintf(buffer, "ADC Voltage: %f\r\n\n", voltage);
+	  voltage = (rawfloat / 65536) * 5;
+
+	  voltbufferlength = sprintf(buffer, "ADC Voltage: %f V\r\n\n", voltage);
 	  HAL_UART_Transmit(&huart1, (uint8_t *)buffer, voltbufferlength, 100);
 
-	  HAL_Delay(1000);
+	  HAL_Delay(50);
 
 
     /* USER CODE END WHILE */
