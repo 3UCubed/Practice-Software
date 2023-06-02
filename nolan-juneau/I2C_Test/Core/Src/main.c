@@ -21,7 +21,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -70,6 +72,16 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 
+	uint8_t buf[12];
+	HAL_StatusTypeDef ret;
+
+	int raw = 0;
+	char buffer[20];
+	int rawbufferlength = 0;
+	float rawfloat = 0;
+	float celsius = 0;
+	int tempbufferlength = 0;
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -100,6 +112,42 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
+
+	  buf[0] = 0x00;
+
+
+	  /*
+
+	  ret = HAL_I2C_Master_Transmit(&hi2c1, 0x48, buf, 1, 1);
+	  if ( ret != HAL_OK ) {
+	     strcpy((char*)buf, "Transmit Error\r\n");
+	  } else {
+		  ret = HAL_I2C_Master_Receive(&hi2c1, 0x48, buf, 2, 1);
+	      if ( ret != HAL_OK ) {
+	      strcpy((char*)buf, "Receive Error\r\n");
+	      } else {
+	    	  raw = ((int16_t)buf[0] << 4) | (buf[1] >> 4);
+	          if ( raw > 0x7FF ) {
+	        	  raw |= 0xF000;
+	    	  }
+	      }
+	  }
+
+	  */
+
+	  rawbufferlength = sprintf(buffer, "  Raw Value: %d\r\n", raw);
+	  HAL_UART_Transmit(&huart1, (uint8_t *)buffer, rawbufferlength, 100);
+
+	  rawfloat = raw;
+
+	  celsius = rawfloat * 0.0625;
+
+	  tempbufferlength = sprintf(buffer, "  Temperature: %f\r\n", celsius);
+	  HAL_UART_Transmit(&huart1, (uint8_t *)buffer, tempbufferlength, 100);
+
+	  HAL_Delay(1000);
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

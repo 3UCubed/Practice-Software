@@ -60,8 +60,8 @@ all: main-build
 main-build: External_ADC.elf secondary-outputs
 
 # Tool invocations
-External_ADC.elf External_ADC.map: $(OBJS) $(USER_OBJS) C:\Users\nolan\STM32CubeIDE\workspace_1.11.0\External_ADC\STM32F051R8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "External_ADC.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0 -T"C:\Users\nolan\STM32CubeIDE\workspace_1.11.0\External_ADC\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="External_ADC.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+External_ADC.elf External_ADC.map: $(OBJS) $(USER_OBJS) C:\Users\nolan\OneDrive\Documents\Github\Practice-Software\nolan-juneau\External_ADC\STM32F051R8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "External_ADC.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0 -T"C:\Users\nolan\OneDrive\Documents\Github\Practice-Software\nolan-juneau\External_ADC\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="External_ADC.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
