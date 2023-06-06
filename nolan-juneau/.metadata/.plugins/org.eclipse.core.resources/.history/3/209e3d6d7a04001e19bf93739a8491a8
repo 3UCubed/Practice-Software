@@ -47,8 +47,6 @@ I2C_HandleTypeDef hi2c1;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-
-//Defines the addresses for the two ICs (make sure that IC1 data is 00 and IC2 is 01)
 static const uint8_t ADDR1 = 0x48 << 1;
 static const uint8_t ADDR2 = 0x4A << 1;
 /* USER CODE END PV */
@@ -75,20 +73,17 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 
-
-	uint8_t buf[12]; //Buffer definition
-	HAL_StatusTypeDef ret; //Used to test if I2C is functioning correctly
-
-	//Two sets of data: one for each temp. sensor
+	uint8_t buf[12];
+	HAL_StatusTypeDef ret;
 	int16_t raw1;
 	int16_t raw2;
+
+	char buffer[20];
+	int rawbufferlength = 0;
 	float rawfloat1 = 0;
 	float rawfloat2 = 0;
 	float celsius1 = 0;
 	float celsius2 = 0;
-
-	char buffer[20];
-	int rawbufferlength = 0;
 	int tempbufferlength = 0;
 
   /* USER CODE END 1 */
@@ -122,80 +117,62 @@ int main(void)
   while (1)
   {
 
-	  buf[0] = 0x00; //Sets the first byte of the buffer as 0
+	  buf[0] = 0x00;
 
-	  //Initiates I2C transmission and tests if it the chip reads properly
 	  ret = HAL_I2C_Master_Transmit(&hi2c1, ADDR1, buf, 1, 1000);
-
-	  //If I2C fails, an error is output to the terminal and skips I2C loop
 	  if ( ret != HAL_OK ) {
 	     strcpy((char*)buf, "Transmit Error!\r\n");
-	  //If I2C succeeds, data is received
 	  } else {
 		  ret = HAL_I2C_Master_Receive(&hi2c1, ADDR1, buf, 2, 1000);
-		  //Tests I2C receive line, skips I2C loop if it fails and prints error
 	      if ( ret != HAL_OK ) {
-	    	  strcpy((char*)buf, "Receive Error!\r\n");
+	      strcpy((char*)buf, "Receive Error!\r\n");
 	      } else {
-	    	  //Data is read into raw1 variable and shifted to read data properly
 	    	  raw1 = (int16_t)buf[0] << 8;
-	    	  //Shifts to undo the address shift defined in the address constants
 	    	  raw1 = (raw1 | buf[1]) >> 3;
-
-	    	  //Prevents integer overflow by setting raw1 to a constant value if over a certain value
 	          if ( raw1 > 0x7FF ) {
 	        	  raw1 |= 0xF000;
 	    	  }
 	      }
 	  }
 
-
 	  buf[0] = 0x00;
 
-	  //Repeats all the same steps as above for Temp Sensor 2 (address 0x4A)
-	  ret = HAL_I2C_Master_Transmit(&hi2c1, ADDR2, buf, 1, 1000);
-	  if ( ret != HAL_OK ) {
-	  	  strcpy((char*)buf, "Transmit Error!\r\n");
-	  } else {
-	  	  ret = HAL_I2C_Master_Receive(&hi2c1, ADDR2, buf, 2, 1000);
+	  	  ret = HAL_I2C_Master_Transmit(&hi2c1, ADDR2, buf, 1, 1000);
 	  	  if ( ret != HAL_OK ) {
-	  	  strcpy((char*)buf, "Receive Error!\r\n");
+	  	     strcpy((char*)buf, "Transmit Error!\r\n");
 	  	  } else {
-	  	      raw2 = (int16_t)buf[0] << 8;
-	  	      raw2 = (raw2 | buf[1]) >> 3;
-	  	      if ( raw2 > 0x7FF ) {
-	  	          raw2 |= 0xF000;
+	  		  ret = HAL_I2C_Master_Receive(&hi2c1, ADDR2, buf, 2, 1000);
+	  	      if ( ret != HAL_OK ) {
+	  	      strcpy((char*)buf, "Receive Error!\r\n");
+	  	      } else {
+	  	    	  raw2 = (int16_t)buf[0] << 8;
+	  	    	  raw2 = (raw2 | buf[1]) >> 3;
+	  	          if ( raw2 > 0x7FF ) {
+	  	        	  raw2 |= 0xF000;
 	  	      }
 	      }
 	  }
 
 
-	  //Transmits raw value for Temp. Sensor 1 and outputs through UART
-	  rawbufferlength = sprintf(buffer, "     Raw Value 1: %d\r\n", raw1);
+	  rawbufferlength = sprintf(buffer, "  Raw Value 1: %d\r\n", raw1);
 	  HAL_UART_Transmit(&huart1, (uint8_t *)buffer, rawbufferlength, 100);
 
-	  //Transmits raw value for Temp. Sensor 2 and outputs through UART
-	  rawbufferlength = sprintf(buffer, "     Raw Value 2: %d\r\n\n", raw2);
+	  rawbufferlength = sprintf(buffer, "  Raw Value 2: %d\r\n\n", raw2);
 	  HAL_UART_Transmit(&huart1, (uint8_t *)buffer, rawbufferlength, 100);
 
-	  //Converts the uint_8 value to a float value
 	  rawfloat1 = raw1;
 	  rawfloat2 = raw2;
 
-	  //Converts raw value into the degrees in Celsius
 	  celsius1 = rawfloat1 * 0.0625;
 	  celsius2 = rawfloat2 * 0.0625;
 
-	  //Transmits actual temp. value for IC1 and outputs through UART
-	  tempbufferlength = sprintf(buffer, "Temperature 1 (C): %f\r\n", celsius1);
+	  tempbufferlength = sprintf(buffer, "Temperature 1: %f\r\n", celsius1);
 	  HAL_UART_Transmit(&huart1, (uint8_t *)buffer, tempbufferlength, 100);
 
-	  //Transmits actual temp. value for IC2 and outputs through UART
-	  tempbufferlength = sprintf(buffer, "Temperature 2 (C): %f\r\n\n\n", celsius2);
+	  tempbufferlength = sprintf(buffer, "Temperature 2: %f\r\n\n\n", celsius2);
 	  HAL_UART_Transmit(&huart1, (uint8_t *)buffer, tempbufferlength, 100);
 
-	  //Sets a delay between I2C transmissions
-	  HAL_Delay(80);
+	  HAL_Delay(1000);
 
     /* USER CODE END WHILE */
 

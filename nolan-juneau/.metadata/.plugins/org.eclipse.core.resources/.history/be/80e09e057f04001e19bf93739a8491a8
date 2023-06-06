@@ -171,11 +171,11 @@ int main(void)
 
 
 	  //Transmits raw value for Temp. Sensor 1 and outputs through UART
-	  rawbufferlength = sprintf(buffer, "     Raw Value 1: %d\r\n", raw1);
+	  rawbufferlength = sprintf(buffer, "  Raw Value 1: %d\r\n", raw1);
 	  HAL_UART_Transmit(&huart1, (uint8_t *)buffer, rawbufferlength, 100);
 
 	  //Transmits raw value for Temp. Sensor 2 and outputs through UART
-	  rawbufferlength = sprintf(buffer, "     Raw Value 2: %d\r\n\n", raw2);
+	  rawbufferlength = sprintf(buffer, "  Raw Value 2: %d\r\n\n", raw2);
 	  HAL_UART_Transmit(&huart1, (uint8_t *)buffer, rawbufferlength, 100);
 
 	  //Converts the uint_8 value to a float value
@@ -187,11 +187,11 @@ int main(void)
 	  celsius2 = rawfloat2 * 0.0625;
 
 	  //Transmits actual temp. value for IC1 and outputs through UART
-	  tempbufferlength = sprintf(buffer, "Temperature 1 (C): %f\r\n", celsius1);
+	  tempbufferlength = sprintf(buffer, "Temperature 1: %f Degrees C\r\n", celsius1);
 	  HAL_UART_Transmit(&huart1, (uint8_t *)buffer, tempbufferlength, 100);
 
 	  //Transmits actual temp. value for IC2 and outputs through UART
-	  tempbufferlength = sprintf(buffer, "Temperature 2 (C): %f\r\n\n\n", celsius2);
+	  tempbufferlength = sprintf(buffer, "Temperature 2: %f Degrees C\r\n\n\n", celsius2);
 	  HAL_UART_Transmit(&huart1, (uint8_t *)buffer, tempbufferlength, 100);
 
 	  //Sets a delay between I2C transmissions

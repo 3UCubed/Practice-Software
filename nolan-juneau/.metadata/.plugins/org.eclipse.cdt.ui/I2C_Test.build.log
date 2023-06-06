@@ -1,10 +1,63 @@
-10:10:24 **** Incremental Build of configuration Debug for project I2C_Test ****
+11:30:09 **** Incremental Build of configuration Debug for project I2C_Test ****
 make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:174:61: warning: '
+   ' directive writing 2 bytes into a region of size between 0 and 1 [-Wformat-overflow=]
+  174 |    rawbufferlength = sprintf(buffer, "     Raw Value 1: %d\r\n", raw1);
+      |                                                           ~~^~
+../Core/Src/main.c:174:22: note: 'sprintf' output between 22 and 27 bytes into a destination of size 20
+  174 |    rawbufferlength = sprintf(buffer, "     Raw Value 1: %d\r\n", raw1);
+      |                      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:178:61: warning: '
+
+   ' directive writing 3 bytes into a region of size between 0 and 1 [-Wformat-overflow=]
+  178 |    rawbufferlength = sprintf(buffer, "     Raw Value 2: %d\r\n\n", raw2);
+      |                                                           ~~^~~~
+../Core/Src/main.c:178:22: note: 'sprintf' output between 23 and 28 bytes into a destination of size 20
+  178 |    rawbufferlength = sprintf(buffer, "     Raw Value 2: %d\r\n\n", raw2);
+      |                      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:190:59: warning: '%f' directive writing between 3 and 317 bytes into a region of size 1 [-Wformat-overflow=]
+  190 |    tempbufferlength = sprintf(buffer, "Temperature 1 (C): %f\r\n", celsius1);
+      |                                                           ^~
+../Core/Src/main.c:190:39: note: assuming directive output of 8 bytes
+  190 |    tempbufferlength = sprintf(buffer, "Temperature 1 (C): %f\r\n", celsius1);
+      |                                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:190:23: note: 'sprintf' output between 25 and 339 bytes into a destination of size 20
+  190 |    tempbufferlength = sprintf(buffer, "Temperature 1 (C): %f\r\n", celsius1);
+      |                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:194:59: warning: '%f' directive writing between 3 and 317 bytes into a region of size 1 [-Wformat-overflow=]
+  194 |    tempbufferlength = sprintf(buffer, "Temperature 2 (C): %f\r\n\n\n", celsius2);
+      |                                                           ^~
+../Core/Src/main.c:194:39: note: assuming directive output of 8 bytes
+  194 |    tempbufferlength = sprintf(buffer, "Temperature 2 (C): %f\r\n\n\n", celsius2);
+      |                                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:194:23: note: 'sprintf' output between 27 and 341 bytes into a destination of size 20
+  194 |    tempbufferlength = sprintf(buffer, "Temperature 2 (C): %f\r\n\n\n", celsius2);
+      |                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:132:7: warning: '__builtin_memcpy' writing 18 bytes into a region of size 12 overflows the destination [-Wstringop-overflow=]
+  132 |       strcpy((char*)buf, "Transmit Error!\r\n");
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:138:9: warning: '__builtin_memcpy' writing 17 bytes into a region of size 12 overflows the destination [-Wstringop-overflow=]
+  138 |         strcpy((char*)buf, "Receive Error!\r\n");
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:158:7: warning: '__builtin_memcpy' writing 18 bytes into a region of size 12 overflows the destination [-Wstringop-overflow=]
+  158 |       strcpy((char*)buf, "Transmit Error!\r\n");
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:162:7: warning: '__builtin_memcpy' writing 17 bytes into a region of size 12 overflows the destination [-Wstringop-overflow=]
+  162 |       strcpy((char*)buf, "Receive Error!\r\n");
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "I2C_Test.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\nolan\OneDrive\Documents\Github\Practice-Software\nolan-juneau\I2C_Test\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="I2C_Test.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: I2C_Test.elf
+ 
 arm-none-eabi-size   I2C_Test.elf 
+arm-none-eabi-objdump -h -S  I2C_Test.elf  > "I2C_Test.list"
    text	   data	    bss	    dec	    hex	filename
-  33868	    484	   1812	  36164	   8d44	I2C_Test.elf
+  34216	    484	   1812	  36512	   8ea0	I2C_Test.elf
 Finished building: default.size.stdout
  
+Finished building: I2C_Test.list
+ 
 
-10:10:24 Build Finished. 0 errors, 0 warnings. (took 238ms)
+11:30:10 Build Finished. 0 errors, 8 warnings. (took 572ms)
 
