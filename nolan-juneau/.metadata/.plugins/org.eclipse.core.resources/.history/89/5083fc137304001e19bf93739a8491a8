@@ -116,11 +116,11 @@ int main(void)
 
 	  buf[0] = 0x00;
 
-	  ret = HAL_I2C_Master_Transmit(&hi2c1, ADDR, buf, 1, 1000);
+	  ret = HAL_I2C_Master_Transmit(&hi2c1, 0x48, buf, 1, 1000);
 	  if ( ret != HAL_OK ) {
 	     strcpy((char*)buf, "Transmit Error!\r\n");
 	  } else {
-		  ret = HAL_I2C_Master_Receive(&hi2c1, ADDR, buf, 2, 1000);
+		  ret = HAL_I2C_Master_Receive(&hi2c1, 0x48, buf, 2, 1000);
 	      if ( ret != HAL_OK ) {
 	      strcpy((char*)buf, "Receive Error!\r\n");
 	      } else {

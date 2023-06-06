@@ -1,33 +1,10 @@
-16:08:22 **** Incremental Build of configuration Debug for project I2C_Test ****
+10:10:24 **** Incremental Build of configuration Debug for project I2C_Test ****
 make -j16 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'main':
-../Core/Src/main.c:146:55: warning: '%f' directive writing between 3 and 317 bytes into a region of size 5 [-Wformat-overflow=]
-  146 |    tempbufferlength = sprintf(buffer, "  Temperature: %f\r\n", celsius);
-      |                                                       ^~
-../Core/Src/main.c:146:39: note: assuming directive output of 8 bytes
-  146 |    tempbufferlength = sprintf(buffer, "  Temperature: %f\r\n", celsius);
-      |                                       ^~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:146:23: note: 'sprintf' output between 21 and 335 bytes into a destination of size 20
-  146 |    tempbufferlength = sprintf(buffer, "  Temperature: %f\r\n", celsius);
-      |                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:124:7: warning: '__builtin_memcpy' writing 17 bytes into a region of size 12 overflows the destination [-Wstringop-overflow=]
-  124 |       strcpy((char*)buf, "Transmit Error\r\n");
-      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:128:8: warning: '__builtin_memcpy' writing 16 bytes into a region of size 12 overflows the destination [-Wstringop-overflow=]
-  128 |        strcpy((char*)buf, "Receive Error\r\n");
-      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-arm-none-eabi-gcc -o "I2C_Test.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\nolan\OneDrive\Documents\Github\Practice-Software\nolan-juneau\I2C_Test\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="I2C_Test.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: I2C_Test.elf
- 
 arm-none-eabi-size   I2C_Test.elf 
-arm-none-eabi-objdump -h -S  I2C_Test.elf  > "I2C_Test.list"
    text	   data	    bss	    dec	    hex	filename
-  33828	    484	   1812	  36124	   8d1c	I2C_Test.elf
+  33868	    484	   1812	  36164	   8d44	I2C_Test.elf
 Finished building: default.size.stdout
  
-Finished building: I2C_Test.list
- 
 
-16:08:22 Build Finished. 0 errors, 3 warnings. (took 528ms)
+10:10:24 Build Finished. 0 errors, 0 warnings. (took 238ms)
 

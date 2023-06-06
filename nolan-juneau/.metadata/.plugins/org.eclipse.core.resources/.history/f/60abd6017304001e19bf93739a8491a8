@@ -47,7 +47,7 @@ I2C_HandleTypeDef hi2c1;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-static const uint8_t ADDR = 0x48 << 1;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -75,7 +75,7 @@ int main(void)
 	uint8_t buf[12];
 	HAL_StatusTypeDef ret;
 
-	int16_t raw;
+	int16_t raw = 0;
 
 	char buffer[20];
 	int rawbufferlength = 0;
@@ -114,13 +114,14 @@ int main(void)
   while (1)
   {
 
+
 	  buf[0] = 0x00;
 
-	  ret = HAL_I2C_Master_Transmit(&hi2c1, ADDR, buf, 1, 1000);
-	  if ( ret != HAL_OK ) {
+	  ret = HAL_I2C_Master_Transmit(&hi2c1, 0x48, buf, 1, 1000);
+	  //if ( ret != HAL_OK ) {
 	     strcpy((char*)buf, "Transmit Error!\r\n");
-	  } else {
-		  ret = HAL_I2C_Master_Receive(&hi2c1, ADDR, buf, 2, 1000);
+	  //} else {
+		  ret = HAL_I2C_Master_Receive(&hi2c1, 0x48, buf, 2, 1000);
 	      if ( ret != HAL_OK ) {
 	      strcpy((char*)buf, "Receive Error!\r\n");
 	      } else {
@@ -130,7 +131,7 @@ int main(void)
 	        	  raw |= 0xF000;
 	    	  }
 	      }
-	  }
+	  //}
 
 	  rawbufferlength = sprintf(buffer, "  Raw Value: %d\r\n", raw);
 	  HAL_UART_Transmit(&huart1, (uint8_t *)buffer, rawbufferlength, 100);
