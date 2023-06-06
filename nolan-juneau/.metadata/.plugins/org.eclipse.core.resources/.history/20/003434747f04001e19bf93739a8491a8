@@ -75,6 +75,7 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 
+
 	uint8_t buf[12]; //Buffer definition
 	HAL_StatusTypeDef ret; //Used to test if I2C is functioning correctly
 
@@ -120,6 +121,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
 	  buf[0] = 0x00; //Sets the first byte of the buffer as 0
 
 	  //Initiates I2C transmission and tests if it the chip reads properly
@@ -147,9 +149,10 @@ int main(void)
 	      }
 	  }
 
-	  //Repeats all the same steps as above for Temp Sensor 2 (address 0x4A)
+
 	  buf[0] = 0x00;
 
+	  //Repeats all the same steps as above for Temp Sensor 2 (address 0x4A)
 	  ret = HAL_I2C_Master_Transmit(&hi2c1, ADDR2, buf, 1, 1000);
 	  if ( ret != HAL_OK ) {
 	  	  strcpy((char*)buf, "Transmit Error!\r\n");
@@ -165,6 +168,7 @@ int main(void)
 	  	      }
 	      }
 	  }
+
 
 	  //Transmits raw value for Temp. Sensor 1 and outputs through UART
 	  rawbufferlength = sprintf(buffer, "     Raw Value 1: %d\r\n", raw1);
