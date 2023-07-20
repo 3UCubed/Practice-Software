@@ -22,8 +22,12 @@ B_scale_550 = 4.23*(10**4)
 B_scale_840 = 3.69*(10**4)
 #Values from the World Magnetic Model for December 2024, taken from NOAA
 #And approximated from multiple values for longitude
-B_NOAA_500 = 4.5*(10**4)
-B_NOAA_840 = 4.0*(10**4)
+B_NOAA_WMM_500 = 4.5*(10**4)
+B_NOAA_WMM_840 = 4.0*(10**4)
+#values from the International Geomagnetic Reference Field for December 2024,
+#taken from NOAA, for 5 degree longitude intervals and averaged 
+B_NOAA_IGRF_840 = 4.0332*(10**4)
+B_NOAA_IGRF_500 = 4.6272*(10**4)
 
 #function to calculate B-field using the dipole equation, taking an altitude
 #(in kilometers) as a parameter and returning the field value in nanotesla
@@ -72,17 +76,24 @@ print()
 # In[2]:
 
 
+#create an array and populate it with angles 0-90
 angles = []
 i = 0
 for i in range(0,91):
     angles.append(i)
     i += 1
+#create a new array for the calculated pitch angles, calling the
+#calculation function with the "known" angle 0-90 and the field 
+#model values at the relevant altitudes. Appends the calculated 
+#value to the empty array so it may be graphed
 alpha = []
 for i in range(len(angles)):
     n = Calc_pitch_angle(Calc_B_dip(500),Calc_B_dip(840),i)
     alpha.append(n)
     i += 1
-#print(alpha)    
+#print(alpha) - test to verify output   
+#graph shows how values are altered based on the field values at
+#the different altitudes at each potential angle. 
 plt.plot(angles,alpha)
 plt.xlabel('"Known" Angle (degrees)')
 plt.ylabel('Calculated Angle (degrees)')
@@ -94,28 +105,6 @@ plt.show
 
 
 # In[3]:
-
-
-'''
-alpha = []
-for i in range(len(angles)):
-    n = Calc_pitch_angle(Calc_B_dip(500),Calc_B_dip(500),i)
-    alpha.append(n)
-    i += 1
-#print(alpha)    
-plt.plot(angles,alpha)
-plt.xlabel('"Known" Angle (degrees)')
-plt.ylabel('Calculated Angle (degrees)')
-plt.title('Pitch Angle Distribution For Constant Field')
-plt.xlim(0,90)
-plt.ylim(0,90)
-plt.grid()
-plt.show
-'''
-print()
-
-
-# In[4]:
 
 
 alpha = []
@@ -134,12 +123,12 @@ plt.grid()
 plt.show
 
 
-# In[5]:
+# In[4]:
 
 
 alpha = []
 for i in range(len(angles)):
-    n = Calc_pitch_angle(B_NOAA_500,B_NOAA_840,i)
+    n = Calc_pitch_angle(B_NOAA_WMM_500,B_NOAA_WMM_840,i)
     alpha.append(n)
     i += 1
 #print(alpha)    
@@ -153,11 +142,9 @@ plt.grid()
 plt.show
 
 
-# In[6]:
+# In[5]:
 
 
-B_NOAA_IGRF_840 = 4.0332*(10**4)
-B_NOAA_IGRF_500 = 4.6272*(10**4)
 alpha = []
 for i in range(len(angles)):
     n = Calc_pitch_angle(B_NOAA_IGRF_500,B_NOAA_IGRF_840,i)
