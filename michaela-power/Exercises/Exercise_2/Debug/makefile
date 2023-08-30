@@ -60,8 +60,8 @@ all: main-build
 main-build: Exercise_2.elf secondary-outputs
 
 # Tool invocations
-Exercise_2.elf Exercise_2.map: $(OBJS) $(USER_OBJS) C:\Users\micha\STM32CubeIDE\workspace_1.13.1\Exercise_2\STM32F051R8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Exercise_2.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0 -T"C:\Users\micha\STM32CubeIDE\workspace_1.13.1\Exercise_2\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Exercise_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Exercise_2.elf Exercise_2.map: $(OBJS) $(USER_OBJS) C:\Users\micha\3UCubed\Practice-Software\michaela-power\Exercises\Exercise_2\STM32F051R8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Exercise_2.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0 -T"C:\Users\micha\3UCubed\Practice-Software\michaela-power\Exercises\Exercise_2\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Exercise_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

@@ -107,4 +107,3 @@ SH.GPXTI0.ConfNb=1
 board=STM32F0DISCOVERY
 boardIOC=true
 isbadioc=false
-isbadioc=false
