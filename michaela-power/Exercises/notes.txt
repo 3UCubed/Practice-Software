@@ -1,0 +1,3 @@
+8/30/23
+Currently, Exercises 1 and 2 are fully functional.
+Exercise 3 has gotten to a point in which I believe it works, but can not currently be tested at the current code state.
