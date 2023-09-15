@@ -27,7 +27,6 @@ UART_HandleTypeDef huart1;
 
 static const uint8_t ADT7410_ADDR = 0x48<<1;//will change, negate LSB as it it is
 static const uint16_t REG_TMP = 0x00; //need to check best size for holding this
-
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_I2C1_Init(void);
