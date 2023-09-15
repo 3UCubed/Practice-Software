@@ -82,7 +82,7 @@ int main(void)
 	  buffer[0] = REG_TMP;
 
 	      //RECEIVE DATA
-	  	  	ret = HAL_I2C_Master_Receive(&hi2c1, (uint16_t)ADT7410_ADDR, (uint8_t*)buffer, 2, HAL_MAX_DELAY);
+	  	  	ret = HAL_I2C_Master_Receive(&hi2c1, ADT7410_ADDR, buffer, 2, HAL_MAX_DELAY);
 	      	if (ret != HAL_OK) {
 	      		if (HAL_I2C_GetError(&hi2c1) != HAL_I2C_ERROR_AF){
 	      			Error_Handler(); //BASIC ERROR CHECK
