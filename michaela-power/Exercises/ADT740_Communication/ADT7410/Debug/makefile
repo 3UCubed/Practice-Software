@@ -60,8 +60,8 @@ all: main-build
 main-build: ADT7410.elf secondary-outputs
 
 # Tool invocations
-ADT7410.elf ADT7410.map: $(OBJS) $(USER_OBJS) C:\Users\micha\STM32CubeIDE\workspace_1.13.1\ADT7410\STM32F051R8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "ADT7410.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0 -T"C:\Users\micha\STM32CubeIDE\workspace_1.13.1\ADT7410\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ADT7410.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+ADT7410.elf ADT7410.map: $(OBJS) $(USER_OBJS) C:\Users\micha\3UCubed\Practice-Software\michaela-power\Exercises\ADT740_Communication\ADT7410\STM32F051R8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "ADT7410.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0 -T"C:\Users\micha\3UCubed\Practice-Software\michaela-power\Exercises\ADT740_Communication\ADT7410\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ADT7410.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

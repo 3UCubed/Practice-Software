@@ -51,6 +51,7 @@ int main(void)
   uint8_t buffer[2]; //two byte buffer to read from ADT7410
   char uart[20]; //char array to send data in proper size
   int16_t final_data; //store raw temp data, initially set to 0
+  float val;
   unsigned int large;//left of decimal
   unsigned int small; //right of decimal
 
@@ -80,30 +81,32 @@ int main(void)
   while (1)
   {
 	  buffer[0] = REG_TMP;
+
 	      //RECEIVE DATA
-	  	  	  ret = HAL_I2C_Master_Receive(&hi2c1, ADT7410_ADDR, buffer, 2, HAL_MAX_DELAY);
+	  	  	ret = HAL_I2C_Master_Receive(&hi2c1, (uint16_t)ADT7410_ADDR, (uint8_t*)buffer, 2, HAL_MAX_DELAY);
 	      	if (ret != HAL_OK) {
+	      		if (HAL_I2C_GetError(&hi2c1) != HAL_I2C_ERROR_AF){
+	      			Error_Handler(); //BASIC ERROR CHECK
+	      		}
 	      		//IF ERROR PRODUCED DURING RECEIVAL
 	      		strcpy(uart, "ERROR RX\r\n");
 	      	} else {
-	      		//CONVERT DATA TO CELSIUS
-	      		final_data = (((uint16_t)buffer[0]<<8)|(buffer[1]))>> 3;
+	      		//CONVERT DATA TO CELSIUS (WORKS)
+	      		final_data = ((uint16_t)buffer[0]<<8)|(buffer[1]);//>> 3;
 	      		if (final_data>511) { //MSB is 1, negative case
 	      			final_data = (final_data-8192)/16;
 	      		} else { //MSB is 0, positive case
 	      			final_data = (final_data)/16;
 	      		}
-
+	      		val = final_data*100;
 	      		//FORMAT INTO DIGESTABLE STRING
-	      		large = (final_data*100)/100;
-	      		small = (final_data*100)%100;
+	      		large = (unsigned int)val/100;
+	      		small = (unsigned int)val%100;
 	      		sprintf(uart, "%u.%02u C\r\n", large, small);
 	      	}
 	      //TRANSMIT STRING IN PROPER FORM TO PC via UART
 	      HAL_UART_Transmit(&huart1, (uint8_t*)uart, strlen(uart), HAL_MAX_DELAY);
 	      HAL_Delay(1000);
-
-
   }
   /* USER CODE END 3 */
 }
