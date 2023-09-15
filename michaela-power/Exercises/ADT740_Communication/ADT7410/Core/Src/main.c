@@ -91,7 +91,7 @@ int main(void)
 	      		strcpy(uart, "ERROR RX\r\n");
 	      	} else {
 	      		//CONVERT DATA TO CELSIUS (WORKS)
-	      		final_data = ((uint16_t)buffer[0]<<8)|(buffer[1]);//>> 3;
+	      		final_data = ((uint16_t)buffer[0]<<8)|(buffer[1]) >> 3;
 	      		if (final_data>511) { //MSB is 1, negative case
 	      			final_data = (final_data-8192)/16;
 	      		} else { //MSB is 0, positive case
