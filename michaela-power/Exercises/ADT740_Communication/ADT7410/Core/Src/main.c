@@ -18,20 +18,52 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
 #include <string.h>
 #include <stdio.h>
+/* USER CODE END Includes */
 
-I2C_HandleTypeDef hi2c1;
+/* Private typedef -----------------------------------------------------------*/
+/* USER CODE BEGIN PTD */
+
+/* USER CODE END PTD */
+
+/* Private define ------------------------------------------------------------*/
+/* USER CODE BEGIN PD */
+
+/* USER CODE END PD */
+
+/* Private macro -------------------------------------------------------------*/
+/* USER CODE BEGIN PM */
+
+/* USER CODE END PM */
+
+/* Private variables ---------------------------------------------------------*/
+I2C_HandleTypeDef hi2c2;
 
 UART_HandleTypeDef huart1;
 
-static const uint8_t ADT7410_ADDR = 0x48<<1;//will change, negate LSB as it it is
-static const uint16_t REG_TMP = 0x00; //need to check best size for holding this
+/* USER CODE BEGIN PV */
+
+/* USER CODE END PV */
+
+/* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_I2C1_Init(void);
 static void MX_USART1_UART_Init(void);
+static void MX_I2C2_Init(void);
 /* USER CODE BEGIN PFP */
+//prototype declaration of helper function
+void receiver(uint8_t, uint8_t*);
+//FOUR ADDRESSES FOR ACCESS:
+static const uint8_t ADT7410_ADDR_ONE = (0x48<<1);//FIRST
+static const uint8_t ADT7410_ADDR_TWO = (0x49<<1);//SECOND
+static const uint8_t ADT7410_ADDR_THREE = (0x4A<<1);//THIRD
+static const uint8_t ADT7410_ADDR_FOUR = (0x4B<<1);//FOURTH
+
+static const uint16_t REG_TMP = 0x00; //sets the register to be read to MSB
 
 /* USER CODE END PFP */
 
@@ -46,17 +78,18 @@ static void MX_USART1_UART_Init(void);
   */
 int main(void)
 {
-  HAL_StatusTypeDef ret; //for error handling
-  uint8_t buffer[2]; //two byte buffer to read from ADT7410
-  char uart[20]; //char array to send data in proper size
-  int16_t final_data; //store raw temp data, initially set to 0
-  float val;
-  unsigned int large;//left of decimal
-  unsigned int small; //right of decimal
+  /* USER CODE BEGIN 1 */
 
+  /* USER CODE END 1 */
+
+  /* MCU Configuration--------------------------------------------------------*/
+
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
 
   /* USER CODE BEGIN Init */
+  uint8_t buffer[2]; //two byte buffer to read from ADT7410
+
 
   /* USER CODE END Init */
 
@@ -69,9 +102,11 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_I2C1_Init();
   MX_USART1_UART_Init();
+  MX_I2C2_Init();
   /* USER CODE BEGIN 2 */
+
+
 
   /* USER CODE END 2 */
 
@@ -79,39 +114,67 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  buffer[0] = REG_TMP;
 
-	      //RECEIVE DATA
-	  ret =  HAL_I2C_Master_Transmit(&hi2c1, ADT7410_ADDR, buffer, 1, HAL_MAX_DELAY);
-	  if (ret != HAL_OK) {
-		  strcpy(uart, "ERROR TX\r\n");
-	  } else {
-		  ret = HAL_I2C_Master_Receive(&hi2c1, ADT7410_ADDR, buffer, 2, HAL_MAX_DELAY);
-		  if (ret != HAL_OK) {
-		  	 //IF ERROR PRODUCED DURING RECEIVAL
-		  	 strcpy(uart, "ERROR RX\r\n");
-		  } else{
-			  //CONVERT DATA TO CELSIUS (WORKS)
-			  final_data = ((uint16_t)buffer[0]<<8)|(buffer[1]) >> 3;
-			  if (final_data>511) { //MSB is 1, negative case
-			  	  final_data = (final_data-8192)/16;
-			  } else { //MSB is 0, positive case
-			  	  final_data = (final_data)/16;
-			  }
-			  val = final_data*100;
-			  //FORMAT INTO DIGESTABLE STRING
-			  large = (unsigned int)val/100;
-			  small = (unsigned int)val%100;
-			  sprintf(uart, "%u.%02u C\r\n", large, small);
-		  }
-	  }
+	    receiver(ADT7410_ADDR_ONE, buffer);
+	    receiver(ADT7410_ADDR_TWO, buffer);
+	    receiver(ADT7410_ADDR_THREE, buffer);
+	  	receiver(ADT7410_ADDR_FOUR, buffer);
+	  	//char uartTransmission[160];
+	  	//COMBINE DATA
+	  	//sprintf(uartTransmission, "%s %s %s %s", firstRead, secRead, thirdRead, fourthRead);
+	    //TRANSMIT STRING IN PROPER FORM TO PC via UART one at a time
+	    //HAL_UART_Transmit(&huart1, (uint8_t*)uartTransmission, strlen(uartTransmission), HAL_MAX_DELAY);
 
-	      //TRANSMIT STRING IN PROPER FORM TO PC via UART
-	      HAL_UART_Transmit(&huart1, (uint8_t*)uart, strlen(uart), HAL_MAX_DELAY);
-	      HAL_Delay(1000);
+	    HAL_Delay(1000);
+
   }
-  /* USER CODE END 3 */
+    /* USER CODE END WHILE */
+
+
 }
+/* USER CODE BEGIN 3 */
+void receiver(uint8_t address, uint8_t *buffer) {
+	HAL_StatusTypeDef ret; //for error handling
+    int16_t final_data; //store raw temp data, initially set to 0
+    float val;
+	unsigned int large;//left of decimal
+	unsigned int small; //right of decimal
+	char uart[20];
+	buffer[0] = REG_TMP;
+
+	//TRANSMIT SINGLE BYTE OF DATA 0x00 to communicate readiness to RECEIVE
+	ret =  HAL_I2C_Master_Transmit(&hi2c2, address, buffer, 1, HAL_MAX_DELAY);
+	if (ret != HAL_OK) {
+		strcpy(uart, "ERROR TX\r\n");
+	} else {
+		  //RECEIVE TWO BYTES OF DATA
+		ret = HAL_I2C_Master_Receive(&hi2c2, address, buffer, 2, HAL_MAX_DELAY);
+		if (ret != HAL_OK) {
+		//IF ERROR PRODUCED DURING RECEIVAL
+			strcpy(uart, "ERROR RX\r\n");
+		} else{
+		//CONVERT DATA TO CELSIUS (WORKS)
+			final_data = (((uint16_t)buffer[0]<<8)|(buffer[1])) >> 3;
+		/*if (final_data>511) { //MSB is 1, negative case
+			 final_data = (final_data-8192)/16;
+		} else { //MSB is 0, positive case
+			 final_data = (final_data)/16;
+		}*/
+			if (final_data > 0x7FF) {
+				final_data |= 0xF000;
+			}
+			val = final_data*0.0625;
+			val = val*100;
+			//FORMAT INTO DIGESTABLE STRING
+			large = (unsigned int)val/100;
+			small = (unsigned int)val%100;
+			//DIFFERENTIATE BY HE OF ADDRESSING
+			sprintf(uart, "ADDR %X: %u.%02u C\r\n", address, large, small);
+		}
+	}
+	HAL_UART_Transmit(&huart1, (uint8_t*)uart, strlen(uart), HAL_MAX_DELAY);
+}
+/* USER CODE END 3 */
 
 /**
   * @brief System Clock Configuration
@@ -150,9 +213,8 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART1|RCC_PERIPHCLK_I2C1;
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART1;
   PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_PCLK1;
-  PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_HSI;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     Error_Handler();
@@ -160,50 +222,50 @@ void SystemClock_Config(void)
 }
 
 /**
-  * @brief I2C1 Initialization Function
+  * @brief I2C2 Initialization Function
   * @param None
   * @retval None
   */
-static void MX_I2C1_Init(void)
+static void MX_I2C2_Init(void)
 {
 
-  /* USER CODE BEGIN I2C1_Init 0 */
+  /* USER CODE BEGIN I2C2_Init 0 */
 
-  /* USER CODE END I2C1_Init 0 */
+  /* USER CODE END I2C2_Init 0 */
 
-  /* USER CODE BEGIN I2C1_Init 1 */
+  /* USER CODE BEGIN I2C2_Init 1 */
 
-  /* USER CODE END I2C1_Init 1 */
-  hi2c1.Instance = I2C1;
-  hi2c1.Init.Timing = 0x2000090E;
-  hi2c1.Init.OwnAddress1 = 0;
-  hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
-  hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
-  hi2c1.Init.OwnAddress2 = 0;
-  hi2c1.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
-  hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
-  hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
-  if (HAL_I2C_Init(&hi2c1) != HAL_OK)
+  /* USER CODE END I2C2_Init 1 */
+  hi2c2.Instance = I2C2;
+  hi2c2.Init.Timing = 0x2010091A;
+  hi2c2.Init.OwnAddress1 = 0;
+  hi2c2.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+  hi2c2.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+  hi2c2.Init.OwnAddress2 = 0;
+  hi2c2.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
+  hi2c2.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+  hi2c2.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+  if (HAL_I2C_Init(&hi2c2) != HAL_OK)
   {
     Error_Handler();
   }
 
   /** Configure Analogue filter
   */
-  if (HAL_I2CEx_ConfigAnalogFilter(&hi2c1, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
+  if (HAL_I2CEx_ConfigAnalogFilter(&hi2c2, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
   {
     Error_Handler();
   }
 
   /** Configure Digital filter
   */
-  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c1, 0) != HAL_OK)
+  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c2, 0) != HAL_OK)
   {
     Error_Handler();
   }
-  /* USER CODE BEGIN I2C1_Init 2 */
+  /* USER CODE BEGIN I2C2_Init 2 */
 
-  /* USER CODE END I2C1_Init 2 */
+  /* USER CODE END I2C2_Init 2 */
 
 }
 
@@ -255,8 +317,8 @@ static void MX_GPIO_Init(void)
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOC_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOC, LD4_Pin|LD3_Pin, GPIO_PIN_RESET);
