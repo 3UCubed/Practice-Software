@@ -119,12 +119,6 @@ int main(void)
 	    receiver(ADT7410_ADDR_TWO, buffer);
 	    receiver(ADT7410_ADDR_THREE, buffer);
 	  	receiver(ADT7410_ADDR_FOUR, buffer);
-	  	//char uartTransmission[160];
-	  	//COMBINE DATA
-	  	//sprintf(uartTransmission, "%s %s %s %s", firstRead, secRead, thirdRead, fourthRead);
-	    //TRANSMIT STRING IN PROPER FORM TO PC via UART one at a time
-	    //HAL_UART_Transmit(&huart1, (uint8_t*)uartTransmission, strlen(uartTransmission), HAL_MAX_DELAY);
-
 	    HAL_Delay(1000);
 
   }
@@ -141,25 +135,25 @@ void receiver(uint8_t address, uint8_t *buffer) {
 	unsigned int small; //right of decimal
 	char uart[20];
 	buffer[0] = REG_TMP;
+	//ERROR MESSAGES CATERED TO SPECIFIC SENSOR
+	char tx[20];
+	char rx[20];
+	sprintf(tx, "ADDR %X: ERROR TX\r\n", address);
+	sprintf(rx, "ADDR %X: ERROR RX\r\n", address);
 
 	//TRANSMIT SINGLE BYTE OF DATA 0x00 to communicate readiness to RECEIVE
 	ret =  HAL_I2C_Master_Transmit(&hi2c2, address, buffer, 1, HAL_MAX_DELAY);
 	if (ret != HAL_OK) {
-		strcpy(uart, "ERROR TX\r\n");
+		strcpy(uart, tx);
 	} else {
 		  //RECEIVE TWO BYTES OF DATA
 		ret = HAL_I2C_Master_Receive(&hi2c2, address, buffer, 2, HAL_MAX_DELAY);
 		if (ret != HAL_OK) {
 		//IF ERROR PRODUCED DURING RECEIVAL
-			strcpy(uart, "ERROR RX\r\n");
+			strcpy(uart, rx);
 		} else{
 		//CONVERT DATA TO CELSIUS (WORKS)
 			final_data = (((uint16_t)buffer[0]<<8)|(buffer[1])) >> 3;
-		/*if (final_data>511) { //MSB is 1, negative case
-			 final_data = (final_data-8192)/16;
-		} else { //MSB is 0, positive case
-			 final_data = (final_data)/16;
-		}*/
 			if (final_data > 0x7FF) {
 				final_data |= 0xF000;
 			}
