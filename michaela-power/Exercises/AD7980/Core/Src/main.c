@@ -49,6 +49,9 @@ UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
 uint16_t adc_buf[ADC_BUFFER_LEN];
+//expresses whether the conversion complete
+uint8_t adc_conv_complete_flag = 0;
+char dma_result_buffer[100];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -106,7 +109,12 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
+	  if (adc_conv_complete_flag == 1) {
+		  snprintf(dma_result_buffer, 100, "CH_1: %d", adc_buffer[0]);
+		  HAL_UART_Transmit(&huart1, (uint8_t*)dma_result_buffer, sizeof(dma_result_buffer), HAL_MAX_DELAY);
+		  adc_complete_flag = 0;
+		  HAL_Delay(500);
+	  }
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -319,6 +327,8 @@ void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef *hadc) {
 //Called when is completely filled
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
 	HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_RESET); //toggle the led low here
+	//on complete update complete flag
+	adc_conv_complete_flag = 1;
 }
 /* USER CODE END 4 */
 
