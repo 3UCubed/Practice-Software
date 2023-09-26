@@ -89,8 +89,6 @@ int main(void)
 
   /* USER CODE BEGIN Init */
   uint8_t buffer[2]; //two byte buffer to read from ADT7410
-
-
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -114,13 +112,11 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
 	    receiver(ADT7410_ADDR_ONE, buffer);
 	    receiver(ADT7410_ADDR_TWO, buffer);
 	    receiver(ADT7410_ADDR_THREE, buffer);
 	  	receiver(ADT7410_ADDR_FOUR, buffer);
 	    HAL_Delay(1000);
-
   }
     /* USER CODE END WHILE */
 

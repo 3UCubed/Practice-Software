@@ -39,13 +39,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  17 .debug_macro  00011c82  00000000  00000000  0002cd7d  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   0000cac0  00000000  00000000  0003e9ff  2**0
+ 18 .debug_line   0000cabc  00000000  00000000  0003e9ff  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    00069bda  00000000  00000000  0004b4bf  2**0
+ 19 .debug_str    00069bda  00000000  00000000  0004b4bb  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .debug_frame  000025dc  00000000  00000000  000b509c  2**2
+ 20 .debug_frame  000025dc  00000000  00000000  000b5098  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 00000063  00000000  00000000  000b7678  2**0
+ 21 .debug_line_str 00000063  00000000  00000000  000b7674  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -2221,8 +2221,8 @@ int main(void)
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
  8001196:	f000 fb6b 	bl	8001870 <HAL_Init>
-
-
+  /* USER CODE BEGIN Init */
+  uint8_t buffer[2]; //two byte buffer to read from ADT7410
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -2239,11 +2239,11 @@ int main(void)
  80011a2:	f000 f987 	bl	80014b4 <MX_USART1_UART_Init>
   MX_I2C2_Init();
  80011a6:	f000 f945 	bl	8001434 <MX_I2C2_Init>
+
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
 	    receiver(ADT7410_ADDR_ONE, buffer);
  80011aa:	2290      	movs	r2, #144	; 0x90
  80011ac:	1d3b      	adds	r3, r7, #4
@@ -2268,11 +2268,6 @@ int main(void)
  80011d2:	0019      	movs	r1, r3
  80011d4:	0010      	movs	r0, r2
  80011d6:	f000 f807 	bl	80011e8 <receiver>
-	  	//COMBINE DATA
-	  	//sprintf(uartTransmission, "%s %s %s %s", firstRead, secRead, thirdRead, fourthRead);
-	    //TRANSMIT STRING IN PROPER FORM TO PC via UART one at a time
-	    //HAL_UART_Transmit(&huart1, (uint8_t*)uartTransmission, strlen(uartTransmission), HAL_MAX_DELAY);
-
 	    HAL_Delay(1000);
  80011da:	23fa      	movs	r3, #250	; 0xfa
  80011dc:	009b      	lsls	r3, r3, #2
