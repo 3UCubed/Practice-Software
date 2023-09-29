@@ -73,7 +73,7 @@ int main(void)
 	HAL_StatusTypeDef rxStatus;
 	char uartBuffer[50];
 	int uartBufferLen;
-	uint16_t rxBuffer[2]; //two bytes of data read by ADC SPI communication
+	uint16_t rxBuffer[10]; //two bytes of data read by ADC SPI communication
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -109,7 +109,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET); //maintain high pull
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET); //pull low when complete
 		rxStatus = HAL_SPI_Receive(&hspi1, (uint8_t*)rxBuffer, 2, 1000); //HAL_MAX_DELAY
 		if (rxStatus!=HAL_OK) {
 			sprintf(uartBuffer, "SPI MISO ERROR\r\n");
@@ -120,7 +120,8 @@ int main(void)
 
 	  HAL_UART_Transmit(&huart1, (uint8_t*)uartBuffer, uartBufferLen, 100);
 	  //reset pin call to high
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET); //pull low when complete
+	  //HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET); //pull low when complete
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET); //maintain high pull
 	  HAL_Delay(500); //delay by .5s
     /* USER CODE END WHILE */
 
@@ -203,7 +204,7 @@ static void MX_SPI1_Init(void)
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
   hspi1.Init.CRCPolynomial = 7;
   hspi1.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
-  hspi1.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
+  hspi1.Init.NSSPMode = SPI_NSS_PULSE_ENABLE;
   if (HAL_SPI_Init(&hspi1) != HAL_OK)
   {
     Error_Handler();
