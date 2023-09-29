@@ -73,7 +73,7 @@ int main(void)
 	HAL_StatusTypeDef rxStatus;
 	char uartBuffer[50];
 	int uartBufferLen;
-	uint8_t rxBuffer[16]; //two bytes of data read by ADC SPI communication
+	uint16_t rxBuffer[2]; //two bytes of data read by ADC SPI communication
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -98,29 +98,30 @@ int main(void)
   MX_SPI1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  //need to transmit through SCK with Master to Slave?cannot find out how
+  //need to drive chip select pin high
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
+  //delay for conversion time
+  HAL_Delay(10);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  //need to transmit through SCK with Master to Slave?cannot find out how
-	  //need to drive chip select pin high
-	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8, GPIO_PIN_SET);
-	  HAL_Delay(500); //delay for conversion time
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET); //maintain high pull
 		rxStatus = HAL_SPI_Receive(&hspi1, (uint8_t*)rxBuffer, 2, 1000); //HAL_MAX_DELAY
 		if (rxStatus!=HAL_OK) {
 			sprintf(uartBuffer, "SPI MISO ERROR\r\n");
 		} else {
 			//proceed with read data
-			uartBufferLen = sprintf(uartBuffer, "%x V\r\n", (unsigned int)rxBuffer);
+			uartBufferLen = sprintf(uartBuffer, "%d V\r\n", (unsigned int)rxBuffer);
 		}
+
 	  HAL_UART_Transmit(&huart1, (uint8_t*)uartBuffer, uartBufferLen, 100);
-	  //reset pint
-	  //HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8, GPIO_PIN_RESET);
-	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8, GPIO_PIN_RESET); //pull low to read
-	  HAL_Delay(1000); //delay by 1s
+	  //reset pin call to high
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET); //pull low when complete
+	  HAL_Delay(500); //delay by .5s
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
