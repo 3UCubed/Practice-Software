@@ -1,7 +1,7 @@
 "./Core/Src/main.o"
+"./Core/Src/retarget.o"
 "./Core/Src/stm32f0xx_hal_msp.o"
 "./Core/Src/stm32f0xx_it.o"
-"./Core/Src/syscalls.o"
 "./Core/Src/sysmem.o"
 "./Core/Src/system_stm32f0xx.o"
 "./Core/Startup/startup_stm32f051r8tx.o"
