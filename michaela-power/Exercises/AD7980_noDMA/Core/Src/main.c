@@ -73,8 +73,7 @@ int main(void)
 	HAL_StatusTypeDef rxStatus;
 	char uartBuffer[50];
 	int uartBufferLen;
-	uint8_t rxBuffer[16]; //two bytes of data read by ADC SPI communication
-	uint8_t txBuffer[1];
+	uint16_t rxBuffer[10]; //two bytes of data read by ADC SPI communication
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -99,38 +98,31 @@ int main(void)
   MX_SPI1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  //need to transmit through SCK with Master to Slave?cannot find out how
+  //need to drive chip select pin high
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
+  //delay for conversion time
+  HAL_Delay(10);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  //need to transmit through SCK with Master to Slave?cannot find out how
-	  //need to drive chip select pin high
-	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8, GPIO_PIN_SET);
-	  HAL_Delay(500); //delay for conversion time
-
-	  //send out the read status register command
-	  //potentially need to call to
-	  rxStatus = HAL_SPI_Transmit(&hspi1, (uint8_t*)txBuffer, 1, HAL_MAX_DELAY);
-	  if (rxStatus!=HAL_OK) {
-	  	sprintf(uartBuffer, "SPI MOSI ERROR\r\n");
-	  } else {
-		rxStatus = HAL_SPI_Receive(&hspi1, (uint8_t*)rxBuffer, 2, HAL_MAX_DELAY);
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET); //pull low when complete
+		rxStatus = HAL_SPI_Receive(&hspi1, (uint8_t*)rxBuffer, 2, 1000); //HAL_MAX_DELAY
 		if (rxStatus!=HAL_OK) {
 			sprintf(uartBuffer, "SPI MISO ERROR\r\n");
 		} else {
 			//proceed with read data
 			uartBufferLen = sprintf(uartBuffer, "%d V\r\n", (unsigned int)rxBuffer);
 		}
-	  }
-	  //UART HAS BEEN TESTED AND IS FUNCTIONAL
 
 	  HAL_UART_Transmit(&huart1, (uint8_t*)uartBuffer, uartBufferLen, 100);
-	  //reset pint
-	  //HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8, GPIO_PIN_RESET);
-	  HAL_Delay(1000); //delay by 1s
+	  //reset pin call to high
+	  //HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET); //pull low when complete
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET); //maintain high pull
+	  HAL_Delay(500); //delay by .5s
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -212,7 +204,7 @@ static void MX_SPI1_Init(void)
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
   hspi1.Init.CRCPolynomial = 7;
   hspi1.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
-  hspi1.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
+  hspi1.Init.NSSPMode = SPI_NSS_PULSE_ENABLE;
   if (HAL_SPI_Init(&hspi1) != HAL_OK)
   {
     Error_Handler();
