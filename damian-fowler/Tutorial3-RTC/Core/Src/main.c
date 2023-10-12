@@ -22,7 +22,9 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "string.h"
+#include <stdlib.h>
 #include "stdio.h"
+#include "retarget.h"
 
 /* USER CODE END Includes */
 
@@ -56,11 +58,72 @@ static void MX_GPIO_Init(void);
 static void MX_RTC_Init(void);
 static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
-
+static void updateTime();
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+//Ask the user for the time and date
+static void updateTime()
+{
+  RTC_TimeTypeDef sTime = {0};
+  RTC_DateTypeDef sDate = {0};
+
+  char receiveBuffer[60];
+
+  //General Format is
+  	  //Print the prompt for the user
+  	  //Scan the user's input into the buffer
+  	  //Print back what the user input
+  	  //Set the relevant struct data to what the user input
+
+  printf("Enter in the year(20XX): ");
+  scanf("%s", receiveBuffer);
+  printf("%d\r\n", atoi(receiveBuffer));
+  sDate.Year = atoi(receiveBuffer);
+
+
+  printf("Enter in the month: ");
+  scanf("%s", receiveBuffer);
+  printf("%d\r\n", atoi(receiveBuffer));
+  sDate.Month = atoi(receiveBuffer);
+
+  printf("Enter in the day: ");
+  scanf("%s", receiveBuffer);
+  printf("%d\r\n", atoi(receiveBuffer));
+  sDate.Date = atoi(receiveBuffer);
+
+  printf("Enter in the hour: ");
+  scanf("%s", receiveBuffer);
+  printf("%d\r\n", atoi(receiveBuffer));
+  sTime.Hours = atoi(receiveBuffer);
+
+  printf("Enter in the minute: ");
+  scanf("%s", receiveBuffer);
+  printf("%d\r\n", atoi(receiveBuffer));
+  sTime.Minutes = atoi(receiveBuffer);
+
+  printf("Enter in the second: ");
+  scanf("%s", receiveBuffer);
+  printf("%d\r\n", atoi(receiveBuffer));
+  sTime.Seconds = atoi(receiveBuffer);
+
+  //printf("User Entered [%d]\r\n", atoi(receiveBuffer));
+
+  sTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE; //Assumptions
+  sTime.StoreOperation = RTC_STOREOPERATION_RESET;
+
+  if (HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BIN) != HAL_OK) //Verify the time was set
+  {
+	Error_Handler();
+  }
+
+  if (HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BIN) != HAL_OK) //Verify the date was set
+  {
+	Error_Handler();
+  }
+}
 
 /* USER CODE END 0 */
 
@@ -95,6 +158,9 @@ int main(void)
   MX_RTC_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
+  RetargetInit(&huart1);
+
+  updateTime();
 
   /* USER CODE END 2 */
 
@@ -105,22 +171,22 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  //char* transmitString = "Hello World2\r\n";
-	  //char* transmitString2 = "Got Data!\r\n";
-	  //HAL_UART_Transmit(&huart1, (const uint8_t*)transmitString, strlen(transmitString), 100000);
-
 	  RTC_DateTypeDef dateData;
 	  RTC_TimeTypeDef timeData;
-	  HAL_RTC_GetTime(&hrtc, &timeData, RTC_FORMAT_BIN);
-	  if(HAL_RTC_GetDate(&hrtc, &dateData, RTC_FORMAT_BIN) == HAL_OK)
+
+	  if(HAL_RTC_GetTime(&hrtc, &timeData, RTC_FORMAT_BIN) != HAL_OK)
 	  {
-		  char dateBuffer[60];
-		  sprintf(dateBuffer, "D=%d, M=%d, Day=%d, Y=%d, hour1=%d\r\n", dateData.Date, dateData.Month, dateData.WeekDay, dateData.Year, timeData.Hours);
-		  //HAL_UART_Transmit(&huart1, (const uint8_t*)dateBuffer, strlen(dateBuffer)+1, 100000);
-		  //printf(dateBuffer);
+		  printf("Error: Failure getting time RTC");
+		  break;
 	  }
-//HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout)
-//HAL_StatusTypeDef HAL_RTC_GetDate(RTC_HandleTypeDef *hrtc, RTC_DateTypeDef *sDate, uint32_t Format)
+
+	  if(HAL_RTC_GetDate(&hrtc, &dateData, RTC_FORMAT_BIN) != HAL_OK)
+	  {
+		  printf("Error: Failure getting date from RTC");
+		  break;
+	  }
+	  //printf("D=%d, M=%d, Day=%d, Y=%d, hour1=%d\r\n", dateData.Date, dateData.Month, dateData.WeekDay, dateData.Year, timeData.Hours);
+	  printf("20%02d-%02d-%02d %02d:%02d:%02d:%03d\r\n", dateData.Year, dateData.Month, dateData.Date, timeData.Hours, timeData.Minutes, timeData.Seconds, timeData.SubSeconds);
 	  HAL_Delay(500);
 
   }
@@ -232,37 +298,6 @@ static void MX_RTC_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN RTC_Init 2 */
-
-	//sprintf(dateBuffer, "D=%d, M=%d, Day=%d, Y=%d, hour=%d\r\n", dateData.Date, dateData.Month, dateData.WeekDay, dateData.Year, timeData.Hours);
-	//HAL_StatusTypeDef HAL_UART_Receive(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout)
-
-  	  char sendBuffer[60];
-  	  char recieveBuffer[60];
-
-  	  strcpy(sendBuffer, "Enter in the hour:\r\n");
-  	  HAL_UART_Transmit(&huart1, (const uint8_t*) sendBuffer, strlen(sendBuffer)+1, 100000);
-  	  //printf();
-  	  HAL_UART_Receive(&huart1, (const uint8_t*) recieveBuffer, 60, 100000);
-
-    sTime.Hours = 0;
-    sTime.Minutes = 0;
-    sTime.Seconds = 0;
-    sTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
-    sTime.StoreOperation = RTC_STOREOPERATION_RESET;
-    if (HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BIN) != HAL_OK)
-    {
-      Error_Handler();
-    }
-    sDate.WeekDay = RTC_WEEKDAY_MONDAY;
-    sDate.Month = RTC_MONTH_JANUARY;
-    sDate.Date = 2;
-    sDate.Year = 3;
-
-    if (HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BIN) != HAL_OK)
-    {
-      Error_Handler();
-    }
-
 
   /* USER CODE END RTC_Init 2 */
 
