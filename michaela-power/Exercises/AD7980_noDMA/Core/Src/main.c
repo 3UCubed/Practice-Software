@@ -71,9 +71,9 @@ int main(void)
   /* USER CODE BEGIN 1 */
 	//uart set up to print to console
 	HAL_StatusTypeDef rxStatus;
-	char uartBuffer[50];
+	char uartBuffer[20];
 	int uartBufferLen;
-	uint16_t rxBuffer[10]; //two bytes of data read by ADC SPI communication
+	uint8_t rxBuffer[2]; //two bytes of data read by ADC SPI communication
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -99,34 +99,31 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
   //need to transmit through SCK with Master to Slave?cannot find out how
-  //need to drive chip select pin high
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
+
   //delay for conversion time
-  HAL_Delay(10);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET); //pull low when complete
-		rxStatus = HAL_SPI_Receive(&hspi1, (uint8_t*)rxBuffer, 2, 1000); //HAL_MAX_DELAY
-		if (rxStatus!=HAL_OK) {
-			sprintf(uartBuffer, "SPI MISO ERROR\r\n");
-		} else {
-			//proceed with read data
-			uartBufferLen = sprintf(uartBuffer, "%d V\r\n", (unsigned int)rxBuffer);
-		}
+	//SDI tied to VIO drives chip select pin high, therefore pull down to initiate acquisition phase
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
+	HAL_Delay(1); //delay by 1ms to allow for conversion phase
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
+	rxStatus = HAL_SPI_Receive(&hspi1, (uint8_t*)rxBuffer, 2, HAL_MAX_DELAY); //receive rxBuffer through poll
+	if (rxStatus!=HAL_OK) {
+		sprintf(uartBuffer, "SPI MISO ERROR\r\n");
+	} else {
+		//proceed transfer data into uartBuffer to transmit
+		uartBufferLen = sprintf(uartBuffer, "%d V\r\n", (signed int)rxBuffer[1]);
+	}
 
-	  HAL_UART_Transmit(&huart1, (uint8_t*)uartBuffer, uartBufferLen, 100);
-	  //reset pin call to high
-	  //HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET); //pull low when complete
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET); //maintain high pull
-	  HAL_Delay(500); //delay by .5s
     /* USER CODE END WHILE */
-
+	HAL_UART_Transmit(&huart1, (uint8_t*)uartBuffer, strlen(uartBuffer), HAL_MAX_DELAY);
     /* USER CODE BEGIN 3 */
   }
+  HAL_Delay(500); //wait half second
   /* USER CODE END 3 */
 }
 
