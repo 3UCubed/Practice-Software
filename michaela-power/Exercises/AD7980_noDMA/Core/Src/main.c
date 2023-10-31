@@ -71,8 +71,7 @@ int main(void)
   /* USER CODE BEGIN 1 */
 	//uart set up to print to console
 	HAL_StatusTypeDef rxStatus;
-	char uartBuffer[20];
-	int uartBufferLen;
+	char uartBuffer[30];
 	uint8_t rxBuffer[2]; //two bytes of data read by ADC SPI communication
   /* USER CODE END 1 */
 
@@ -116,11 +115,10 @@ int main(void)
 		sprintf(uartBuffer, "SPI MISO ERROR\r\n");
 	} else {
 		//proceed transfer data into uartBuffer to transmit
-		uartBufferLen = sprintf(uartBuffer, "%d V\r\n", (signed int)rxBuffer[1]);
+		sprintf(uartBuffer, "SPI buffer data: %d\r\n", rxBuffer[1]);
 	}
-
+	HAL_UART_Transmit(&huart1, (uint8_t*)uartBuffer, 2, HAL_MAX_DELAY);
     /* USER CODE END WHILE */
-	HAL_UART_Transmit(&huart1, (uint8_t*)uartBuffer, strlen(uartBuffer), HAL_MAX_DELAY);
     /* USER CODE BEGIN 3 */
   }
   HAL_Delay(500); //wait half second
