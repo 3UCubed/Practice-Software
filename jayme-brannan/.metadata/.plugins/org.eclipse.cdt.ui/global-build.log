@@ -1,0 +1,1273 @@
+15:24:29 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+   7572	     20	   1708	   9300	   2454	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+15:24:31 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-size  rtc.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7572	     20	   1708	   9300	   2454	rtc.elf
+Finished building: default.size.stdout
+ 
+21:11:35 **** Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_cortex.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_cortex.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_cortex.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_cortex.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_dma.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_dma.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_dma.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_dma.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_exti.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_exti.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_exti.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_exti.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash_ex.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash_ex.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash_ex.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c_ex.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c_ex.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c_ex.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pwr.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pwr.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pwr.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pwr.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pwr_ex.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pwr_ex.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pwr_ex.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pwr_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc_ex.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc_ex.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc_ex.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rtc.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rtc.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rtc.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rtc.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rtc_ex.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rtc_ex.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rtc_ex.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rtc_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim_ex.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim_ex.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim_ex.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart_ex.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart_ex.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart_ex.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart_ex.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/stm32f0xx_hal_msp.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f0xx_hal_msp.d" -MT"Core/Src/stm32f0xx_hal_msp.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/stm32f0xx_hal_msp.o"
+arm-none-eabi-gcc "../Core/Src/stm32f0xx_it.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f0xx_it.d" -MT"Core/Src/stm32f0xx_it.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/stm32f0xx_it.o"
+arm-none-eabi-gcc "../Core/Src/system_stm32f0xx.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/system_stm32f0xx.d" -MT"Core/Src/system_stm32f0xx.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/system_stm32f0xx.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:114:34: warning: passing argument 2 of 'HAL_RTC_GetTime' from incompatible pointer type [-Wincompatible-pointer-types]
+  114 |           HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
+      |                                  ^~~~~
+      |                                  |
+      |                                  RTC_HandleTypeDef *
+In file included from ../Core/Inc/stm32f0xx_hal_conf.h:265,
+                 from ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:20:
+../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_rtc.h:701:77: note: expected 'RTC_TimeTypeDef *' but argument is of type 'RTC_HandleTypeDef *'
+  701 | HAL_StatusTypeDef HAL_RTC_GetTime(RTC_HandleTypeDef *hrtc, RTC_TimeTypeDef *sTime, uint32_t Format);
+      |                                                            ~~~~~~~~~~~~~~~~~^~~~~
+../Core/Src/main.c:117:11: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+  117 |           sprintf((char*)tchar, "%02d:%02d:%02d\n",time.Hours, time.Minutes, time.Seconds);
+      |           ^~~~~~~
+../Core/Src/main.c:21:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+   20 | #include "main.h"
+  +++ |+#include <stdio.h>
+   21 | 
+../Core/Src/main.c:117:11: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+  117 |           sprintf((char*)tchar, "%02d:%02d:%02d\n",time.Hours, time.Minutes, time.Seconds);
+      |           ^~~~~~~
+../Core/Src/main.c:117:11: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/main.c:117:56: error: 'RTC_HandleTypeDef' has no member named 'Hours'
+  117 |           sprintf((char*)tchar, "%02d:%02d:%02d\n",time.Hours, time.Minutes, time.Seconds);
+      |                                                        ^
+../Core/Src/main.c:117:68: error: 'RTC_HandleTypeDef' has no member named 'Minutes'
+  117 |           sprintf((char*)tchar, "%02d:%02d:%02d\n",time.Hours, time.Minutes, time.Seconds);
+      |                                                                    ^
+../Core/Src/main.c:117:82: error: 'RTC_HandleTypeDef' has no member named 'Seconds'
+  117 |           sprintf((char*)tchar, "%02d:%02d:%02d\n",time.Hours, time.Minutes, time.Seconds);
+      |                                                                                  ^
+../Core/Src/main.c:121:53: error: 'data' undeclared (first use in this function); did you mean 'date'?
+  121 |           HAL_UART_Transmit(&huart2, tchar, sizeof (data), HAL_MAX_DELAY);
+      |                                                     ^~~~
+      |                                                     date
+../Core/Src/main.c:121:53: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:121:38: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
+  121 |           HAL_UART_Transmit(&huart2, tchar, sizeof (data), HAL_MAX_DELAY);
+      |                                      ^~~~~
+      |                                      |
+      |                                      char *
+In file included from ../Core/Inc/stm32f0xx_hal_conf.h:289,
+                 from ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:20:
+../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h:1568:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
+ 1568 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
+      |                                                                ~~~~~~~~~~~~~~~^~~~~
+../Core/Src/main.c:122:38: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
+  122 |           HAL_UART_Transmit(&huart2, dchar, sizeof (data), HAL_MAX_DELAY);
+      |                                      ^~~~~
+      |                                      |
+      |                                      char *
+In file included from ../Core/Inc/stm32f0xx_hal_conf.h:289,
+                 from ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:20:
+../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h:1568:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
+ 1568 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
+      |                                                                ~~~~~~~~~~~~~~~^~~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j16 all" terminated with exit code 2. Build might be incomplete.
+21:13:23 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:117:11: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+  117 |           sprintf((char*)tchar, "%02d:%02d:%02d\n",time.Hours, time.Minutes, time.Seconds);
+      |           ^~~~~~~
+../Core/Src/main.c:21:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+   20 | #include "main.h"
+  +++ |+#include <stdio.h>
+   21 | 
+../Core/Src/main.c:117:11: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+  117 |           sprintf((char*)tchar, "%02d:%02d:%02d\n",time.Hours, time.Minutes, time.Seconds);
+      |           ^~~~~~~
+../Core/Src/main.c:117:11: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/main.c:121:38: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
+  121 |           HAL_UART_Transmit(&huart2, tchar, sizeof(tchar), HAL_MAX_DELAY);
+      |                                      ^~~~~
+      |                                      |
+      |                                      char *
+In file included from ../Core/Inc/stm32f0xx_hal_conf.h:289,
+                 from ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:20:
+../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h:1568:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
+ 1568 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
+      |                                                                ~~~~~~~~~~~~~~~^~~~~
+../Core/Src/main.c:122:38: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
+  122 |           HAL_UART_Transmit(&huart2, dchar, sizeof(dchar), HAL_MAX_DELAY);
+      |                                      ^~~~~
+      |                                      |
+      |                                      char *
+In file included from ../Core/Inc/stm32f0xx_hal_conf.h:289,
+                 from ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:20:
+../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h:1568:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
+ 1568 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
+      |                                                                ~~~~~~~~~~~~~~~^~~~~
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  12532	    100	   2132	  14764	   39ac	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+21:16:26 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-size  rtc.elf 
+   text	   data	    bss	    dec	    hex	filename
+  12532	    100	   2132	  14764	   39ac	rtc.elf
+Finished building: default.size.stdout
+ 
+21:17:34 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-size  rtc.elf 
+   text	   data	    bss	    dec	    hex	filename
+  12532	    100	   2132	  14764	   39ac	rtc.elf
+Finished building: default.size.stdout
+ 
+21:20:16 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/stm32f0xx_hal_msp.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f0xx_hal_msp.d" -MT"Core/Src/stm32f0xx_hal_msp.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/stm32f0xx_hal_msp.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:117:11: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+  117 |           sprintf((char*)tchar, "%02d:%02d:%02d\n",time.Hours, time.Minutes, time.Seconds);
+      |           ^~~~~~~
+../Core/Src/main.c:21:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+   20 | #include "main.h"
+  +++ |+#include <stdio.h>
+   21 | 
+../Core/Src/main.c:117:11: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+  117 |           sprintf((char*)tchar, "%02d:%02d:%02d\n",time.Hours, time.Minutes, time.Seconds);
+      |           ^~~~~~~
+../Core/Src/main.c:117:11: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/main.c:119:30: error: 'huart2' undeclared (first use in this function); did you mean 'huart1'?
+  119 |           HAL_UART_Transmit(&huart2, tchar, sizeof(tchar), HAL_MAX_DELAY);
+      |                              ^~~~~~
+      |                              huart1
+../Core/Src/main.c:119:30: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:119:38: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
+  119 |           HAL_UART_Transmit(&huart2, tchar, sizeof(tchar), HAL_MAX_DELAY);
+      |                                      ^~~~~
+      |                                      |
+      |                                      char *
+In file included from ../Core/Inc/stm32f0xx_hal_conf.h:289,
+                 from ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:20:
+../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h:1568:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
+ 1568 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
+      |                                                                ~~~~~~~~~~~~~~~^~~~~
+../Core/Src/main.c:120:38: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
+  120 |           HAL_UART_Transmit(&huart2, dchar, sizeof(dchar), HAL_MAX_DELAY);
+      |                                      ^~~~~
+      |                                      |
+      |                                      char *
+In file included from ../Core/Inc/stm32f0xx_hal_conf.h:289,
+                 from ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:20:
+../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h:1568:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
+ 1568 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
+      |                                                                ~~~~~~~~~~~~~~~^~~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j16 all" terminated with exit code 2. Build might be incomplete.
+21:21:03 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:117:11: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+  117 |           sprintf((char*)tchar, "%02d:%02d:%02d\n",time.Hours, time.Minutes, time.Seconds);
+      |           ^~~~~~~
+../Core/Src/main.c:21:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+   20 | #include "main.h"
+  +++ |+#include <stdio.h>
+   21 | 
+../Core/Src/main.c:117:11: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+  117 |           sprintf((char*)tchar, "%02d:%02d:%02d\n",time.Hours, time.Minutes, time.Seconds);
+      |           ^~~~~~~
+../Core/Src/main.c:117:11: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/main.c:119:38: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
+  119 |           HAL_UART_Transmit(&huart1, tchar, sizeof(tchar), HAL_MAX_DELAY);
+      |                                      ^~~~~
+      |                                      |
+      |                                      char *
+In file included from ../Core/Inc/stm32f0xx_hal_conf.h:289,
+                 from ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:20:
+../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h:1568:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
+ 1568 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
+      |                                                                ~~~~~~~~~~~~~~~^~~~~
+../Core/Src/main.c:120:38: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
+  120 |           HAL_UART_Transmit(&huart1, dchar, sizeof(dchar), HAL_MAX_DELAY);
+      |                                      ^~~~~
+      |                                      |
+      |                                      char *
+In file included from ../Core/Inc/stm32f0xx_hal_conf.h:289,
+                 from ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:20:
+../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h:1568:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
+ 1568 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
+      |                                                                ~~~~~~~~~~~~~~~^~~~~
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  12544	    100	   2132	  14776	   39b8	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+21:21:51 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-size  rtc.elf 
+   text	   data	    bss	    dec	    hex	filename
+  12544	    100	   2132	  14776	   39b8	rtc.elf
+Finished building: default.size.stdout
+ 
+21:23:03 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:117:11: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+  117 |           sprintf((char*)tchar, "%02d:%02d:%02d\n",time.Hours, time.Minutes, time.Seconds);
+      |           ^~~~~~~
+../Core/Src/main.c:21:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+   20 | #include "main.h"
+  +++ |+#include <stdio.h>
+   21 | 
+../Core/Src/main.c:117:11: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+  117 |           sprintf((char*)tchar, "%02d:%02d:%02d\n",time.Hours, time.Minutes, time.Seconds);
+      |           ^~~~~~~
+../Core/Src/main.c:117:11: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/main.c:119:38: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
+  119 |           HAL_UART_Transmit(&huart1, "hello there", 11, HAL_MAX_DELAY);
+      |                                      ^~~~~~~~~~~~~
+      |                                      |
+      |                                      char *
+In file included from ../Core/Inc/stm32f0xx_hal_conf.h:289,
+                 from ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:20:
+../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h:1568:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
+ 1568 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
+      |                                                                ~~~~~~~~~~~~~~~^~~~~
+../Core/Src/main.c:120:38: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
+  120 |           HAL_UART_Transmit(&huart1, tchar, sizeof(tchar), HAL_MAX_DELAY);
+      |                                      ^~~~~
+      |                                      |
+      |                                      char *
+In file included from ../Core/Inc/stm32f0xx_hal_conf.h:289,
+                 from ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:20:
+../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h:1568:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
+ 1568 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
+      |                                                                ~~~~~~~~~~~~~~~^~~~~
+../Core/Src/main.c:121:38: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
+  121 |           HAL_UART_Transmit(&huart1, dchar, sizeof(dchar), HAL_MAX_DELAY);
+      |                                      ^~~~~
+      |                                      |
+      |                                      char *
+In file included from ../Core/Inc/stm32f0xx_hal_conf.h:289,
+                 from ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:20:
+../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h:1568:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
+ 1568 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
+      |                                                                ~~~~~~~~~~~~~~~^~~~~
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  12572	    100	   2132	  14804	   39d4	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+21:27:24 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  12580	    100	   2132	  14812	   39dc	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+21:28:25 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  12580	    140	   2092	  14812	   39dc	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+21:29:26 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  12612	    100	   2132	  14844	   39fc	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+21:30:49 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:114:27: warning: initializer-string for array of 'char' is too long
+  114 |           char uart[20] = "test data to see if uart works";
+      |                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+   9580	     20	   1740	  11340	   2c4c	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+21:36:09 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  12580	    100	   2132	  14812	   39dc	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+12:09:40 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  12580	    100	   2132	  14812	   39dc	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+12:10:44 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-size  rtc.elf 
+   text	   data	    bss	    dec	    hex	filename
+  12580	    100	   2132	  14812	   39dc	rtc.elf
+Finished building: default.size.stdout
+ 
+12:13:18 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  12580	    100	   2132	  14812	   39dc	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+12:25:33 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:120:86: error: 'RTC_DateTypeDef' has no member named 'Day'
+  120 |           sprintf((char *)dchar,"%02d:%02d:%02d\t",date.Year + 2000, date.Month, date.Day);
+      |                                                                                      ^
+../Core/Src/main.c:122:52: warning: format '%d' expects argument of type 'int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  122 |           sprintf((char*)tchar, "%02d:%02d:%02d:%02d\n",time.Hours, time.Minutes, time.Seconds, time.SubSeconds);
+      |                                                 ~~~^                                            ~~~~~~~~~~~~~~~
+      |                                                    |                                                |
+      |                                                    int                                              uint32_t {aka long unsigned int}
+      |                                                 %02ld
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j16 all" terminated with exit code 2. Build might be incomplete.
+12:27:20 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  12616	    100	   2132	  14848	   3a00	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+12:29:29 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  12616	    100	   2132	  14848	   3a00	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+12:31:53 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  12616	    100	   2132	  14848	   3a00	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+12:32:42 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  12616	    100	   2132	  14848	   3a00	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+12:47:54 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:125:52: warning: format '%d' expects argument of type 'int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  125 |           sprintf((char*)tchar, "%02d:%02d:%02d:%02d\r\n",time.Hours, time.Minutes, time.Seconds, ms);
+      |                                                 ~~~^                                              ~~
+      |                                                    |                                              |
+      |                                                    int                                            uint32_t {aka long unsigned int}
+      |                                                 %02ld
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  16500	    100	   2132	  18732	   492c	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+13:05:27 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:53:17: error: 'time' redeclared as different kind of symbol
+   53 | RTC_TimeTypeDef time;
+      |                 ^~~~
+In file included from ../Core/Src/main.c:27:
+C:\ST\STM32CubeIDE_1.14.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235\tools\bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/include/time.h:59:12: note: previous declaration of 'time' with type 'time_t(time_t *)' {aka 'long long int(long long int *)'}
+   59 | time_t     time (time_t *_timer);
+      |            ^~~~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:88:9: error: called object 'time' is not a function or function pointer
+   88 |         time(&rawtime);
+      |         ^~~~
+../Core/Src/main.c:53:17: note: declared here
+   53 | RTC_TimeTypeDef time;
+      |                 ^~~~
+../Core/Src/main.c:89:9: error: 'timeinfo' undeclared (first use in this function); did you mean 'timeInfo'?
+   89 |         timeinfo = localtime(&rawtime);
+      |         ^~~~~~~~
+      |         timeInfo
+../Core/Src/main.c:89:9: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j16 all" terminated with exit code 2. Build might be incomplete.
+13:06:25 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:53:17: error: 'time' redeclared as different kind of symbol
+   53 | RTC_TimeTypeDef time;
+      |                 ^~~~
+In file included from ../Core/Src/main.c:27:
+C:\ST\STM32CubeIDE_1.14.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235\tools\bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/include/time.h:59:12: note: previous declaration of 'time' with type 'time_t(time_t *)' {aka 'long long int(long long int *)'}
+   59 | time_t     time (time_t *_timer);
+      |            ^~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j16 all" terminated with exit code 2. Build might be incomplete.
+13:07:08 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:53:17: error: 'time' redeclared as different kind of symbol
+   53 | RTC_TimeTypeDef time;
+      |                 ^~~~
+In file included from ../Core/Src/main.c:27:
+C:\ST\STM32CubeIDE_1.14.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235\tools\bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/include/time.h:59:12: note: previous declaration of 'time' with type 'time_t(time_t *)' {aka 'long long int(long long int *)'}
+   59 | time_t     time (time_t *_timer);
+      |            ^~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j16 all" terminated with exit code 2. Build might be incomplete.
+13:07:33 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:52:17: error: 'time' redeclared as different kind of symbol
+   52 | RTC_TimeTypeDef time;
+      |                 ^~~~
+In file included from C:\ST\STM32CubeIDE_1.14.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235\tools\bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/include/sys/time.h:414,
+                 from ../Core/Src/main.c:27:
+C:\ST\STM32CubeIDE_1.14.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235\tools\bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/include/time.h:59:12: note: previous declaration of 'time' with type 'time_t(time_t *)' {aka 'long long int(long long int *)'}
+   59 | time_t     time (time_t *_timer);
+      |            ^~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j16 all" terminated with exit code 2. Build might be incomplete.
+13:07:48 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:82:9: error: unknown type name 'time_t'; did you mean 'size_t'?
+   82 |         time_t rawtime; //this is the local pc's time
+      |         ^~~~~~
+      |         size_t
+../Core/Src/main.c:84:24: error: storage size of 'tv' isn't known
+   84 |         struct timeval tv;
+      |                        ^~
+../Core/Src/main.c:87:20: warning: implicit declaration of function 'localtime' [-Wimplicit-function-declaration]
+   87 |         timeInfo = localtime(&rawtime);
+      |                    ^~~~~~~~~
+../Core/Src/main.c:87:18: warning: assignment to 'struct tm *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+   87 |         timeInfo = localtime(&rawtime);
+      |                  ^
+../Core/Src/main.c:90:9: warning: implicit declaration of function 'gettimeofday' [-Wimplicit-function-declaration]
+   90 |         gettimeofday(&tv, NULL);
+      |         ^~~~~~~~~~~~
+../Core/Src/main.c:131:31: error: invalid use of undefined type 'struct tm'
+  131 |           date.Year = timeInfo->tm_year + 2000;
+      |                               ^~
+../Core/Src/main.c:132:32: error: invalid use of undefined type 'struct tm'
+  132 |           date.Month = timeInfo->tm_mon;
+      |                                ^~
+../Core/Src/main.c:133:31: error: invalid use of undefined type 'struct tm'
+  133 |           date.Date = timeInfo->tm_mday;
+      |                               ^~
+../Core/Src/main.c:134:32: error: invalid use of undefined type 'struct tm'
+  134 |           time.Hours = timeInfo->tm_hour;
+      |                                ^~
+../Core/Src/main.c:135:34: error: invalid use of undefined type 'struct tm'
+  135 |           time.Minutes = timeInfo->tm_min;
+      |                                  ^~
+../Core/Src/main.c:136:34: error: invalid use of undefined type 'struct tm'
+  136 |           time.Seconds = timeInfo->tm_sec;
+      |                                  ^~
+../Core/Src/main.c:84:24: warning: unused variable 'tv' [-Wunused-variable]
+   84 |         struct timeval tv;
+      |                        ^~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j16 all" terminated with exit code 2. Build might be incomplete.
+13:17:45 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:125:52: warning: format '%d' expects argument of type 'int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  125 |           sprintf((char*)tchar, "%02d:%02d:%02d:%02d\r\n",time.Hours, time.Minutes, time.Seconds, ms);
+      |                                                 ~~~^                                              ~~
+      |                                                    |                                              |
+      |                                                    int                                            uint32_t {aka long unsigned int}
+      |                                                 %02ld
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  16500	    100	   2132	  18732	   492c	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+13:18:39 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:52:17: error: 'time' redeclared as different kind of symbol
+   52 | RTC_TimeTypeDef time;
+      |                 ^~~~
+In file included from ../Core/Src/main.c:27:
+C:\ST\STM32CubeIDE_1.14.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235\tools\bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/include/time.h:59:12: note: previous declaration of 'time' with type 'time_t(time_t *)' {aka 'long long int(long long int *)'}
+   59 | time_t     time (time_t *_timer);
+      |            ^~~~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:126:52: warning: format '%d' expects argument of type 'int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  126 |           sprintf((char*)tchar, "%02d:%02d:%02d:%02d\r\n",time.Hours, time.Minutes, time.Seconds, ms);
+      |                                                 ~~~^                                              ~~
+      |                                                    |                                              |
+      |                                                    int                                            uint32_t {aka long unsigned int}
+      |                                                 %02ld
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j16 all" terminated with exit code 2. Build might be incomplete.
+13:20:12 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:126:52: warning: format '%d' expects argument of type 'int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  126 |           sprintf((char*)tchar, "%02d:%02d:%02d:%02d\r\n",rtcTime.Hours, rtcTime.Minutes, rtcTime.Seconds, ms);
+      |                                                 ~~~^                                                       ~~
+      |                                                    |                                                       |
+      |                                                    int                                                     uint32_t {aka long unsigned int}
+      |                                                 %02ld
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  16500	    100	   2132	  18732	   492c	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+13:22:44 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:127:11: error: 'rtcTiem' undeclared (first use in this function); did you mean 'rtcTime'?
+  127 |           rtcTiem.Minutes = tm.tm_min;
+      |           ^~~~~~~
+      |           rtcTime
+../Core/Src/main.c:127:11: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:132:52: warning: format '%d' expects argument of type 'int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  132 |           sprintf((char*)tchar, "%02d:%02d:%02d:%02d\r\n",rtcTime.Hours, rtcTime.Minutes, rtcTime.Seconds, ms);
+      |                                                 ~~~^                                                       ~~
+      |                                                    |                                                       |
+      |                                                    int                                                     uint32_t {aka long unsigned int}
+      |                                                 %02ld
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j16 all" terminated with exit code 2. Build might be incomplete.
+13:23:11 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:124:20: warning: unused variable 'ms' [-Wunused-variable]
+  124 |           uint32_t ms = (uint32_t)(subsec * 1000);
+      |                    ^~
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+C:/ST/STM32CubeIDE_1.14.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/bin/ld.exe: C:/ST/STM32CubeIDE_1.14.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc_nano.a(libc_a-gettimeofdayr.o): in function `_gettimeofday_r':
+(.text._gettimeofday_r+0xe): warning: _gettimeofday is not implemented and will always fail
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  26612	    216	   2176	  29004	   714c	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+13:24:42 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:127:20: warning: unused variable 'ms' [-Wunused-variable]
+  127 |           uint32_t ms = (uint32_t)(subsec * 1000);
+      |                    ^~
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+C:/ST/STM32CubeIDE_1.14.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/bin/ld.exe: C:/ST/STM32CubeIDE_1.14.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc_nano.a(libc_a-gettimeofdayr.o): in function `_gettimeofday_r':
+(.text._gettimeofday_r+0xe): warning: _gettimeofday is not implemented and will always fail
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  26612	    216	   2176	  29004	   714c	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+13:26:12 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:127:20: warning: unused variable 'ms' [-Wunused-variable]
+  127 |           uint32_t ms = (uint32_t)(subsec * 1000);
+      |                    ^~
+../Core/Src/main.c: In function 'MX_RTC_Init':
+../Core/Src/main.c:232:17: error: 'tm' undeclared (first use in this function)
+  232 |   sTime.Hours = tm.tm_hour;
+      |                 ^~
+../Core/Src/main.c:232:17: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j16 all" terminated with exit code 2. Build might be incomplete.
+13:26:38 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:127:20: warning: unused variable 'ms' [-Wunused-variable]
+  127 |           uint32_t ms = (uint32_t)(subsec * 1000);
+      |                    ^~
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+C:/ST/STM32CubeIDE_1.14.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/bin/ld.exe: C:/ST/STM32CubeIDE_1.14.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc_nano.a(libc_a-gettimeofdayr.o): in function `_gettimeofday_r':
+(.text._gettimeofday_r+0xe): warning: _gettimeofday is not implemented and will always fail
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  26612	    216	   2176	  29004	   714c	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+13:29:09 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:128:20: warning: unused variable 'ms' [-Wunused-variable]
+  128 |           uint32_t ms = (uint32_t)(subsec * 1000);
+      |                    ^~
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+C:/ST/STM32CubeIDE_1.14.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/bin/ld.exe: C:/ST/STM32CubeIDE_1.14.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc_nano.a(libc_a-gettimeofdayr.o): in function `_gettimeofday_r':
+(.text._gettimeofday_r+0xe): warning: _gettimeofday is not implemented and will always fail
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  26536	    216	   2200	  28952	   7118	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+13:30:13 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:128:20: warning: unused variable 'ms' [-Wunused-variable]
+  128 |           uint32_t ms = (uint32_t)(subsec * 1000);
+      |                    ^~
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+C:/ST/STM32CubeIDE_1.14.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/bin/ld.exe: C:/ST/STM32CubeIDE_1.14.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc_nano.a(libc_a-gettimeofdayr.o): in function `_gettimeofday_r':
+(.text._gettimeofday_r+0xe): warning: _gettimeofday is not implemented and will always fail
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  26560	    216	   2200	  28976	   7130	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+13:31:48 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:134:41: warning: format '%d' expects a matching 'int' argument [-Wformat=]
+  134 |           sprintf((char *)test, "Hour: %d02, Minute: %d02 \r\n");
+      |                                        ~^
+      |                                         |
+      |                                         int
+../Core/Src/main.c:134:55: warning: format '%d' expects a matching 'int' argument [-Wformat=]
+  134 |           sprintf((char *)test, "Hour: %d02, Minute: %d02 \r\n");
+      |                                                      ~^
+      |                                                       |
+      |                                                       int
+../Core/Src/main.c:132:15: warning: unused variable 'min' [-Wunused-variable]
+  132 |           int min = tm.tm_min;
+      |               ^~~
+../Core/Src/main.c:131:15: warning: unused variable 'hour' [-Wunused-variable]
+  131 |           int hour = tm.tm_hour;
+      |               ^~~~
+../Core/Src/main.c:128:20: warning: unused variable 'ms' [-Wunused-variable]
+  128 |           uint32_t ms = (uint32_t)(subsec * 1000);
+      |                    ^~
+../Core/Src/main.c:134:56: warning: '02 
+   ' directive writing 5 bytes into a region of size 0 [-Wformat-overflow=]
+  134 |           sprintf((char *)test, "Hour: %d02, Minute: %d02 \r\n");
+      |                                                        ^~~~~~~
+../Core/Src/main.c:134:11: note: 'sprintf' output between 26 and 46 bytes into a destination of size 20
+  134 |           sprintf((char *)test, "Hour: %d02, Minute: %d02 \r\n");
+      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+C:/ST/STM32CubeIDE_1.14.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/bin/ld.exe: C:/ST/STM32CubeIDE_1.14.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc_nano.a(libc_a-gettimeofdayr.o): in function `_gettimeofday_r':
+(.text._gettimeofday_r+0xe): warning: _gettimeofday is not implemented and will always fail
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  26592	    216	   2200	  29008	   7150	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+13:33:17 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:128:20: warning: unused variable 'ms' [-Wunused-variable]
+  128 |           uint32_t ms = (uint32_t)(subsec * 1000);
+      |                    ^~
+../Core/Src/main.c:135:56: warning: '02, Sec: ' directive writing 9 bytes into a region of size 0 [-Wformat-overflow=]
+  135 |           sprintf((char *)test, "Hour: %d02, Minute: %d02, Sec: %d02\r\n", hour, min, sec);
+      |                                                        ^~~~~~~~~
+../Core/Src/main.c:135:11: note: 'sprintf' output between 35 and 65 bytes into a destination of size 20
+  135 |           sprintf((char *)test, "Hour: %d02, Minute: %d02, Sec: %d02\r\n", hour, min, sec);
+      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+C:/ST/STM32CubeIDE_1.14.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/bin/ld.exe: C:/ST/STM32CubeIDE_1.14.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc_nano.a(libc_a-gettimeofdayr.o): in function `_gettimeofday_r':
+(.text._gettimeofday_r+0xe): warning: _gettimeofday is not implemented and will always fail
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  26616	    216	   2200	  29032	   7168	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+13:37:17 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:27:10: fatal error: windows.h: No such file or directory
+   27 | #include <windows.h>
+      |          ^~~~~~~~~~~
+compilation terminated.
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j16 all" terminated with exit code 2. Build might be incomplete.
+13:38:44 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:125:20: warning: unused variable 'ms' [-Wunused-variable]
+  125 |           uint32_t ms = (uint32_t)(subsec * 1000);
+      |                    ^~
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  16436	    100	   2156	  18692	   4904	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+13:40:15 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:128:20: warning: unused variable 'ms' [-Wunused-variable]
+  128 |           uint32_t ms = (uint32_t)(subsec * 1000);
+      |                    ^~
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+C:/ST/STM32CubeIDE_1.14.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/bin/ld.exe: C:/ST/STM32CubeIDE_1.14.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc_nano.a(libc_a-gettimeofdayr.o): in function `_gettimeofday_r':
+(.text._gettimeofday_r+0xe): warning: _gettimeofday is not implemented and will always fail
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  26536	    216	   2200	  28952	   7118	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+13:40:30 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:128:20: warning: unused variable 'ms' [-Wunused-variable]
+  128 |           uint32_t ms = (uint32_t)(subsec * 1000);
+      |                    ^~
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+C:/ST/STM32CubeIDE_1.14.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/bin/ld.exe: C:/ST/STM32CubeIDE_1.14.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc_nano.a(libc_a-gettimeofdayr.o): in function `_gettimeofday_r':
+(.text._gettimeofday_r+0xe): warning: _gettimeofday is not implemented and will always fail
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  26536	    216	   2200	  28952	   7118	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+13:42:50 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:128:20: warning: unused variable 'ms' [-Wunused-variable]
+  128 |           uint32_t ms = (uint32_t)(subsec * 1000);
+      |                    ^~
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+C:/ST/STM32CubeIDE_1.14.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/bin/ld.exe: C:/ST/STM32CubeIDE_1.14.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc_nano.a(libc_a-gettimeofdayr.o): in function `_gettimeofday_r':
+(.text._gettimeofday_r+0xe): warning: _gettimeofday is not implemented and will always fail
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  26872	    216	   2200	  29288	   7268	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+13:47:44 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:85:9: error: 'l_time' undeclared (first use in this function); did you mean 'gmtime'?
+   85 |         l_time = localtime(&date);
+      |         ^~~~~~
+      |         gmtime
+../Core/Src/main.c:85:9: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:86:9: error: 'timestr' undeclared (first use in this function); did you mean 'time_t'?
+   86 |         timestr = asctime(l_time);
+      |         ^~~~~~~
+      |         time_t
+../Core/Src/main.c:128:20: warning: unused variable 'ms' [-Wunused-variable]
+  128 |           uint32_t ms = (uint32_t)(subsec * 1000);
+      |                    ^~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j16 all" terminated with exit code 2. Build might be incomplete.
+13:49:23 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:88:9: warning: statement with no effect [-Wunused-value]
+   88 |         time l_time = localtime(&date);
+      |         ^~~~
+../Core/Src/main.c:88:13: error: expected ';' before 'l_time'
+   88 |         time l_time = localtime(&date);
+      |             ^~~~~~~
+      |             ;
+../Core/Src/main.c:89:27: error: 'l_time' undeclared (first use in this function); did you mean 'gmtime'?
+   89 |         timestr = asctime(l_time);
+      |                           ^~~~~~
+      |                           gmtime
+../Core/Src/main.c:89:27: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:131:20: warning: unused variable 'ms' [-Wunused-variable]
+  131 |           uint32_t ms = (uint32_t)(subsec * 1000);
+      |                    ^~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j16 all" terminated with exit code 2. Build might be incomplete.
+13:50:21 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:88:16: warning: assignment to 'struct date *' from incompatible pointer type 'struct tm *' [-Wincompatible-pointer-types]
+   88 |         l_time = localtime(&date);
+      |                ^
+../Core/Src/main.c:89:27: warning: passing argument 1 of 'asctime' from incompatible pointer type [-Wincompatible-pointer-types]
+   89 |         timestr = asctime(l_time);
+      |                           ^~~~~~
+      |                           |
+      |                           struct date *
+In file included from ../Core/Src/main.c:27:
+C:\ST\STM32CubeIDE_1.14.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235\tools\bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/include/time.h:61:38: note: expected 'const struct tm *' but argument is of type 'struct date *'
+   61 | char      *asctime (const struct tm *_tblock);
+      |                     ~~~~~~~~~~~~~~~~~^~~~~~~
+../Core/Src/main.c:131:20: warning: unused variable 'ms' [-Wunused-variable]
+  131 |           uint32_t ms = (uint32_t)(subsec * 1000);
+      |                    ^~
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+C:/ST/STM32CubeIDE_1.14.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/bin/ld.exe: C:/ST/STM32CubeIDE_1.14.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc_nano.a(libc_a-gettimeofdayr.o): in function `_gettimeofday_r':
+(.text._gettimeofday_r+0xe): warning: _gettimeofday is not implemented and will always fail
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  26868	    216	   2200	  29284	   7264	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+13:52:23 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  16500	    100	   2132	  18732	   492c	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+13:52:46 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:142:50: warning: format '%d' expects argument of type 'int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  142 |           sprintf((char*)tchar, "%02d:%02d:%02d:%d02\r\n",rtcTime.Hours, rtcTime.Minutes, rtcTime.Seconds, ms);
+      |                                                 ~^                                                         ~~
+      |                                                  |                                                         |
+      |                                                  int                                                       uint32_t {aka long unsigned int}
+      |                                                 %ld
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  16500	    100	   2132	  18732	   492c	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+13:53:05 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  16500	    100	   2132	  18732	   492c	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+13:53:20 **** Incremental Build of configuration Debug for project rtc ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "rtc.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\rtc\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="rtc.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: rtc.elf
+ 
+arm-none-eabi-size  rtc.elf 
+arm-none-eabi-objdump -h -S rtc.elf  > "rtc.list"
+   text	   data	    bss	    dec	    hex	filename
+  16500	    100	   2132	  18732	   492c	rtc.elf
+Finished building: default.size.stdout
+ 
+Finished building: rtc.list
+ 
+19:43:19 **** Build of configuration Debug for project i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_cortex.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_cortex.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_cortex.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_cortex.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_dma.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_dma.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_dma.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_dma.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_exti.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_exti.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_exti.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_exti.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash_ex.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash_ex.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash_ex.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c_ex.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c_ex.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c_ex.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pwr.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pwr.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pwr.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pwr.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pwr_ex.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pwr_ex.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pwr_ex.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pwr_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc_ex.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc_ex.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc_ex.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim_ex.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim_ex.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim_ex.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart.o"
+arm-none-eabi-gcc "../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart_ex.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart_ex.d" -MT"Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart_ex.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart_ex.o"
+arm-none-eabi-gcc -mcpu=cortex-m0 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Core/Startup/startup_stm32f051r8tx.d" -MT"Core/Startup/startup_stm32f051r8tx.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Startup/startup_stm32f051r8tx.o" "../Core/Startup/startup_stm32f051r8tx.s"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/stm32f0xx_hal_msp.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f0xx_hal_msp.d" -MT"Core/Src/stm32f0xx_hal_msp.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/stm32f0xx_hal_msp.o"
+arm-none-eabi-gcc "../Core/Src/stm32f0xx_it.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f0xx_it.d" -MT"Core/Src/stm32f0xx_it.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/stm32f0xx_it.o"
+arm-none-eabi-gcc "../Core/Src/syscalls.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/syscalls.d" -MT"Core/Src/syscalls.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/syscalls.o"
+arm-none-eabi-gcc "../Core/Src/sysmem.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/sysmem.d" -MT"Core/Src/sysmem.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/sysmem.o"
+arm-none-eabi-gcc "../Core/Src/system_stm32f0xx.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/system_stm32f0xx.d" -MT"Core/Src/system_stm32f0xx.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/system_stm32f0xx.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:105:11: warning: implicit declaration of function 'HAL_DELAY'; did you mean 'HAL_Delay'? [-Wimplicit-function-declaration]
+  105 |           HAL_DELAY(500);
+      |           ^~~~~~~~~
+      |           HAL_Delay
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\i2c\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+C:/ST/STM32CubeIDE_1.14.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.win32_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/bin/ld.exe: ./Core/Src/main.o: in function `main':
+C:/Users/jayme/STM32CubeIDE/workspace_1.14.0/i2c/Debug/../Core/Src/main.c:105: undefined reference to `HAL_DELAY'
+collect2.exe: error: ld returned 1 exit status
+make: *** [makefile:64: i2c.elf] Error 1
+"make -j16 all" terminated with exit code 2. Build might be incomplete.
+19:43:40 **** Incremental Build of configuration Debug for project i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\i2c\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size  i2c.elf 
+arm-none-eabi-objdump -h -S i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+   8936	     20	   1788	  10744	   29f8	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+19:44:08 **** Incremental Build of configuration Debug for project i2c ****
+make -j16 all 
+arm-none-eabi-size  i2c.elf 
+   text	   data	    bss	    dec	    hex	filename
+   8936	     20	   1788	  10744	   29f8	i2c.elf
+Finished building: default.size.stdout
+ 
+19:46:13 **** Incremental Build of configuration Debug for project i2c ****
+make -j16 all 
+arm-none-eabi-size  i2c.elf 
+   text	   data	    bss	    dec	    hex	filename
+   8936	     20	   1788	  10744	   29f8	i2c.elf
+Finished building: default.size.stdout
+ 
+19:39:33 **** Build of configuration Debug for project i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:117:45: error: 'val' undeclared (first use in this function)
+  117 |                           if (data > 0x7FF) val |= 0xF000;
+      |                                             ^~~
+../Core/Src/main.c:117:45: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:123:46: error: 'huart1' undeclared (first use in this function); did you mean 'huart2'?
+  123 |                           HAL_UART_Transmit(&huart1, buf, strlen((char*)buf), 100000);
+      |                                              ^~~~~~
+      |                                              huart2
+../Core/Src/main.c:76:19: warning: unused variable 'sensors' [-Wunused-variable]
+   76 |         const int sensors;
+      |                   ^~~~~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j16 all" terminated with exit code 2. Build might be incomplete.
+19:40:51 **** Incremental Build of configuration Debug for project i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\i2c\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size  i2c.elf 
+arm-none-eabi-objdump -h -S i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  13824	    100	   2124	  16048	   3eb0	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+19:43:13 **** Incremental Build of configuration Debug for project i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\i2c\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size  i2c.elf 
+arm-none-eabi-objdump -h -S i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  13872	    100	   2124	  16096	   3ee0	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+19:45:03 **** Incremental Build of configuration Debug for project i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\i2c\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size  i2c.elf 
+arm-none-eabi-objdump -h -S i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  13820	    100	   2124	  16044	   3eac	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+19:46:12 **** Incremental Build of configuration Debug for project i2c ****
+make -j16 all 
+arm-none-eabi-size  i2c.elf 
+   text	   data	    bss	    dec	    hex	filename
+  13820	    100	   2124	  16044	   3eac	i2c.elf
+Finished building: default.size.stdout
+ 
+19:50:09 **** Incremental Build of configuration Debug for project i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F051x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m0 -T"C:\Users\jayme\STM32CubeIDE\workspace_1.14.0\i2c\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size  i2c.elf 
+arm-none-eabi-objdump -h -S i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  13872	    100	   2124	  16096	   3ee0	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
