@@ -1,78 +1,100 @@
-import hexdump
-import struct
+import hexdump  # Import hexdump module for displaying binary data in a hex + ASCII format
+import struct  # Import struct module for working with C-style data structures
 
+# Function to decode AX.25 address fields (14 bytes)
+# Destination Callsign (6 bytes) - XX0UHF
+# Destination SSID (1 byte) - e1
+# Source Callsign (6 bytes) - 0000CQ
+# Source SSID (1 byte) - e0
 def decode_addr(data, cursor):
+    # Unpack 7 bytes starting from the cursor position
     (a1, a2, a3, a4, a5, a6, a7) = struct.unpack("<BBBBBBB", data[cursor:cursor+7])
-    hrr = a7 >> 5
-    ssid = (a7 >> 1) & 0xf     
-    ext = a7 & 0x1
+    
+    hrr = a7 >> 5  # Highest Receive Ready bits, extracted from the last 3 bits of a7
+    ssid = (a7 >> 1) & 0xf  # SSID (Secondary Station Identifier), extracted from bits 1-4 of a7
+    ext = a7 & 0x1  # Extension bit, the least significant bit of a7
 
+    # Shift right 1 bit for each byte of the address, then pack and decode as ASCII, removing null bytes
     addr = struct.pack("<BBBBBB", a1 >> 1, a2 >> 1, a3 >> 1, a4 >> 1, a5 >> 1, a6 >> 1)
     addr = addr.replace(b'\x00', b'').decode('ascii')  # Remove null bytes and decode to ASCII
     if ssid != 0:
-      call = "{}-{}".format(addr.strip(), ssid)
+        call = "{}-{}".format(addr.strip(), ssid)  # Format callsign with SSID if SSID is not zero
     else:
-      call = addr.strip()
-    return (call, hrr, ext)
+        call = addr.strip()  # Otherwise, just use the callsign
+    return (call, hrr, ext)  # Return the callsign, hrr, and extension bit
 
+# Function to decode U frames (Unnumbered frames) in AX.25 protocol
+# This is the function we need
 def decode_uframe(ctrl, data, pos):
     print("U Frame")
-    if ctrl == 0x3:
-        # UI frame
+    if ctrl == 0x3:  # UI frame control field value
+        # Unpack 1 byte for PID (Protocol Identifier) - 0xF0
         (pid,) = struct.unpack("<B", data[pos:pos+1])
+        print ("PID: " + pid)
         pos += 1
-        rem = len(data[pos:-2])
-        info = struct.unpack("<" + "B"*rem, data[pos:-2])
+        rem = len(data[pos:-2])  # Remaining data length excluding FCS (Frame Check Sequence)
+        info = struct.unpack("<" + "B"*rem, data[pos:-2])  # Unpack remaining data as bytes
         pos += rem
-        fcs = struct.unpack("<BB", data[pos:pos+2])
-        print("PID: 0x{:02x}".format(pid))
-        print("INFO: " + struct.pack("<" + "B"*len(info), *info).decode('ascii', errors='replace'))
-        print("FCS: 0x{:02x}{:02x}".format(fcs[0], fcs[1]))
+        fcs = struct.unpack("<BB", data[pos:pos+2])  # Unpack FCS as 2 bytes
+        print("PID: 0x{:02x}".format(pid))  # Print PID in hex format
+        print("INFO: " + struct.pack("<" + "B"*len(info), *info).decode('ascii', errors='replace'))  # Print INFO field, decode ASCII with error replacement
+        print("FCS: 0x{:02x}{:02x}".format(fcs[0], fcs[1]))  # Print FCS in hex format
 
-def decode_sframe(ctrl, data, pos):
-    print("S Frame")
+# Placeholder functions for S frames and I frames (currently commented out because we don't need them)
+# def decode_sframe(ctrl, data, pos):
+    # print("S Frame")
 
-def decode_iframe(ctrl, data, pos):
-    print("I Frame")
+# def decode_iframe(ctrl, data, pos):
+    # print("I Frame")
 
+# Main function to process the AX.25 frame
 def p(frame):
     pos = 0
 
-    # DST
+    # Decode destination address
     (dest_addr, dest_hrr, dest_ext) = decode_addr(frame, pos)
     pos += 7
     print("DST: " + dest_addr)
     
-    # SRC
+    # Decode source address
     (src_addr, src_hrr, src_ext) = decode_addr(frame, pos)  
     pos += 7
     print("SRC: " + src_addr)
     
-    # REPEATERS
+    # Decode repeater addresses (if any)
     ext = src_ext
     while ext == 0:
         rpt_addr, rpt_hrr, ext = decode_addr(frame, pos)
         print("RPT: " + rpt_addr)
         pos += 7
 
-    # CTRL
+    # Decode control field
     (ctrl,) = struct.unpack("<B", frame[pos:pos+1])
     pos += 1
     print("CTRL: 0x{:02x}".format(ctrl))
 
+    # Determine frame type and decode accordingly
     if (ctrl & 0x3) == 0x3:
-        decode_uframe(ctrl, frame, pos)
-    elif (ctrl & 0x3) == 0x1:
-        decode_sframe(ctrl, frame, pos)
-    elif (ctrl & 0x1) == 0x0:
-        decode_iframe(ctrl, frame, pos)
+        decode_uframe(ctrl, frame, pos)  # U frame
+    else:
+        print ("This is not a UI frame and there is an error in decoding")
+    # elif (ctrl & 0x3) == 0x1:
+        # decode_sframe(ctrl, frame, pos)  # S frame (currently commented out)
+    # elif (ctrl & 0x1) == 0x0:
+        # decode_iframe(ctrl, frame, pos)  # I frame (currently commented out)
 
+    # Print the entire frame in hexdump format
     print(hexdump.hexdump(frame))
 
+# Main entry point of the script
 if __name__ == "__main__":
-    #f = open("test.txt", "r")
-    #hex_str = f.read()
-    #print(hex_str)
+    # Commented out code for reading packet data from a file
+    # f = open("test.txt", "r")
+    # hex_str = f.read()
+    # print(hex_str)
+
+    # Example hex string containing an AX.25 frame
     hex_str = "fef16e90a0bca56afaf1fece452a2698266d24d78467d4643fc1315d6265c5c46bf624cbf46f2995f7971daf172bac7a450c271137ceb25929eb5f150b8f6864672114d492763b0df80c2991d8831165cbbbb386377539bd525ed997ae48b6fa618e7d1ce07fc87cdc"
-    frame = bytes.fromhex(hex_str)
-    p(frame)
+    frame = bytes.fromhex(hex_str)  # Convert hex string to bytes
+    p(frame)  # Process the frame
+
