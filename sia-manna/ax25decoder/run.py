@@ -46,6 +46,51 @@ def decode_addr(data, cursor):
     #Unpack 7 bytes starting from cursor position
     #(b1, b2, b3, b4, b5, b6, b7) = struct.unpack("<BBBBBBB", data[cursor:cursor+7])
 
+# Decrambler function
+def decrambler(frame):
+    descrambled = bytearray()
+    state = 0
+
+    for byte in frame:
+        for i in range(8):
+            feedback = (state ^ (byte >> i)) & 1
+            state = ((state >> 1) | (feedback << 6)) & 0x7F
+            descrambled.append((byte >> i) ^ feedback)
+
+    return bytes(descrambled)
+
+# NRZI Decoder
+def nrzi_decoder(data):
+    decoded = bytearray()
+    prev_bit = 0
+
+    for byte in data:
+        for i in range(8):
+            curr_bit = (byte >> i) & 1
+            decoded.append(curr_bit ^ prev_bit)
+            prev_bit = curr_bit
+
+    return bytes(decoded)
+
+# Bit Destuffing function
+def bit_destuff(data):
+    destuffed = bytearray()
+    count = 0
+
+    for byte in data:
+        for i in range(8):
+            bit = (byte >> i) & 1
+            if bit == 1:
+                count += 1
+            else:
+                count = 0
+            destuffed.append(bit)
+            if count == 5:
+                i += 1
+                count = 0
+
+    return bytes(destuffed)
+
 
 
 # Function to decode U frames (Unnumbered frames) in AX.25 protocol
@@ -67,11 +112,11 @@ def decode_uframe(ctrl, data, pos):
 def to_binary_string(byte_data):
     return ' '.join(format(byte, '08b') for byte in byte_data)
 
-def check_frame_length(frame):
-    if len(frame) > 128:
-        print("Error: Frame length exceeds 128 bytes.")
-        return False
-    return True
+# def check_frame_length(frame):
+#     if len(frame) > 128:
+#         print("Error: Frame length exceeds 128 bytes.")
+#         return False
+#     return True
 
 # Placeholder functions for S frames and I frames (currently commented out because we don't need them)
 """ def decode_sframe(ctrl, data, pos):
@@ -85,8 +130,17 @@ def p(frame):
 
     pos = 0
 
-    if check_frame_length(frame) == False:
-        return "Invalid frame"
+    # Decramble the frame
+    frame = decrambler(frame)
+
+    # Decode NRZI
+    frame = nrzi_decoder(frame)
+
+    # Perform bit destuffing
+    frame = bit_destuff(frame)
+
+    #if check_frame_length(frame) == False:
+        #return "Invalid frame"
 
     # Decode preamble
     preamble = frame[pos:pos+8]
