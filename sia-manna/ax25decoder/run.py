@@ -14,6 +14,8 @@
 # Postamble (3 bytes) - 3 * 0x7E
 # Total = 108 bytes
 
+#Check if frame is > 128
+
 
 import hexdump  # Import hexdump module for displaying binary data in a hex + ASCII format
 import struct  # Import struct module for working with C-style data structures
@@ -65,6 +67,12 @@ def decode_uframe(ctrl, data, pos):
 def to_binary_string(byte_data):
     return ' '.join(format(byte, '08b') for byte in byte_data)
 
+def check_frame_length(frame):
+    if len(frame) > 128:
+        print("Error: Frame length exceeds 128 bytes.")
+        return False
+    return True
+
 # Placeholder functions for S frames and I frames (currently commented out because we don't need them)
 """ def decode_sframe(ctrl, data, pos):
     print("S Frame")
@@ -74,7 +82,11 @@ def decode_iframe(ctrl, data, pos):
 
 # Main function to process the AX.25 frame
 def p(frame):
+
     pos = 0
+
+    if check_frame_length(frame) == False:
+        return "Invalid frame"
 
     # Decode preamble
     preamble = frame[pos:pos+8]
@@ -82,7 +94,7 @@ def p(frame):
     #print("Preamble: " + preamble.hex())
     if preamble != b'\x7e' * 8:
         print("Invalid preamble. Expected 8 bytes of 0x7E.")
-    print("Preamble: " + to_binary_string(preamble))
+    print("Preamble: " + preamble.hex())
 
     #Decode start flag
     start_flag = frame[pos:pos+1]
