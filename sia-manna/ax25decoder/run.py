@@ -102,15 +102,17 @@ def p(frame):
     print("SRC: " + src_addr)
     
     # Decode repeater addresses (if any)
-    ext = src_ext
+    """ext = src_ext
     while ext == 0:
         rpt_addr, rpt_hrr, ext = decode_addr(frame, pos)
         print("RPT: " + rpt_addr)
-        pos += 7
+        pos += 7"""
 
     # Decode control field
     (ctrl,) = struct.unpack("<B", frame[pos:pos+1])
     pos += 1
+    if ctrl != b'\x03':
+        print("Invalid control. Expected 0x03.")
     print("CTRL: 0x{:02x}".format(ctrl))
 
     # Determine frame type and decode accordingly
