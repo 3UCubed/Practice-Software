@@ -11,7 +11,8 @@
 # Payload (0 - 77 bytes) - upto 616
 # FCS (2 bytes) - 
 # Flag (1 byte) - 0x7E
-# Postamble - 3 * 0x7E
+# Postamble (3 bytes) - 3 * 0x7E
+# Total = 108 bytes
 
 
 import hexdump  # Import hexdump module for displaying binary data in a hex + ASCII format
@@ -52,14 +53,13 @@ def decode_uframe(ctrl, data, pos):
     if ctrl == 0x3:  # UI frame control field value
         # Unpack 1 byte for PID (Protocol Identifier) - 0xF0
         (pid,) = struct.unpack("<B", data[pos:pos+1])
-        #print ("PID: " + pid)
         pos += 1
         rem = len(data[pos:-2])  # Remaining data length excluding FCS (Frame Check Sequence)
         info = struct.unpack("<" + "B"*rem, data[pos:-2])  # Unpack remaining data as bytes
         pos += rem
         fcs = struct.unpack("<BB", data[pos:pos+2])  # Unpack FCS as 2 bytes
         print("PID: 0x{:02x}".format(pid))  # Print PID in hex format
-        print("INFO: " + struct.pack("<" + "B"*len(info), *info).decode('ascii', errors='replace'))  # Print INFO field, decode ASCII with error replacement
+        print("PAYLOAD: " + struct.pack("<" + "B"*len(info), *info).decode('ascii', errors='replace'))  # Print INFO field, decode ASCII with error replacement
         print("FCS: 0x{:02x}{:02x}".format(fcs[0], fcs[1]))  # Print FCS in hex format
 
 def to_binary_string(byte_data):
@@ -80,11 +80,15 @@ def p(frame):
     preamble = frame[pos:pos+8]
     pos += 8
     #print("Preamble: " + preamble.hex())
+    if preamble != b'\x7e' * 8:
+        print("Invalid preamble. Expected 8 bytes of 0x7E.")
     print("Preamble: " + to_binary_string(preamble))
 
     #Decode start flag
     start_flag = frame[pos:pos+1]
     pos += 1
+    if start_flag != b'\x7e':
+        print("Invalid start flag. Expected 0x7E.")
     print("Start Flag: " + start_flag.hex())
 
     # Decode destination address
