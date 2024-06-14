@@ -203,8 +203,38 @@ if __name__ == "__main__":
     # print(hex_str)
 
     # Example hex string containing an AX.25 frame
-    hex_str= "7e7e7e7e7e7e7e7e7ec086888a404060e0888a4040406103f048656c6c6f2c207468697320697320612074657374206d65737361676520666f722041582e3235206672616d652077697468203737206279746573207061796c6f61642e20202020202020202012347e7e7e7e"
+
+    #Frame containing payload "Hello World"
+    hex_str = "7e7e7e7e7e7e7e7e7e6060606086a260b0b060aa908c6203f048656c6c6f20576f726c6421202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202012347e7e7e7e"
+    
+    #Frame containing payload "Hello, this is a test message for AX.25 frame with 77 bytes payload."
+    #hex_str= "7e7e7e7e7e7e7e7e7ec086888a404060e0888a4040406103f048656c6c6f2c207468697320697320612074657374206d65737361676520666f722041582e3235206672616d652077697468203737206279746573207061796c6f61642e20202020202020202012347e7e7e7e"
+
+    #The actual frame we want to decode
     #hex_str = "fef16e90a0bca56afaf1fece452a2698266d24d78467d4643fc1315d6265c5c46bf624cbf46f2995f7971daf172bac7a450c271137ceb25929eb5f150b8f6864672114d492763b0df80c2991d8831165cbbbb386377539bd525ed997ae48b6fa618e7d1ce07fc87cdc"
+
     frame = bytes.fromhex(hex_str)  # Convert hex string to bytes
     p(frame)  # Process the frame
+
+
+    """
+    Preamble: 7e7e7e7e7e7e7e7e
+    Start Flag: 7e
+    DST: 0000CQ
+    SRC: XX0UHF-1
+    Invalid control. Expected 0x03.
+    CTRL: 0x03
+    U Frame
+    PID: 0xf0
+    PAYLOAD: Hello World!                                                                 4~~
+    FCS: 0x7e7e
+    00000000: 7E 7E 7E 7E 7E 7E 7E 7E  7E 60 60 60 60 86 A2 60  ~~~~~~~~~````..`
+    00000010: B0 B0 60 AA 90 8C 62 03  F0 48 65 6C 6C 6F 20 57  ..`...b..Hello W
+    00000020: 6F 72 6C 64 21 20 20 20  20 20 20 20 20 20 20 20  orld!           
+    00000030: 20 20 20 20 20 20 20 20  20 20 20 20 20 20 20 20                  
+    00000040: 20 20 20 20 20 20 20 20  20 20 20 20 20 20 20 20                  
+    00000050: 20 20 20 20 20 20 20 20  20 20 20 20 20 20 20 20                  
+    00000060: 20 20 20 20 20 20 12 34  7E 7E 7E 7E                    .4~~~~
+    None
+    """
 
