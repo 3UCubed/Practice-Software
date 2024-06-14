@@ -131,13 +131,10 @@ def p(frame):
     pos = 0
 
     # Decramble the frame
-    frame = decrambler(frame)
+    #frame = decrambler(frame)
 
     # Decode NRZI
-    frame = nrzi_decoder(frame)
-
-    # Perform bit destuffing
-    frame = bit_destuff(frame)
+    #frame = nrzi_decoder(frame)
 
     #if check_frame_length(frame) == False:
         #return "Invalid frame"
@@ -156,6 +153,9 @@ def p(frame):
     if start_flag != b'\x7e':
         print("Invalid start flag. Expected 0x7E.")
     print("Start Flag: " + start_flag.hex())
+
+    # Perform bit destuffing
+    #frame = bit_destuff(frame)
 
     # Decode destination address
     (dest_addr, dest_hrr, dest_ext) = decode_addr(frame, pos)
@@ -192,6 +192,7 @@ def p(frame):
          #decode_iframe(ctrl, frame, pos)  # I frame (currently commented out)
 
     # Print the entire frame in hexdump format
+    #print(frame)
     print(hexdump.hexdump(frame))
 
 # Main entry point of the script
@@ -202,7 +203,8 @@ if __name__ == "__main__":
     # print(hex_str)
 
     # Example hex string containing an AX.25 frame
-    hex_str = "fef16e90a0bca56afaf1fece452a2698266d24d78467d4643fc1315d6265c5c46bf624cbf46f2995f7971daf172bac7a450c271137ceb25929eb5f150b8f6864672114d492763b0df80c2991d8831165cbbbb386377539bd525ed997ae48b6fa618e7d1ce07fc87cdc"
+    hex_str= "7e7e7e7e7e7e7e7e7ec086888a404060e0888a4040406103f048656c6c6f2c207468697320697320612074657374206d65737361676520666f722041582e3235206672616d652077697468203737206279746573207061796c6f61642e20202020202020202012347e7e7e7e"
+    #hex_str = "fef16e90a0bca56afaf1fece452a2698266d24d78467d4643fc1315d6265c5c46bf624cbf46f2995f7971daf172bac7a450c271137ceb25929eb5f150b8f6864672114d492763b0df80c2991d8831165cbbbb386377539bd525ed997ae48b6fa618e7d1ce07fc87cdc"
     frame = bytes.fromhex(hex_str)  # Convert hex string to bytes
     p(frame)  # Process the frame
 
