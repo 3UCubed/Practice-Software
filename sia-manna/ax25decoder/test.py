@@ -47,6 +47,6 @@ def encode_test(test_str):
 
 if __name__ == "__main__":
     test_string = b'\x7e' * 8
-    print("Correct preamble: " + test_string)
+    print("Correct preamble: 7E7E7E7E7E7E7E7E")
     outstr = encode_test(test_string)
     print ("\n Encoded preamble: " + outstr)
