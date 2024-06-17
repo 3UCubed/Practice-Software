@@ -1,5 +1,59 @@
 import struct
 
+def bit_stuffing(data):
+    """
+    Perform bit stuffing on the given data.
+    """
+    stuffed_data = []
+    count = 0
+    
+    for bit in data:
+        stuffed_data.append(bit)
+        if bit == '1':
+            count += 1
+            if count == 5:
+                stuffed_data.append('0')
+                count = 0
+        else:
+            count = 0
+    
+    return ''.join(stuffed_data)
+
+def nrzi_encoding(data):
+    """
+    Perform NRZI encoding on the given data.
+    """
+    encoded = []
+    current_level = '0'
+    
+    for bit in data:
+        if bit == '0':
+            # Change state
+            current_level = '1' if current_level == '0' else '0'
+        # Append current state
+        encoded.append(current_level)
+    
+    return ''.join(encoded)
+
+def scrambler(data, polynomial="10000000000010001"):
+    """
+    Perform scrambling on the given data using a specified polynomial.
+    Default polynomial for AX.25 is 1 + x^12 + x^17.
+    """
+    polynomial = [int(x) for x in polynomial]
+    state = [0] * len(polynomial)
+    
+    scrambled = []
+    
+    for bit in data:
+        feedback = int(bit) ^ state[-1]
+        scrambled.append(str(feedback))
+        state = [feedback ^ s for s in state[:-1]] + [feedback]
+    
+    return ''.join(scrambled)
+
+
+
 def encode_callsign(callsign, ssid):
     # Callsign should be 6 characters, pad with spaces if shorter
     callsign = callsign.ljust(6)
