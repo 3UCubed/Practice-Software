@@ -41,7 +41,9 @@ def encode_test(test_str):
     """
 
     test_str = ax25_nrziencoder(test_str)
+    print("Test string after nrzi encoding: " + test_str)
     test_str = ax25_scrambler(test_str)
+    print("test string after scrambling: " + test_str)
 
     return test_str
 
