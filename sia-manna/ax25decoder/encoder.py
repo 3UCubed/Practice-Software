@@ -82,8 +82,8 @@ def construct_ax25_frame():
     pid = b'\xF0'
     
     # Example payload (11 bytes, "Hello World!", and then padded to 77 bytes)
-    payload = b'6060606086A2E0B0B060AA908C6103F054686520717569636B2062726F776E20666F78206A756D7073206F76657220746865206C617A7920646F67'
-    #payload = b'Hello World!'
+    #payload = b'6060606086A2E0B0B060AA908C6103F054686520717569636B2062726F776E20666F78206A756D7073206F76657220746865206C617A7920646F67'
+    payload = b'Hello World!'
     payload += b' ' * (77 - len(payload))  # Pad the payload to ensure it's 77 bytes
     
     # Construct the initial part of the frame (excluding FCS)
