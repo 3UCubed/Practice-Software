@@ -1,4 +1,5 @@
 import struct
+from crc import Calculator, Crc16
 
 def bit_stuffing(data):
     """
@@ -52,7 +53,15 @@ def scrambler(data, polynomial="10000000000010001"):
     
     return ''.join(scrambled)
 
+""" def hextobin(data):
+    n = int(data, 16) 
+    bStr = '' 
+    while n > 0: 
+        bStr = str(n % 2) + bStr 
+        n = n >> 1   
+    res = bStr 
 
+    return res """
 
 def encode_callsign(callsign, ssid):
     # Callsign should be 6 characters, pad with spaces if shorter
@@ -64,45 +73,117 @@ def encode_callsign(callsign, ssid):
     # Combine the encoded callsign and SSID
     return struct.pack('<6B', *encoded_callsign) + struct.pack('B', encoded_ssid)
 
-def calculate_fcs(frame):
+""" def calculate_fcs(frame):
     # Placeholder FCS calculation function (real implementation needed for actual use)
     # For simplicity, let's return a fixed FCS here
-    return b'\x12\x34'
+    return b'\x12\x34' """
+
 
 def construct_ax25_frame():
     # Components of the frame
-    preamble = b'\x7E' * 8
-    start_flag = b'\x7E'
-     # Encode the addresses
-    dest_addr = encode_callsign("0000CQ", 0xe0)
-    src_addr = encode_callsign("XX0UHF", 0xe1)
-    #dest_addr = struct.pack('<BBBBBBB', 0xC0, 0x86, 0x88, 0x8A, 0x40, 0x40, 0x60)
-    #src_addr = struct.pack('<BBBBBBB', 0xE0, 0x88, 0x8A, 0x40, 0x40, 0x40, 0x61)
-    control = b'\x03'
-    pid = b'\xF0'
+    #preamble = b'\x7E' * 8
+    preamble = "7E7E7E7E7E7E7E7E"
+    preamble_bin = format(int(preamble, 16), "064b")
+    #start_flag = b'\x7E'
+    start_flag = "7E"
+    start_flag_bin = format(int(start_flag, 16), "008b")
+   
+    
+    preframe = preamble + start_flag
+    print("Preframe: ", preframe)
+    preframebin = preamble_bin + start_flag_bin
+    print("Preframe to binary: ", preframebin)
+
+    # Complete the frame with FCS, end flag, and postamble
+    #end_flag = b'\x7E'
+    end_flag= "7E"
+    #postamble = b'\x7E' * 3
+    postamble = "7E7E7E"
+    #full_frame = frame + fcs + end_flag + postamble
+
+    postframe = end_flag + postamble
+    print("Postframe: ", postframe)
+    postamble_bin = format(int(postamble, 16), "024b")
+    end_flag_bin = format(int(end_flag, 16), "008b")
+    postframebin = postamble_bin + end_flag_bin
+    print("Postframe to binary: ", postframebin)
+
+    # Encode the addresses
+    #dest_addr = encode_callsign("0000CQ", 0xe0)
+    #src_addr = encode_callsign("XX0UHF", 0xe1)
+    #dest_addr = struct.pack('<BBBBBBB', 0x00, 0x00, 0x00, 0x00, 0x40, 0x40, 0xE0)
+    #src_addr = struct.pack('<BBBBBBB', 0xE0, 0x88, 0x8A, 0x40, 0x40, 0x40, 0xE1)
+    dest_addr = "303030304351E0"
+    src_addr = "585830554846E1"
+    control = "03"
+    #control = b'\x03'
+    pid = "F0"
+    #pid = b'\xF0'
     
     # Example payload (11 bytes, "Hello World!", and then padded to 77 bytes)
+    #payload = "6060606086A2E0B0B060AA908C6103F054686520717569636B2062726F776E20666F78206A756D7073206F76657220746865206C617A7920646F67"
     #payload = b'6060606086A2E0B0B060AA908C6103F054686520717569636B2062726F776E20666F78206A756D7073206F76657220746865206C617A7920646F67'
-    payload = b'Hello World!'
-    payload += b' ' * (77 - len(payload))  # Pad the payload to ensure it's 77 bytes
+    #payload = b'Hello World!'
+    #payload += b' ' * (77 - len(payload))  # Pad the payload to ensure it's 77 bytes
+    payload = "48656c6c6f20576f726c64"
+    print("Payload in ASCII: " , bytearray.fromhex(payload).decode())
+    payload = payload.ljust(77, '0')
+    print("payload: ", payload)
     
     # Construct the initial part of the frame (excluding FCS)
-    frame = preamble + start_flag + dest_addr + src_addr + control + pid + payload
+    frame = dest_addr + src_addr + control + pid + payload
+
+    print("FRAME: ", frame)
+
+    #Decoding bytes object to produce string
+    #frame = frame.decode("utf-8")
+
     
     # Calculate the FCS for the frame (excluding the preamble and flags)
     #fcs = calculate_fcs(frame[8:8+1+len(dest_addr)+len(src_addr)+1+1+len(payload)])
-    fcs = calculate_fcs(frame[8:-2])
+    """ fcs_preamble = b'\x7E' * 8
+    fcs_start_flag = b'\x7E'
+    fcs_calc_frame = preamble + start_flag + frame """
+    #fcs = b'\x12\x34'
+    #fcs = calculate_fcs(fcs_calc_frame[8:-2])
+    fcs = "80B8"
+
+    initialframe = frame + fcs
+    #initialframe = initialframe.decode("utf-8")
+
+    #initialframe = "6060606086a260b0b060aa908c6203f048656c6c6f20576f726c642120202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020201234"
+
+    print("Initial frame in hex: "  , initialframe)
     
-    # Complete the frame with FCS, end flag, and postamble
-    end_flag = b'\x7E'
-    postamble = b'\x7E' * 3
-    full_frame = frame + fcs + end_flag + postamble
-    
-    return full_frame
+    #conversion to binary
+    initialframebin = format(int(initialframe, 16), "104b")
+    #initialframebin = bin(initialframe)
+    print ("Raw frame converted to binary ", initialframebin)
+
+
+    bit_stuffed = bit_stuffing(initialframebin)
+    print("Bit stuffed frame: ", bit_stuffed)
+
+
+    # Complete the entire frame with the end flags and postamble
+    nrzi_encode_ready = preframebin + bit_stuffed + postframebin
+
+    nrzi_encode = nrzi_encoding(nrzi_encode_ready)
+
+    print("NRZI encoded: ", nrzi_encode)
+
+    scramble = scrambler(nrzi_encode)
+
+    print ("Scrambled: " , scramble)
+
+    #return full_frame
+    return scramble
 
 def main():
-    frame = construct_ax25_frame()
-    print(frame.hex())
+    #frame = b'nothing'
+    initialframe = construct_ax25_frame()
+    #printframe = hex(initialframe)
+    print("Full frame: ", initialframe)
 
 if __name__ == "__main__":
     main()
