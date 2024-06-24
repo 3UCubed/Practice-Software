@@ -1,3 +1,22 @@
+"""
+Frame:  <   Preamble |   Flag   |  Destination Callsign |  SSID   | Source Callsign |   SSID   | Control |    PID    |    Payload    |    FCS   |   Flag   |   Postamble >
+        _____________|__________|_______________________|_________|_________________|__________|_________|___________|_______________|__________|__________|______________
+            8 bytes  |  1 byte  |        6 bytes        | 1 byte  |   6 bytes       |  1 byte  | 1 byte  |  1 byte   |    77 bytes   |  2 bytes |  1 byte  |    3 bytes    
+
+                                |-----------------------------------------------Bit stuffed-----------------------------------------------------|
+        |-----------------------------------------------------------------------NRZI - Encoded----------------------------------------------------------------------------|
+        |-----------------------------------------------------------------------Scrambled---------------------------------------------------------------------------------|
+
+Sequence of encoding operations: 
+
+1. Bit stuff the portion of the frame between the start and end flags
+2. Add preframe (preamble and start flag) and postframe(end flag and postamble) and NRZI Encode the whole frame
+3. Scramble
+4. Encode in hex
+"""
+
+
+
 import struct
 from crc import Calculator, Crc16
 
@@ -20,6 +39,9 @@ def bit_stuffing(data):
     
     return ''.join(stuffed_data)
 
+"""
+NRZI Encoding is an operation in the AX.25 encoding operation sequence.
+"""
 def nrzi_encoding(data):
     """
     Perform NRZI encoding on the given data.

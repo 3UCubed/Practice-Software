@@ -20,6 +20,7 @@
 import hexdump  # Import hexdump module for displaying binary data in a hex + ASCII format
 import struct  # Import struct module for working with C-style data structures
 
+
 # Function to decode AX.25 address fields (14 bytes)
 # Destination Callsign (6 bytes) - XX0UHF
 # Destination SSID (1 byte) - e1
@@ -48,6 +49,7 @@ def decode_addr(data, cursor):
     #(b1, b2, b3, b4, b5, b6, b7) = struct.unpack("<BBBBBBB", data[cursor:cursor+7])
 
 # Decrambler function
+# Expects hex
 def descrambler(frame):
     descrambled = bytearray()
     state = 0
@@ -126,46 +128,87 @@ def to_binary_string(byte_data):
 def decode_iframe(ctrl, data, pos):
     print("I Frame") """
 
+def process_frame(frame):
+    # Ensure the frame is in bytes
+    if isinstance(frame, bytes):
+        # Convert bytes to hexadecimal string
+        hex_string = frame.hex()
+        try:
+            # Convert hexadecimal string to integer
+            integer_value = int(hex_string, 16)
+            # Format the integer to a binary string with at least 128 bits
+            binary_string = format(integer_value, "0128b")
+            return binary_string
+        except ValueError as e:
+            print(f"Error converting frame to integer: {e}")
+            return None
+    else:
+        print("Frame is not in bytes format.")
+        return None
+
+
 # Main function to process the AX.25 frame
 def p(frame):
 
-    pos = 0
+    position = 0
+
+    print("FRAME: ", frame)
 
     # Decramble the frame
     frame = descrambler(frame)
+    descrambled = descrambler(frame)
+
+    print ("Descrambled frame: ", descrambled)
 
     # Decode NRZI
-    frame = nrzi_decoder(frame)
+    nrzi_decoded = nrzi_decoder(descrambled)
+    print ("NRZI decoded frame: ", nrzi_decoded)
+
+    bit_stuff_string = bit_destuffed.decode('utf-8')
+
+    bit_destuffed = bit_destuff(bit_stuff_string)
+    print("Bit-destuffed (without extracting mid frame): ", bit_destuffed)
+
+
+    #print("Type for bitstudded: ", type(bit_destuffed))
+
+    """ bit_destuff_ready = extractmidframe(nrzi_decoded)
+    print("Frame ready for bitstuffing: ", bit_destuff_ready)
+
+    bit_stuffed = bit_destuff(bit_destuff_ready)
+    print("Bit-stuffed frame: ", bit_stuffed)
+ """
 
     #if check_frame_length(frame) == False:
         #return "Invalid frame"
 
-    # Decode preamble
-    preamble = frame[pos:pos+8]
-    pos += 8
+   """  # Decode preamble
+    preamble = frame[position:position+8]
+    position += 8
     #print("Preamble: " + preamble.hex())
     if preamble != b'\x7e' * 8:
         print("Invalid preamble. Expected 8 bytes of 0x7E.")
     print("Preamble: " + preamble.hex())
 
     #Decode start flag
-    start_flag = frame[pos:pos+1]
-    pos += 1
+    start_flag = frame[position:position+1]
+    position += 1
     if start_flag != b'\x7e':
         print("Invalid start flag. Expected 0x7E.")
-    print("Start Flag: " + start_flag.hex())
+    print("Start Flag: " + start_flag.hex()) """
 
     # Perform bit destuffing
-    frame = bit_destuff(frame)
+    """ if (position >= 9):
+        frame = bit_destuff(frame) """
 
     # Decode destination address
-    (dest_addr, dest_hrr, dest_ext) = decode_addr(frame, pos)
-    pos += 7
+    (dest_addr, dest_hrr, dest_ext) = decode_addr(frame, position)
+    position += 7
     print("DST: " + dest_addr)
     
     # Decode source address
-    (src_addr, src_hrr, src_ext) = decode_addr(frame, pos)  
-    pos += 7
+    (src_addr, src_hrr, src_ext) = decode_addr(frame, position)  
+    position += 7
     print("SRC: " + src_addr)
     
     # Decode repeater addresses (if any)
@@ -176,15 +219,15 @@ def p(frame):
         pos += 7"""
 
     # Decode control field
-    (ctrl,) = struct.unpack("<B", frame[pos:pos+1])
-    pos += 1
+    (ctrl,) = struct.unpack("<B", frame[position:position+1])
+    position += 1
     if ctrl != b'\x03':
         print("Invalid control. Expected 0x03.")
     print("CTRL: 0x{:02x}".format(ctrl))
 
     # Determine frame type and decode accordingly
     if (ctrl & 0x3) == 0x3:
-        decode_uframe(ctrl, frame, pos)  # U frame
+        decode_uframe(ctrl, frame, position)  # U frame
     else:
         print("This is not a UI frame and there is an error in decoding")
     #elif (ctrl & 0x3) == 0x1:
@@ -228,9 +271,11 @@ if __name__ == "__main__":
     #hex_str = "7E060606066145070D0D0655093186C00F12A63636F604EAF64E36268439307E"
 
     #encoder.py made frame
-    hex_str = "55AA55AA55AA55AA55E619E619344FCC590CB3BB8C68319FD9C61DE9E9EA4C8A15F1E9E33333333333333333333333333333333333333333333333333333333990601FE01FE"
+    #hex_str = "55AA55AA55AA55AA55E619E619344FCC590CB3BB8C68319FD9C61DE9E9EA4C8A15F1E9E33333333333333333333333333333333333333333333333333333333990601FE01FE"
+    #Modified encoder.py made frame to evade ValueError: non-hexadecimal number found in fromhex() arg at position
+    #hex_str = "55AA55AA55AA55AA55E619E619344FCC590CB3BB8C68319FD9C61DE9E9EA4C8A15F1E9E33333333333333333333333333333333333333333333333333333333990601FE01F0E"
 
-    #frame = bytes.fromhex(hex_str)  # Convert hex string to bytes
+
     frame = bytes.fromhex(hex_str)  # Convert hex string to bytes
     print("FRAME: " , frame)
     p(frame)  # Process the frame
