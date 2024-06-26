@@ -19,6 +19,7 @@
 
 import hexdump  # Import hexdump module for displaying binary data in a hex + ASCII format
 import struct  # Import struct module for working with C-style data structures
+import conversions #Import my personal library to facilitate datatype conversions
 
 
 # Function to decode AX.25 address fields (14 bytes)
@@ -50,7 +51,7 @@ def decode_addr(data, cursor):
 
 # Decrambler function
 # Expects hex
-def descrambler(frame):
+def descrambling(frame):
     descrambled = bytearray()
     state = 0
 
@@ -63,7 +64,7 @@ def descrambler(frame):
     return bytes(descrambled)
 
 # NRZI Decoder
-def nrzi_decoder(data):
+def nrzi_decoding(data):
     decoded = bytearray()
     prev_bit = 0
 
@@ -73,10 +74,11 @@ def nrzi_decoder(data):
             decoded.append(curr_bit ^ prev_bit)
             prev_bit = curr_bit
 
-    return bytes(decoded)
+    #return bytes(decoded)
+    return decoded
 
 # Bit Destuffing function
-def bit_destuff(data):
+def bit_destuffing(data):
     destuffed = bytearray()
     count = 0
 
@@ -155,19 +157,23 @@ def p(frame):
     print("FRAME: ", frame)
 
     # Decramble the frame
-    frame = descrambler(frame)
-    descrambled = descrambler(frame)
+    #frame = descrambler(frame)
+    descrambled = descrambling(frame)
 
     print ("Descrambled frame: ", descrambled)
 
     # Decode NRZI
-    nrzi_decoded = nrzi_decoder(descrambled)
+    nrzi_decoded = nrzi_decoding(descrambled)
     print ("NRZI decoded frame: ", nrzi_decoded)
 
-    bit_stuff_string = bit_destuffed.decode('utf-8')
+    #bit_stuff_string = bit_destuffed.decode('utf-8')
 
-    bit_destuffed = bit_destuff(bit_stuff_string)
+    bit_destuffed = bit_destuffing(nrzi_decoded)
     print("Bit-destuffed (without extracting mid frame): ", bit_destuffed)
+
+    frame = bit_destuffed
+    binframe = conversions.binary_to_hexadecimal(frame)
+    print("Top Hex string: ", conversions.binary_to_hexadecimal(frame))
 
 
     #print("Type for bitstudded: ", type(bit_destuffed))
@@ -182,7 +188,7 @@ def p(frame):
     #if check_frame_length(frame) == False:
         #return "Invalid frame"
 
-   """  # Decode preamble
+# Decode preamble
     preamble = frame[position:position+8]
     position += 8
     #print("Preamble: " + preamble.hex())
@@ -195,7 +201,7 @@ def p(frame):
     position += 1
     if start_flag != b'\x7e':
         print("Invalid start flag. Expected 0x7E.")
-    print("Start Flag: " + start_flag.hex()) """
+    print("Start Flag: " + start_flag.hex()) 
 
     # Perform bit destuffing
     """ if (position >= 9):
@@ -236,7 +242,9 @@ def p(frame):
          #decode_iframe(ctrl, frame, pos)  # I frame (currently commented out)
 
     # Print the entire frame in hexdump format
+    print(hex(binframe))
     #print(frame)
+    print(hexdump.hexdump(binframe))
     print(hexdump.hexdump(frame))
 
 # Main entry point of the script

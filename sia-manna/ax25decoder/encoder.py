@@ -15,10 +15,52 @@ Sequence of encoding operations:
 4. Encode in hex
 """
 
-
-
 import struct
+import conversions
 from crc import Calculator, Crc16
+
+""" def crc_calc(buffer, size_frame):
+    size_frame -= 3  # The last flag and the 2 bytes for FCS are removed.
+
+    # Initialization of the Shift Register to 0xFFFF
+    shiftRegister = 0xFFFF
+
+    for i in range(1, size_frame):  # The first flag is not calculated so i=1.
+        byte = buffer[i]
+
+        for j in range(8):
+            outBit = shiftRegister & 0x0001
+            shiftRegister >>= 1  # Shift the register to the right.
+
+            if outBit != (byte & 0x01):
+                shiftRegister ^= 0x8408  # Mirrored polynom.
+                byte >>= 1
+                continue
+            byte >>= 1
+
+    return shiftRegister ^ 0xFFFF  # Final XOR. """
+
+def crc_calc(buffer, size_frame):
+    size_frame -= 3  # The last flag and the 2 bytes for FCS are removed.
+
+    # Initialization of the Shift Register to 0xFFFF
+    shiftRegister = 0xFFFF
+
+    for i in range(1, size_frame):  # The first flag is not calculated so i=1.
+        byte = buffer[i]
+
+        for j in range(8):
+            outBit = shiftRegister & 0x0001
+            shiftRegister >>= 1  # Shift the register to the right.
+
+            if outBit != (byte & 0x01):
+                shiftRegister ^= 0x8408  # Mirrored polynom.
+            byte >>= 1
+    
+    return shiftRegister ^ 0xFFFF  # Final XOR.
+
+
+
 
 def bit_stuffing(data):
     """
@@ -41,6 +83,10 @@ def bit_stuffing(data):
 
 """
 NRZI Encoding is an operation in the AX.25 encoding operation sequence.
+The bits are encoded in the presence or absence of a transition at a clock edge.
+The '1' bit is encoded as a transition and the '0' bit is encoded as no transition.
+Encoding bits in the presence or absence of transitions ensures that the receiver
+doesn't have to know what level or state it encodes.
 """
 def nrzi_encoding(data):
     """
@@ -58,32 +104,23 @@ def nrzi_encoding(data):
     
     return ''.join(encoded)
 
-def scrambler(data, polynomial="10000000000010001"):
+def scrambling(data, polynomial="10000000000010001"):
     """
     Perform scrambling on the given data using a specified polynomial.
     Default polynomial for AX.25 is 1 + x^12 + x^17.
     """
-    polynomial = [int(x) for x in polynomial]
-    state = [0] * len(polynomial)
-    
-    scrambled = []
-    
-    for bit in data:
-        feedback = int(bit) ^ state[-1]
-        scrambled.append(str(feedback))
-        state = [feedback ^ s for s in state[:-1]] + [feedback]
-    
-    return ''.join(scrambled)
+    polynomial = [int(x) for x in polynomial]  # Convert the polynomial string into a list of integers.
+    state = [0] * len(polynomial)  # Initialize the state register with zeros.
 
-""" def hextobin(data):
-    n = int(data, 16) 
-    bStr = '' 
-    while n > 0: 
-        bStr = str(n % 2) + bStr 
-        n = n >> 1   
-    res = bStr 
+    scrambled = []  # Initialize an empty list to store the scrambled bits.
 
-    return res """
+    for bit in data:  # Iterate over each bit in the input data.
+        feedback = int(bit) ^ state[-1]  # Calculate the feedback XOR by taking the XOR of the current bit and the last bit of the state.
+        scrambled.append(str(feedback))  # Append the feedback bit (as a string) to the scrambled list.
+        state = [feedback ^ s for s in state[:-1]] + [feedback]  # Update the state register by shifting and XORing with the feedback bit.
+
+    return ''.join(scrambled)  # Return the scrambled data as a concatenated string.
+
 
 def encode_callsign(callsign, ssid):
     # Callsign should be 6 characters, pad with spaces if shorter
@@ -95,14 +132,16 @@ def encode_callsign(callsign, ssid):
     # Combine the encoded callsign and SSID
     return struct.pack('<6B', *encoded_callsign) + struct.pack('B', encoded_ssid)
 
-""" def calculate_fcs(frame):
+""" def placeholder_fcs(frame):
     # Placeholder FCS calculation function (real implementation needed for actual use)
     # For simplicity, let's return a fixed FCS here
     return b'\x12\x34' """
 
 
 def construct_ax25_frame():
-    # Components of the frame
+
+    """COMPONENTS OF THE FRAME"""
+
     #preamble = b'\x7E' * 8
     preamble = "7E7E7E7E7E7E7E7E"
     preamble_bin = format(int(preamble, 16), "064b")
@@ -119,14 +158,14 @@ def construct_ax25_frame():
     # Complete the frame with FCS, end flag, and postamble
     #end_flag = b'\x7E'
     end_flag= "7E"
+    end_flag_bin = format(int(end_flag, 16), "008b")
     #postamble = b'\x7E' * 3
     postamble = "7E7E7E"
+    postamble_bin = format(int(postamble, 16), "024b")
     #full_frame = frame + fcs + end_flag + postamble
 
     postframe = end_flag + postamble
-    print("Postframe: ", postframe)
-    postamble_bin = format(int(postamble, 16), "024b")
-    end_flag_bin = format(int(end_flag, 16), "008b")
+    print("Postframe: ", postframe)    
     postframebin = postamble_bin + end_flag_bin
     print("Postframe to binary: ", postframebin)
 
@@ -135,11 +174,40 @@ def construct_ax25_frame():
     #src_addr = encode_callsign("XX0UHF", 0xe1)
     #dest_addr = struct.pack('<BBBBBBB', 0x00, 0x00, 0x00, 0x00, 0x40, 0x40, 0xE0)
     #src_addr = struct.pack('<BBBBBBB', 0xE0, 0x88, 0x8A, 0x40, 0x40, 0x40, 0xE1)
-    dest_addr = "303030304351E0"
-    src_addr = "585830554846E1"
+
+    """Expected Destination Callsign
+    Encoded in hex
+    ASCII value = 0000CQ
+    """
+    dest_addr = "303030304351"
+    print("Destination Callsign in hexadecimal: ", dest_addr)
+
+    """Destination Callsign SSID = E0"""
+    dest_ssid = "E0"
+
+    """Expected Source Callsign
+    Encoded in hex
+    ASCII value = XX0UHF"""
+    src_addr = "585830554846"
+
+    """Source Callsign SSID = E1"""
+    src_ssid = "E1"
+
+    """Control Field
+    Encoded in hex
+    """
     control = "03"
+
+    """Control Field
+    Encoded in bytes"""
     #control = b'\x03'
+
+    """PID Field
+    Encoded in hex"""
     pid = "F0"
+
+    """PID Field
+    Encoded in bytes"""
     #pid = b'\xF0'
     
     # Example payload (11 bytes, "Hello World!", and then padded to 77 bytes)
@@ -168,9 +236,21 @@ def construct_ax25_frame():
     fcs_calc_frame = preamble + start_flag + frame """
     #fcs = b'\x12\x34'
     #fcs = calculate_fcs(fcs_calc_frame[8:-2])
-    fcs = "80B8"
+    #fcs = crc_calc(frame, 104)
+    #fcs = "80B8"
+    crc_test_data = b'\x7E\x30\x30\x30\x30\x43\x51\xE0\x58\x58\x30\x55\x48\x46\xE1\x03\xF0\x48\x65\x6c\x6c\x6f\x20\x57\x6f\x72\x6c\x64\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+    crc_value = crc_calc(crc_test_data, len(crc_test_data))
+    print("CRC value: ", crc_value)
+    print("CRC value in bytes: ", crc_value.to_bytes(2, 'big'))
+    fcs_byte_one = crc_value & 0xff
+    print("FCS byte one: ", fcs_byte_one)
+    fcs_byte_two = ((crc_value >> 8) & 0xff)
+    print("FCS byte two: ", fcs_byte_two)
+    fcs = fcs_byte_one + fcs_byte_two
+    print("FCS: ", fcs)
 
-    initialframe = frame + fcs
+
+    initialframe = frame + str(fcs)
     #initialframe = initialframe.decode("utf-8")
 
     #initialframe = "6060606086a260b0b060aa908c6203f048656c6c6f20576f726c642120202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020201234"
@@ -194,7 +274,7 @@ def construct_ax25_frame():
 
     print("NRZI encoded: ", nrzi_encode)
 
-    scramble = scrambler(nrzi_encode)
+    scramble = scrambling(nrzi_encode)
 
     print ("Scrambled: " , scramble)
 
