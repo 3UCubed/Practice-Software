@@ -13,13 +13,17 @@ Conversions lib from various datatypes
     return res """
 
 def ascii_to_hexadecimal(data):
+    byte_string = bytes.fromhex(data)
+    ascii_string = byte_string.decode("ASCII")
+    return ascii_string
+
+def ascii_to_hexadecimal(data):
     return hex(ord(data))
 
 def hexadecimal_to_binary(data):
-    hex_num = '1f'
     hex_dict = {'0': '0000', '1': '0001', '2': '0010', '3': '0011', '4': '0100', '5': '0101', '6': '0110', '7': '0111', '8': '1000', '9': '1001', 'a': '1010', 'b': '1011', 'c': '1100', 'd': '1101', 'e': '1110', 'f': '1111'}
     binary = ''
-    for digit in hex_num:
+    for digit in data:
         binary += hex_dict[digit]
 
 

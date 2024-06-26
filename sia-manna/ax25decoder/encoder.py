@@ -19,7 +19,7 @@ import struct
 import conversions
 from crc import Calculator, Crc16
 
-def crc_calc(buffer, size_frame):
+""" def crc_calc(buffer, size_frame):
     size_frame -= 3  # The last flag and the 2 bytes for FCS are removed.
 
     # Initialization of the Shift Register to 0xFFFF
@@ -38,7 +38,28 @@ def crc_calc(buffer, size_frame):
                 continue
             byte >>= 1
 
+    return shiftRegister ^ 0xFFFF  # Final XOR. """
+
+def crc_calc(buffer, size_frame):
+    size_frame -= 3  # The last flag and the 2 bytes for FCS are removed.
+
+    # Initialization of the Shift Register to 0xFFFF
+    shiftRegister = 0xFFFF
+
+    for i in range(1, size_frame):  # The first flag is not calculated so i=1.
+        byte = buffer[i]
+
+        for j in range(8):
+            outBit = shiftRegister & 0x0001
+            shiftRegister >>= 1  # Shift the register to the right.
+
+            if outBit != (byte & 0x01):
+                shiftRegister ^= 0x8408  # Mirrored polynom.
+            byte >>= 1
+    
     return shiftRegister ^ 0xFFFF  # Final XOR.
+
+
 
 
 def bit_stuffing(data):
@@ -216,9 +237,20 @@ def construct_ax25_frame():
     #fcs = b'\x12\x34'
     #fcs = calculate_fcs(fcs_calc_frame[8:-2])
     #fcs = crc_calc(frame, 104)
-    fcs = "80B8"
+    #fcs = "80B8"
+    crc_test_data = b'\x7E\x30\x30\x30\x30\x43\x51\xE0\x58\x58\x30\x55\x48\x46\xE1\x03\xF0\x48\x65\x6c\x6c\x6f\x20\x57\x6f\x72\x6c\x64\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+    crc_value = crc_calc(crc_test_data, len(crc_test_data))
+    print("CRC value: ", crc_value)
+    print("CRC value in bytes: ", crc_value.to_bytes(2, 'big'))
+    fcs_byte_one = crc_value & 0xff
+    print("FCS byte one: ", fcs_byte_one)
+    fcs_byte_two = ((crc_value >> 8) & 0xff)
+    print("FCS byte two: ", fcs_byte_two)
+    fcs = fcs_byte_one + fcs_byte_two
+    print("FCS: ", fcs)
 
-    initialframe = frame + fcs
+
+    initialframe = frame + str(fcs)
     #initialframe = initialframe.decode("utf-8")
 
     #initialframe = "6060606086a260b0b060aa908c6203f048656c6c6f20576f726c642120202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020201234"
