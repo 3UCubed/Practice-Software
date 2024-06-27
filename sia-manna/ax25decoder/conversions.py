@@ -12,6 +12,14 @@ Conversions lib from various datatypes
 
     return res """
 
+def bytes_to_hexadecimal(data):
+    bytes_val = data.hex() #??????
+    return bytes_val
+
+def hexadecimal_to_bytes(data):
+    hex_val = bytes.fromhex(data)
+    return hex_val
+
 def ascii_to_hexadecimal(data):
     byte_string = bytes.fromhex(data)
     ascii_string = byte_string.decode("ASCII")
@@ -25,6 +33,7 @@ def hexadecimal_to_binary(data):
     binary = ''
     for digit in data:
         binary += hex_dict[digit]
+    return binary
 
 
 def binary_to_hexadecimal(n):

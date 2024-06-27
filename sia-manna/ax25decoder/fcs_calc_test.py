@@ -1,16 +1,11 @@
-def reverse_bits(byte):
-    reversed_byte = 0
-    for i in range(8):
-        reversed_byte <<= 1
-        print("reversed_byte <<= 1: ", reversed_byte)
-        reversed_byte |= (byte & 1)
-        print("reversed_byte |= (byte & 1): ", reversed_byte)
-        byte >>= 1
-        print("byte >>= 1: ", byte)
-    return reversed_byte
+import conversions
 
-def convert_msb_to_lsb(buffer):
-    return bytes(reverse_bits(byte) for byte in buffer)
+def reverse_bits(data):
+    bin_data = '{0:08b}'.format(data)
+    rev = reversed(bin_data)
+    print(rev)
+    return rev
+    #return ("{:08b}".format(data)[::-1],2)
 
 def crc_calc(buffer, size_frame):
 
@@ -37,8 +32,34 @@ def crc_calc(buffer, size_frame):
 
 if __name__ == "__main__":
     crc_test_data = b'\x30\x30\x30\x30\x43\x51\xE0\x58\x58\x30\x55\x48\x46\xE1\x03\xF0\x48\x65\x6c\x6c\x6f\x20\x57\x6f\x72\x6c\x64\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
-    lsb_first_data = convert_msb_to_lsb(crc_test_data)
-    print("lsb_first_data: ", lsb_first_data)
+    crc_test_data = crc_test_data.hex()
+    print("In hex: ", crc_test_data)
+    crc_test_data_bin = conversions.hexadecimal_to_binary(crc_test_data)
+    print("crc_test_data_bin: ", crc_test_data_bin)
+    print("reversed_bits: ", reverse_bits(crc_test_data_bin))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    """ #crc_test_data = conversions.hexadecimal_to_binary(crc_test_data)
+    print("In bin: ", crc_test_data)
+    crc_test_data = reverse_bits(crc_test_data)
+    print("reversed_bits: ", crc_test_data)
+    #lsb_first_data = convert_msb_to_lsb(crc_test_data)
+    #print("lsb_first_data: ", lsb_first_data)
     #size_frame = len(lsb_first_data) + 3 
     #crc_output = crc_calc(lsb_first_data, len(lsb_first_data))
-    #print(f"CRC Output:  {crc_output:04X}")
+    #print(f"CRC Output:  {crc_output:04X}") """

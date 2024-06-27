@@ -122,7 +122,7 @@ def scrambling(data, polynomial="10000000000010001"):
     return ''.join(scrambled)  # Return the scrambled data as a concatenated string.
 
 
-def encode_callsign(callsign, ssid):
+""" def encode_callsign(callsign, ssid):
     # Callsign should be 6 characters, pad with spaces if shorter
     callsign = callsign.ljust(6)
     # Encode each character by shifting left 1 bit
@@ -130,7 +130,7 @@ def encode_callsign(callsign, ssid):
     # Encode the SSID
     encoded_ssid = (ssid & 0x0F) << 1 | 0x60
     # Combine the encoded callsign and SSID
-    return struct.pack('<6B', *encoded_callsign) + struct.pack('B', encoded_ssid)
+    return struct.pack('<6B', *encoded_callsign) + struct.pack('B', encoded_ssid) """
 
 """ def placeholder_fcs(frame):
     # Placeholder FCS calculation function (real implementation needed for actual use)
