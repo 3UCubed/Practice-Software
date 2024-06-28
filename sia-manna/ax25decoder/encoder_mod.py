@@ -115,12 +115,11 @@ def nrzi_encoding(data):
     
     return ''.join(encoded)
 """
-
-def scrambling(data, polynomial="10000000000010001"):
-    """
-    Perform scrambling on the given data using a specified polynomial.
+"""
+Perform scrambling on the given data using a specified polynomial.
     Default polynomial for AX.25 is 1 + x^12 + x^17.
-    """
+def scrambling(data, polynomial="10000000000010001"):
+  
     polynomial = [int(x) for x in polynomial]  # Convert the polynomial string into a list of integers.
     state = [0] * len(polynomial)  # Initialize the state register with zeros.
 
@@ -132,6 +131,7 @@ def scrambling(data, polynomial="10000000000010001"):
         state = [feedback ^ s for s in state[:-1]] + [feedback]  # Update the state register by shifting and XORing with the feedback bit.
 
     return ''.join(scrambled)  # Return the scrambled data as a concatenated string.
+"""
 
 
 """ def encode_callsign(callsign, ssid):
