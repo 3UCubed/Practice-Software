@@ -61,7 +61,7 @@ if __name__ == "__main__":
 
     for input_data, expected_output in test_cases.items():
         result = encoder.nrzi_encoding(input_data)
-        #assert result == expected_output, f"Test failed for input: {input_data}. Expected: {expected_output}, got: {result}"
+        assert result == expected_output, f"Test failed for input: {input_data}. Expected: {expected_output}, got: {result}"
         print(f"Test passed for input: {input_data}. Output: {result}")
 
     """Scrambling Test"""

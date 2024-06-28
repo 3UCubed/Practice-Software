@@ -1,11 +1,26 @@
 import conversions
 
 def reverse_bits(data):
-    bin_data = '{0:08b}'.format(data)
-    rev = reversed(bin_data)
-    print(rev)
-    return rev
+
+    if isinstance(data, str):
+        if all(c in '01' for c in data):
+            bin_data = data.zfill(8)
+        else:
+            bin_data = '{0:08b}'. format(int(data))
+    else:
+        bin_data = '{0:08b}'.format(data)
+    rev_bin_data = bin_data[::-1]
+    rev_data = int(rev_bin_data, 2)
+    binary_array = [int(bit) for bit in rev_bin_data]
+
+
+    return binary_array
+    
+    #rev = reversed(bin_data)
+    # print(rev)
+    # return rev
     #return ("{:08b}".format(data)[::-1],2)
+
 
 def crc_calc(buffer, size_frame):
 
@@ -37,7 +52,11 @@ if __name__ == "__main__":
     crc_test_data_bin = conversions.hexadecimal_to_binary(crc_test_data)
     print("crc_test_data_bin: ", crc_test_data_bin)
     print("reversed_bits: ", reverse_bits(crc_test_data_bin))
-
+    #crc_test_data_hex = conversions.binary_to_hexadecimal(crc_test_data_bin)
+    crc_test_data_hex = b'\x26\x36\x4E\xF6\xEA\x04\xF6\x36\x36\xA6\x12\x0F\xC0\x87\x62\x12\xAA\x0C\x1A\x1A\x07\x8A\xC2\x0C\x0C\x0C\x0C'
+    print("CRC test data in hexadecimal: ", crc_test_data_hex)
+    crc_output = crc_calc(crc_test_data_bin, len(crc_test_data_bin))
+    print(f"CRC Output:  {crc_output:04X}")
 
 
 

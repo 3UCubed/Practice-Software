@@ -40,23 +40,33 @@ from crc import Calculator, Crc16
 
     return shiftRegister ^ 0xFFFF  # Final XOR. """
 
+def reverse_bits(byte):
+    reversed_byte = 0
+    for i in range(8):
+        reversed_byte <<= 1
+        reversed_byte |= (byte & 1)
+        byte >>= 1
+    return reversed_byte
+
+def convert_msb_to_lsb(buffer):
+    return bytes(reverse_bits(byte) for byte in buffer)
+
 def crc_calc(buffer, size_frame):
     size_frame -= 3  # The last flag and the 2 bytes for FCS are removed.
+    shiftRegister = 0xFFFF  # Initialization of the Shift Register to 0xFFFF
 
-    # Initialization of the Shift Register to 0xFFFF
-    shiftRegister = 0xFFFF
-
-    for i in range(1, size_frame):  # The first flag is not calculated so i=1.
+    for i in range(size_frame):  # Process all bytes in the frame
         byte = buffer[i]
 
-        for j in range(8):
-            outBit = shiftRegister & 0x0001
-            shiftRegister >>= 1  # Shift the register to the right.
+        for j in range(8):  # Process each bit from LSB to MSB
+            outBit = shiftRegister & 0x0001  # Get the LSB of the shift register
+            shiftRegister >>= 1  # Shift the register to the right
 
-            if outBit != (byte & 0x01):
-                shiftRegister ^= 0x8408  # Mirrored polynom.
-            byte >>= 1
-    
+            if outBit != (byte & 0x01):  # Compare LSB of shift register and current bit of byte
+                shiftRegister ^= 0x8408  # XOR with the mirrored polynomial if the bits are different
+            
+            byte >>= 1  # Shift the byte to the right to process the next bit
+
     return shiftRegister ^ 0xFFFF  # Final XOR.
 
 
@@ -91,11 +101,8 @@ doesn't have to know what level or state it encodes.
 1 = presence of a transition
 0 = absence of a transition
 Function does not work for certain test cases
-"""
+
 def nrzi_encoding(data):
-    """
-    Perform NRZI encoding on the given data.
-    """
     encoded = []
     current_level = '0'
     
@@ -107,6 +114,7 @@ def nrzi_encoding(data):
         encoded.append(current_level)
     
     return ''.join(encoded)
+"""
 
 def scrambling(data, polynomial="10000000000010001"):
     """
@@ -146,7 +154,7 @@ def construct_ax25_frame():
 
     """COMPONENTS OF THE FRAME"""
 
-    #preamble = b'\x7E' * 8
+    """ #preamble = b'\x7E' * 8
     preamble = "7E7E7E7E7E7E7E7E"
     preamble_bin = format(int(preamble, 16), "064b")
     #start_flag = b'\x7E'
@@ -171,7 +179,7 @@ def construct_ax25_frame():
     postframe = end_flag + postamble
     print("Postframe: ", postframe)    
     postframebin = postamble_bin + end_flag_bin
-    print("Postframe to binary: ", postframebin)
+    print("Postframe to binary: ", postframebin) """
 
     # Encode the addresses
     #dest_addr = encode_callsign("0000CQ", 0xe0)
@@ -242,7 +250,7 @@ def construct_ax25_frame():
     #fcs = calculate_fcs(fcs_calc_frame[8:-2])
     #fcs = crc_calc(frame, 104)
     #fcs = "80B8"
-    crc_test_data = b'\x7E\x30\x30\x30\x30\x43\x51\xE0\x58\x58\x30\x55\x48\x46\xE1\x03\xF0\x48\x65\x6c\x6c\x6f\x20\x57\x6f\x72\x6c\x64\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+    crc_test_data = b'\x30\x30\x30\x30\x43\x51\xE0\x58\x58\x30\x55\x48\x46\xE1\x03\xF0\x48\x65\x6c\x6c\x6f\x20\x57\x6f\x72\x6c\x64\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
     crc_value = crc_calc(crc_test_data, len(crc_test_data))
     print("CRC value: ", crc_value)
     print("CRC value in bytes: ", crc_value.to_bytes(2, 'big'))
@@ -272,18 +280,18 @@ def construct_ax25_frame():
 
 
     # Complete the entire frame with the end flags and postamble
-    nrzi_encode_ready = preframebin + bit_stuffed + postframebin
+    #nrzi_encode_ready = preframebin + bit_stuffed + postframebin
 
-    nrzi_encode = nrzi_encoding(nrzi_encode_ready)
+    #nrzi_encode = nrzi_encoding(bit_stuffed)
 
-    print("NRZI encoded: ", nrzi_encode)
+    #print("NRZI encoded: ", nrzi_encode)
 
-    scramble = scrambling(nrzi_encode)
+    #scramble = scrambling(nrzi_encode)
 
-    print ("Scrambled: " , scramble)
+    #print ("Scrambled: " , scramble)
 
     #return full_frame
-    return scramble
+    return bit_stuffed
 
 def main():
     #frame = b'nothing'
