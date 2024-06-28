@@ -1,5 +1,4 @@
 import struct
-import conversions
 
 def reverse_bits(byte):
     reversed_byte = 0
@@ -47,31 +46,57 @@ def bit_stuffing(data):
     return ''.join(stuffed_data)
 
 def construct_ax25_frame():
-    dest_addr = "303030304351"
-    dest_ssid = "E0"
-    src_addr = "585830554846"
-    src_ssid = "E1"
-    control = "03"
-    pid = "F0"
-    payload = "48656c6c6f20576f726c64"
-    payload = payload.ljust(154, '0')
-    
-    frame = dest_addr + src_addr + dest_ssid + src_ssid + control + pid + payload
-    frame_bytes = bytes.fromhex(frame)
-    
-    crc_value = crc_calc(frame_bytes, len(frame_bytes))
-    fcs_bytes = crc_value.to_bytes(2, 'big')
-    fcs_hex = fcs_bytes.hex().upper()
+    # Preamble and Flag
+    preamble = '7E' * 8
+    start_flag = '7E'
+    preframe = preamble + start_flag
 
-    initial_frame = frame + fcs_hex
-    initial_frame_bin = ''.join(f'{int(initial_frame[i:i+2], 16):08b}' for i in range(0, len(initial_frame), 2))
-    
+    # Encode the addresses
+    dest_addr = '303030304351'  # 0000CQ
+    dest_ssid = 'E0'
+    src_addr = '585830554846'  # XX0UHF
+    src_ssid = 'E1'
+
+    # Control and PID fields
+    control = '03'
+    pid = 'F0'
+
+    # Example payload (11 bytes, "Hello World", and then padded to 77 bytes)
+    payload = '48656c6c6f20576f726c'.ljust(154, '0')
+
+    # Construct the initial part of the frame (excluding FCS)
+    frame = dest_addr + dest_ssid + src_addr + src_ssid + control + pid + payload
+
+    # Convert frame to bytes
+    frame_bytes = bytes.fromhex(frame)
+
+    # Calculate the FCS for the frame (excluding preamble and flags)
+    crc_value = crc_calc(frame_bytes, len(frame_bytes) + 3)  # +3 to account for removed bytes
+
+    # Split FCS into two bytes
+    fcs_byte_one = crc_value & 0xff
+    fcs_byte_two = (crc_value >> 8) & 0xff
+    fcs = bytes([fcs_byte_one, fcs_byte_two])
+
+    # Convert FCS to hex
+    fcs_hex = fcs.hex().upper()
+
+    # Combine frame with FCS
+    full_frame = frame + fcs_hex
+
+    # Convert full frame to binary
+    initial_frame_bin = bin(int(full_frame, 16))[2:].zfill(len(full_frame) * 4)
+
+    # Perform bit stuffing
     bit_stuffed_frame = bit_stuffing(initial_frame_bin)
+
+    # NRZI and scrambling steps would go here (not implemented in this snippet)
+
     return bit_stuffed_frame
 
 def main():
-    initial_frame = construct_ax25_frame()
-    print("Full frame:", initial_frame)
+    full_frame = construct_ax25_frame()
+    print("Full frame:", full_frame)
 
 if __name__ == "__main__":
     main()
