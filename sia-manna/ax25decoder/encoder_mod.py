@@ -12,7 +12,6 @@ def convert_msb_to_lsb(buffer):
     return bytes(reverse_bits(byte) for byte in buffer)
 
 def crc_calc(buffer, size_frame):
-    size_frame -= 3  # The last flag and the 2 bytes for FCS are removed.
     shiftRegister = 0xFFFF  # Initialization of the Shift Register to 0xFFFF
 
     for i in range(size_frame):  # Process all bytes in the frame
@@ -61,42 +60,33 @@ def construct_ax25_frame():
     control = '03'
     pid = 'F0'
 
-    # Example payload (11 bytes, "Hello World", and then padded to 77 bytes)
-    payload = '48656c6c6f20576f726c'.ljust(154, '0')
+    # Example payload (11 bytes, "Hello World!", and then padded to 77 bytes)
+    payload = '48656c6c6f20576f726c64'.ljust(154, '0')
 
     # Construct the initial part of the frame (excluding FCS)
-    frame = dest_addr + dest_ssid + src_addr + src_ssid + control + pid + payload
-
-    # Convert frame to bytes
-    frame_bytes = bytes.fromhex(frame)
+    frame_hex = dest_addr + dest_ssid + src_addr + src_ssid + control + pid + payload
+    frame_bytes = bytes.fromhex(frame_hex)
 
     # Calculate the FCS for the frame (excluding preamble and flags)
-    crc_value = crc_calc(frame_bytes, len(frame_bytes) + 3)  # +3 to account for removed bytes
+    crc_value = crc_calc(frame_bytes, len(frame_bytes))
 
     # Split FCS into two bytes
-    fcs_byte_one = crc_value & 0xff
-    fcs_byte_two = (crc_value >> 8) & 0xff
-    fcs = bytes([fcs_byte_one, fcs_byte_two])
-
-    # Convert FCS to hex
-    fcs_hex = fcs.hex().upper()
+    fcs = struct.pack('<H', crc_value)
 
     # Combine frame with FCS
-    full_frame = frame + fcs_hex
+    full_frame = frame_bytes + fcs
 
     # Convert full frame to binary
-    initial_frame_bin = bin(int(full_frame, 16))[2:].zfill(len(full_frame) * 4)
+    initial_frame_bin = ''.join(format(byte, '08b') for byte in full_frame)
 
     # Perform bit stuffing
     bit_stuffed_frame = bit_stuffing(initial_frame_bin)
-
-    # NRZI and scrambling steps would go here (not implemented in this snippet)
 
     return bit_stuffed_frame
 
 def main():
     full_frame = construct_ax25_frame()
-    print("Full frame:", full_frame)
+    print("Full frame (hex):", hex(int(full_frame, 2)))
 
 if __name__ == "__main__":
     main()
