@@ -1,5 +1,7 @@
 import struct
 
+import conversions
+
 def format_hex_string(hex_string):
     # Split the string into pairs of two characters
     hex_pairs = [hex_string[i:i+2] for i in range(0, len(hex_string), 2)]
@@ -70,16 +72,18 @@ def construct_ax25_frame():
     pid = 'F0'
 
     # Example payload (11 bytes, "Hello World!", and then padded to 77 bytes)
-    payload = '48656c6c6f20576f726c64'.ljust(154, '0')
+    #payload = '48656c6c6f20576f726c64'.ljust(154, '0')
+    payload = '48656c6c6f20576f726c64'
 
     # Example payload "ilovechickennuggets"
-    #payload = '696C6F7665636869636B656E6E7567676574730A'.ljust(154, '0')
+    #payload = '696C6F7665636869636B656E6E7567676574730A'
 
     # Construct the initial part of the frame (excluding FCS)
     frame_hex = dest_addr + dest_ssid + src_addr + src_ssid + control + pid + payload
     print("Pre-bit-stuffed frame in hex: ", frame_hex)
 
     frame_bytes = bytes.fromhex(frame_hex)
+    #frame_bytes = b'0000CQàXX0UHFá\x03\xf0Hello World'
     print("Pre-bitstuffed frame in bytes: ", frame_bytes)
 
     # Calculate the FCS for the frame (excluding preamble and flags)
@@ -99,6 +103,17 @@ def construct_ax25_frame():
     fframe = frame_bytes + fcs_swap
     print("Pre-bit-suffed: ", fframe)
     #full_frame = frame_bytes
+
+    test_frame_hex = '303030304351e0585830554846e103f048656c6c6f20576f726c6483ca'
+    test_frame_bin = conversions.hexadecimal_to_binary('303030304351e0585830554846e103f048656c6c6f20576f726c6483ca')
+    test_frame_bin_bytes = bytes.fromhex(test_frame_bin)
+    print("test_frame_bin_bytes: ", test_frame_bin_bytes)
+    test_frame_bin_bytes_lsb = convert_msb_to_lsb(test_frame_bin_bytes)
+    print("test_frame_bin_bytes_lab ", test_frame_bin_bytes_lsb)
+    test_frame_bit_stuffed = bit_stuffing(test_frame_bin)
+    print("Bit stuffed test frame: ", test_frame_bit_stuffed)
+
+    print ("final frame: ", hex(int(test_frame_bit_stuffed, 2)))
 
     # Convert full frame to binary
     initial_frame_bin = ''.join(format(byte, '08b') for byte in fframe)
