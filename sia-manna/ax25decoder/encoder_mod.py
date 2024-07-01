@@ -41,14 +41,13 @@ def bit_stuffing(data):
 
 def construct_ax25_frame():
     # Preamble and Flag
-    preamble = '7E' * 8
-    start_flag = '7E'
-    preframe = preamble + start_flag
+    end_flag = b'7E'
+    start_flag = b'7E'
 
     # Encode the addresses
-    dest_addr = '303030304351'  # 0000CQ
+    dest_addr = '303030304351'  # 0000CQ encoded into hex
     dest_ssid = 'E0'
-    src_addr = '585830554846'  # XX0UHF
+    src_addr = '585830554846'  # XX0UHF encoded into hex
     src_ssid = 'E1'
 
     # Control and PID fields
@@ -58,21 +57,33 @@ def construct_ax25_frame():
     # Example payload (11 bytes, "Hello World!", and then padded to 77 bytes)
     payload = '48656c6c6f20576f726c64'.ljust(154, '0')
 
+    # Example payload "ilovechickennuggets"
+    #payload = '696C6F7665636869636B656E6E7567676574730A'.ljust(154, '0')
+
     # Construct the initial part of the frame (excluding FCS)
     frame_hex = dest_addr + dest_ssid + src_addr + src_ssid + control + pid + payload
+    print("Pre-bit-stuffed frame in hex: ", frame_hex)
+
     frame_bytes = bytes.fromhex(frame_hex)
+    print("Pre-bitstuffed frame in bytes: ", frame_bytes)
 
     # Calculate the FCS for the frame (excluding preamble and flags)
     crc_value = crc_calc(frame_bytes, len(frame_bytes))
 
+
     # Split FCS into two bytes
     fcs = struct.pack('<H', crc_value)
+    print("FCS:" , fcs)
+    #fcs_bytes = bytes.fromhex(fcs)
+    #print("FCS in bytes: ", fcs_bytes)
 
     # Combine frame with FCS
-    full_frame = frame_bytes + fcs
+    fframe = frame_bytes + fcs
+    print("Pre-bit-suffed: ", fframe)
+    #full_frame = frame_bytes
 
     # Convert full frame to binary
-    initial_frame_bin = ''.join(format(byte, '08b') for byte in full_frame)
+    initial_frame_bin = ''.join(format(byte, '08b') for byte in fframe)
 
     # Perform bit stuffing
     bit_stuffed_frame = bit_stuffing(initial_frame_bin)

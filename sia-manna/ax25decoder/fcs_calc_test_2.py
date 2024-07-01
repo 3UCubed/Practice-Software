@@ -9,12 +9,12 @@ def reverse_bits(byte):
 def convert_msb_to_lsb(buffer):
     return bytes(reverse_bits(byte) for byte in buffer)
 
-def crc_calc(buffer, size_frame):
+def crc_calc(frame, size_frame):
     #size_frame -= 3  # The last flag and the 2 bytes for FCS are removed.
     shiftRegister = 0xFFFF  # Initialization of the Shift Register to 0xFFFF
 
     for i in range(size_frame):  # Process all bytes in the frame
-        byte = buffer[i]
+        byte = frame[i]
 
         for j in range(8):  # Process each bit from LSB to MSB
             outBit = shiftRegister & 0x0001  # Get the LSB of the shift register
@@ -28,10 +28,13 @@ def crc_calc(buffer, size_frame):
     return shiftRegister ^ 0xFFFF  # Final XOR.
 
 if __name__ == "__main__":
-    crc_test_data = b'\x30\x30\x30\x30\x43\x51\xE0\x58\x58\x30\x55\x48\x46\xE1\x03\xF0\x48\x65\x6C\x6C\x6F\x20\x57\x6F\x72\x6C\x64\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+    crc_test_data = '303030304351E0585830554846E103F048656c6c6f20576f726c64000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+    crc_test_data_bytes = bytes.fromhex(crc_test_data)
+    #crc_test_data = b'\x6C\x6E\x70\x72\x60\x40\xE0\x62\x64\x66\x68\x6A\x40\x61\x03\xF0\x48\x65\x6C\x6C\x6F\x20\x57\x6F\x72\x6C\x64\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
     
     # Exclude the initial and last 0x7E flags
-    data_to_crc = crc_test_data[1:-1]
+    #data_to_crc = crc_test_data[1:-1]
+    data_to_crc = crc_test_data_bytes
 
     # Convert data to LSB first
     lsb_first_data = convert_msb_to_lsb(data_to_crc)
