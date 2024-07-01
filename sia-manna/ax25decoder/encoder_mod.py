@@ -1,5 +1,20 @@
 import struct
 
+def format_hex_string(hex_string):
+    # Split the string into pairs of two characters
+    hex_pairs = [hex_string[i:i+2] for i in range(0, len(hex_string), 2)]
+    
+    # Format each pair as 0xXX
+    formatted_pairs = ["0x" + pair for pair in hex_pairs]
+    
+    # Join the pairs into lines of 8 pairs each
+    lines = ["  ".join(formatted_pairs[i:i+8]) for i in range(0, len(formatted_pairs), 8)]
+    
+    # Join the lines with newline characters
+    result = "\n".join(lines)
+    
+    return result
+
 def reverse_bits(byte):
     reversed_byte = 0
     for i in range(8):
@@ -95,7 +110,11 @@ def construct_ax25_frame():
 
 def main():
     full_frame = construct_ax25_frame()
-    print("Full frame (hex):", hex(int(full_frame, 2)))
+    full_frame_print = hex(int(full_frame, 2))
+    print("Full frame (hex):", full_frame_print)
+    format_full_frame = format_hex_string(full_frame_print)
+    print("Formatted full frame: ")
+    print(format_full_frame)
 
 if __name__ == "__main__":
     main()
