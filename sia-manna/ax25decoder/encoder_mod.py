@@ -74,11 +74,14 @@ def construct_ax25_frame():
     # Split FCS into two bytes
     fcs = struct.pack('<H', crc_value)
     print("FCS:" , fcs)
-    #fcs_bytes = bytes.fromhex(fcs)
-    #print("FCS in bytes: ", fcs_bytes)
+
+    #Swap FCS bytes
+    fcs_swap = fcs[1:2] + fcs[0:1]
+    print("Swapped: ", fcs_swap)
+
 
     # Combine frame with FCS
-    fframe = frame_bytes + fcs
+    fframe = frame_bytes + fcs_swap
     print("Pre-bit-suffed: ", fframe)
     #full_frame = frame_bytes
 
