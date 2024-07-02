@@ -46,28 +46,81 @@ def construct_ax25_frame():
     end_flag = b'7E'
     start_flag = b'7E'
 
+    scale = 16
 
+
+    """DESTINATION ADDRESS"""
+
+    #dest_addr = '303030304351'  # 0000CQ encoded into hex
+    # Encode the addresses
+    dest_addr_ascii = "0000CQ"
+
+    #Conversion into hex
+    dest_addr_hex = ""
+    for i in dest_addr_ascii:
+        #print("hex bytes for ascii: ", hex(ord(i)))
+        dest_addr_hex = dest_addr_hex + format(ord(i), "x")
+    print("dest address hex: ", dest_addr_hex)
+
+
+    #Conversion into binary
+    dest_addr_bin = bin(int(dest_addr_hex, scale)).zfill(8)
+    print("dest address bin: ", dest_addr_bin)
+    
+
+    
+    dest_ssid = 'e0'
+    dest_ssid_bin = bin(int(dest_ssid, scale)).zfill(8)
+    print("dest ssid bin: ", dest_ssid_bin)
+
+
+    """SOURCE ADDRESS"""
+
+    #src_addr = '585830554846'  # XX0UHF encoded into hex
 
     # Encode the addresses
-    dest_addr = '303030304351'  # 0000CQ encoded into hex
-    dest_ssid = 'E0'
-    src_addr = '585830554846'  # XX0UHF encoded into hex
-    src_ssid = 'E1'
+    src_addr_ascii = "XX0UHF"
+
+    #Conversion into hex
+    src_addr_hex = ""
+    for i in src_addr_ascii:
+        #print("hex bytes for ascii: ", hex(ord(i)))
+        src_addr_hex = src_addr_hex + format(ord(i), "x")
+    print("src address hex: ", src_addr_hex)
+
+
+    src_ssid = 'e1'
 
     # Control and PID fields
     control = '03'
-    pid = 'F0'
+    pid = 'f0'
 
     # Example payload (11 bytes, "Hello World!", and then padded to 77 bytes)
     #payload = '48656c6c6f20576f726c64'.ljust(154, '0')
-    payload = '48656c6c6f20576f726c64'
+    #payload = '48656c6c6f20576f726c64'
+    payload_hex = ""
+    payload_ascii = "Hello World"
+    for i in payload_ascii:
+        payload_hex = payload_hex + format(ord(i), "x")
+    print("payload_hex: ", payload_hex)
+    
 
     # Example payload "ilovechickennuggets"
     #payload = '696C6F7665636869636B656E6E7567676574730A'
 
     # Construct the initial part of the frame (excluding FCS)
-    frame_hex = dest_addr + dest_ssid + src_addr + src_ssid + control + pid + payload
+    frame_hex = dest_addr_hex + dest_ssid + src_addr_hex + src_ssid + control + pid + payload_hex
     print("Pre-bit-stuffed frame in hex: ", frame_hex)
+
+    frame_bin = conversions.hexadecimal_to_binary(frame_hex)
+    print("frame_bin: ", frame_bin)
+
+    frame_bin_bit_stuffed = bit_stuffing(frame_bin)
+    print("Frame after bit stuffed: ", frame_bin_bit_stuffed)
+
+    print("bit stuffed frame_bin_bit_stuffed: ", hex(int(frame_bin_bit_stuffed, 2)))
+
+
 
     frame_bytes = bytes.fromhex(frame_hex)
     #frame_bytes = b'0000CQàXX0UHFá\x03\xf0Hello World'
@@ -88,15 +141,24 @@ def construct_ax25_frame():
 
     # Combine frame with FCS
     fframe = frame_bytes + fcs_swap
-    print("Pre-bit-suffed: ", fframe)
+    print("Pre-bit-stuffed: ", fframe.hex())
     #full_frame = frame_bytes
 
-    test_frame_hex = '303030304351e0585830554846e103f048656c6c6f20576f726c6483ca'
-    test_frame_bin = conversions.hexadecimal_to_binary('303030304351e0585830554846e103f048656c6c6f20576f726c6483ca')
+    
+    fframe_bin = conversions.hexadecimal_to_binary(fframe.hex())
+    fframe_bin_bytes = bytes.fromhex(fframe_bin)
+    print("fframe_bin_bytes: ", fframe_bin_bytes)
+    #fframe_bin_bytes_lsb = convert_msb_to_lsb(test_frame_bin_bytes)
+    #print("fframe_bin_bytes_lsb: ", fframe_bin_bytes_lsb)
+    #fframe_bit_stuffed = bit_stuffing(fframe_bin_bytes_lsb)
+
+
+    test_frame_hex = '303030304351e0585830554846e103f048656c6c6f20576f726c647e80'
+    test_frame_bin = conversions.hexadecimal_to_binary('303030304351e0585830554846e103f048656c6c6f20576f726c647e80')
     test_frame_bin_bytes = bytes.fromhex(test_frame_bin)
     print("test_frame_bin_bytes: ", test_frame_bin_bytes)
     test_frame_bin_bytes_lsb = convert_msb_to_lsb(test_frame_bin_bytes)
-    print("test_frame_bin_bytes_lab ", test_frame_bin_bytes_lsb)
+    print("test_frame_bin_bytes_lsb ", test_frame_bin_bytes_lsb)
     test_frame_bit_stuffed = bit_stuffing(test_frame_bin)
     print("Bit stuffed test frame: ", test_frame_bit_stuffed)
 
