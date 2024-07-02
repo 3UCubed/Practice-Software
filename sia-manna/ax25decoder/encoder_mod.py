@@ -1,21 +1,5 @@
 import struct
-
 import conversions
-
-def format_hex_string(hex_string):
-    # Split the string into pairs of two characters
-    hex_pairs = [hex_string[i:i+2] for i in range(0, len(hex_string), 2)]
-    
-    # Format each pair as 0xXX
-    formatted_pairs = ["0x" + pair for pair in hex_pairs]
-    
-    # Join the pairs into lines of 8 pairs each
-    lines = ["  ".join(formatted_pairs[i:i+8]) for i in range(0, len(formatted_pairs), 8)]
-    
-    # Join the lines with newline characters
-    result = "\n".join(lines)
-    
-    return result
 
 def reverse_bits(byte):
     reversed_byte = 0
@@ -28,11 +12,11 @@ def reverse_bits(byte):
 def convert_msb_to_lsb(buffer):
     return bytes(reverse_bits(byte) for byte in buffer)
 
-def crc_calc(buffer, size_frame):
+def crc_calc(frame, size_frame):
     shift_register = 0xFFFF  # Initialization of the Shift Register to 0xFFFF
 
     for i in range(size_frame):  # Process all bytes in the frame
-        byte = buffer[i]
+        byte = frame[i]
         for j in range(8):  # Process each bit from LSB to MSB
             out_bit = shift_register & 0x0001  # Get the LSB of the shift register
             shift_register >>= 1  # Shift the register to the right
@@ -56,10 +40,13 @@ def bit_stuffing(data):
             count = 0
     return ''.join(stuffed_data)
 
+
 def construct_ax25_frame():
     # Preamble and Flag
     end_flag = b'7E'
     start_flag = b'7E'
+
+
 
     # Encode the addresses
     dest_addr = '303030304351'  # 0000CQ encoded into hex
@@ -127,7 +114,7 @@ def main():
     full_frame = construct_ax25_frame()
     full_frame_print = hex(int(full_frame, 2))
     print("Full frame (hex):", full_frame_print)
-    format_full_frame = format_hex_string(full_frame_print)
+    format_full_frame = conversions.format_hex_string(full_frame_print)
     print("Formatted full frame: ")
     print(format_full_frame)
 

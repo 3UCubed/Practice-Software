@@ -12,6 +12,21 @@ Conversions lib from various datatypes
 
     return res """
 
+def format_hex_string(hex_string):
+    # Split the string into pairs of two characters
+    hex_pairs = [hex_string[i:i+2] for i in range(0, len(hex_string), 2)]
+    
+    # Format each pair as 0xXX
+    formatted_pairs = ["0x" + pair for pair in hex_pairs]
+    
+    # Join the pairs into lines of 8 pairs each
+    lines = ["  ".join(formatted_pairs[i:i+8]) for i in range(0, len(formatted_pairs), 8)]
+    
+    # Join the lines with newline characters
+    result = "\n".join(lines)
+    
+    return result
+
 def bytes_to_hexadecimal(data):
     bytes_val = data.hex() #??????
     return bytes_val
