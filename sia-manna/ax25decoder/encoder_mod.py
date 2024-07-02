@@ -1,6 +1,27 @@
 import struct
 import conversions
 
+def format_hex_string(hex_string):
+    # Remove the "0x" prefix and split the string into pairs of characters
+    bytes_list = [hex_string[i:i+2] for i in range(2, len(hex_string), 2)]
+    
+    # Format each byte as "0xXX"
+    formatted_bytes = [f"0x{byte}" for byte in bytes_list]
+    
+    # Create formatted lines
+    lines = []
+    line = []
+    for i, byte in enumerate(formatted_bytes):
+        line.append(byte)
+        if (i + 1) % 8 == 0:  # After every 8 bytes, add the line to lines
+            lines.append(' '.join(line[:8]) + '  ' + ' '.join(line[8:]))
+            line = []
+    
+    if line:  # Add any remaining bytes
+        lines.append(' '.join(line[:8]) + '  ' + ' '.join(line[8:]))
+    
+    return '\n'.join(lines)
+
 def reverse_bits(byte):
     reversed_byte = 0
     for i in range(8):
@@ -41,7 +62,7 @@ def bit_stuffing(data):
     return ''.join(stuffed_data)
 
 
-def construct_ax25_frame():
+def construct_ax25_frame(payload_of_choice):
     # Preamble and Flag
     end_flag = b'7E'
     start_flag = b'7E'
@@ -60,18 +81,18 @@ def construct_ax25_frame():
     for i in dest_addr_ascii:
         #print("hex bytes for ascii: ", hex(ord(i)))
         dest_addr_hex = dest_addr_hex + format(ord(i), "x")
-    print("dest address hex: ", dest_addr_hex)
+    print("Destination Address in hexadecimal: ", dest_addr_hex)
 
 
     #Conversion into binary
     dest_addr_bin = bin(int(dest_addr_hex, scale)).zfill(8)
-    print("dest address bin: ", dest_addr_bin)
+    print("Destination Address in Binary: ", dest_addr_bin)
     
 
     
     dest_ssid = 'e0'
     dest_ssid_bin = bin(int(dest_ssid, scale)).zfill(8)
-    print("dest ssid bin: ", dest_ssid_bin)
+    print("Destination SSID in binary: ", dest_ssid_bin)
 
 
     """SOURCE ADDRESS"""
@@ -86,7 +107,7 @@ def construct_ax25_frame():
     for i in src_addr_ascii:
         #print("hex bytes for ascii: ", hex(ord(i)))
         src_addr_hex = src_addr_hex + format(ord(i), "x")
-    print("src address hex: ", src_addr_hex)
+    print("Source Address in hexadecimal: ", src_addr_hex)
 
 
     src_ssid = 'e1'
@@ -99,10 +120,11 @@ def construct_ax25_frame():
     #payload = '48656c6c6f20576f726c64'.ljust(154, '0')
     #payload = '48656c6c6f20576f726c64'
     payload_hex = ""
-    payload_ascii = "Hello World"
+    #payload_ascii = "Hello World"
+    payload_ascii = payload_of_choice
     for i in payload_ascii:
         payload_hex = payload_hex + format(ord(i), "x")
-    print("payload_hex: ", payload_hex)
+    print("Payload in hexadecimal: ", payload_hex)
     
 
     # Example payload "ilovechickennuggets"
@@ -110,17 +132,53 @@ def construct_ax25_frame():
 
     # Construct the initial part of the frame (excluding FCS)
     frame_hex = dest_addr_hex + dest_ssid + src_addr_hex + src_ssid + control + pid + payload_hex
-    print("Pre-bit-stuffed frame in hex: ", frame_hex)
+    print("Pre-bit-stuffed frame without FCS from dest address-payload in hexadecimal: ", frame_hex)
+
+
+
+
+
+
+
+
 
     frame_bin = conversions.hexadecimal_to_binary(frame_hex)
-    print("frame_bin: ", frame_bin)
+    print("Pre-bit-stuffed frame without FCS from dest address-payload in binary: ", frame_bin)
 
     frame_bin_bit_stuffed = bit_stuffing(frame_bin)
-    print("Frame after bit stuffed: ", frame_bin_bit_stuffed)
+    print("Frame without FCS after bit stuffing (works with NotBlackMagic): ", frame_bin_bit_stuffed)
 
-    print("bit stuffed frame_bin_bit_stuffed: ", hex(int(frame_bin_bit_stuffed, 2)))
+    final_frame_without_fcs_in_hex = hex(int(frame_bin_bit_stuffed, 2))
+
+    print("Bit-stuffed frame without FCS in hexadecimal: ", final_frame_without_fcs_in_hex)
 
 
+
+
+
+
+    """FCS CALCULATION"""
+
+    frame_bytes = bytes.fromhex(frame_hex)
+    crc_value = crc_calc(frame_bytes, len(frame_bytes))
+    # Split FCS into two bytes
+    fcs = struct.pack('<H', crc_value)
+    print("FCS:" , fcs)
+    #Swap FCS bytes
+    fcs_swap = fcs[1:2] + fcs[0:1]
+    print("Swapped: ", fcs_swap)
+
+    frame_with_fcs = frame_hex + fcs_swap.hex()
+    print("Frame with FCS without bit-stuffing: ", frame_with_fcs)
+    frame_with_fcs_bin = conversions.hexadecimal_to_binary(frame_with_fcs)
+    frame_with_fcs_bit_stuffed = bit_stuffing(frame_with_fcs_bin)
+    final_frame_with_fcs_bit_stuffed = hex(int(frame_with_fcs_bit_stuffed, 2))
+    print("Bit-stuffed frame with FCS in hexadecimal: ", final_frame_with_fcs_bit_stuffed)
+
+
+
+
+    """
 
     frame_bytes = bytes.fromhex(frame_hex)
     #frame_bytes = b'0000CQàXX0UHFá\x03\xf0Hello World'
@@ -145,9 +203,9 @@ def construct_ax25_frame():
     #full_frame = frame_bytes
 
     
-    fframe_bin = conversions.hexadecimal_to_binary(fframe.hex())
-    fframe_bin_bytes = bytes.fromhex(fframe_bin)
-    print("fframe_bin_bytes: ", fframe_bin_bytes)
+    #fframe_bin = conversions.hexadecimal_to_binary(fframe.hex())
+    #fframe_bin_bytes = bytes.fromhex(fframe_bin)
+    #print("fframe_bin_bytes: ", fframe_bin_bytes)
     #fframe_bin_bytes_lsb = convert_msb_to_lsb(test_frame_bin_bytes)
     #print("fframe_bin_bytes_lsb: ", fframe_bin_bytes_lsb)
     #fframe_bit_stuffed = bit_stuffing(fframe_bin_bytes_lsb)
@@ -171,13 +229,18 @@ def construct_ax25_frame():
     bit_stuffed_frame = bit_stuffing(initial_frame_bin)
 
     return bit_stuffed_frame
+    """
+
+    return final_frame_without_fcs_in_hex
 
 def main():
-    full_frame = construct_ax25_frame()
-    full_frame_print = hex(int(full_frame, 2))
-    print("Full frame (hex):", full_frame_print)
-    format_full_frame = conversions.format_hex_string(full_frame_print)
-    print("Formatted full frame: ")
+    payload_of_choice = input("What is your value for payload? ")
+    full_frame = construct_ax25_frame(payload_of_choice)
+    #full_frame_print = hex(int(full_frame, 2))
+    #print("Full frame (hex):", full_frame_print)
+    print("Full frame without FCS that works with not black magic: ", full_frame)
+    format_full_frame = format_hex_string(full_frame)
+    print("Formatted full frame to put in black magic decoder: ")
     print(format_full_frame)
 
 if __name__ == "__main__":
