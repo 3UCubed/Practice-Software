@@ -62,7 +62,7 @@ def bit_stuffing(data):
     return ''.join(stuffed_data)
 
 
-def construct_ax25_frame(payload_of_choice):
+def construct_ax25_frame(payload_of_choice, destination_address, source_address):
     # Preamble and Flag
     end_flag = b'7E'
     start_flag = b'7E'
@@ -74,7 +74,8 @@ def construct_ax25_frame(payload_of_choice):
 
     #dest_addr = '303030304351'  # 0000CQ encoded into hex
     # Encode the addresses
-    dest_addr_ascii = "0000CQ"
+    #dest_addr_ascii = "3U3UHF"
+    dest_addr_ascii = destination_address
 
     #Conversion into hex
     dest_addr_hex = ""
@@ -100,7 +101,8 @@ def construct_ax25_frame(payload_of_choice):
     #src_addr = '585830554846'  # XX0UHF encoded into hex
 
     # Encode the addresses
-    src_addr_ascii = "XX0UHF"
+    #src_addr_ascii = "3U3UNH"
+    src_addr_ascii = source_address
 
     #Conversion into hex
     src_addr_hex = ""
@@ -109,8 +111,15 @@ def construct_ax25_frame(payload_of_choice):
         src_addr_hex = src_addr_hex + format(ord(i), "x")
     print("Source Address in hexadecimal: ", src_addr_hex)
 
+    #Conversion into binary
+    src_addr_bin = bin(int(src_addr_hex, scale)).zfill(8)
+    print("Source Address in Binary: ", src_addr_bin)
+
 
     src_ssid = 'e1'
+
+    src_ssid_bin = bin(int(src_ssid, scale)).zfill(8)
+    print("Source SSID in binary: ", src_ssid_bin)
 
     # Control and PID fields
     control = '03'
@@ -235,7 +244,9 @@ def construct_ax25_frame(payload_of_choice):
 
 def main():
     payload_of_choice = input("What is your value for payload? ")
-    full_frame = construct_ax25_frame(payload_of_choice)
+    dstaddr_of_choice = input("What is your destination address? ")
+    srcaddr_of_choice = input("What is the source address? ")
+    full_frame = construct_ax25_frame(payload_of_choice, dstaddr_of_choice, srcaddr_of_choice)
     #full_frame_print = hex(int(full_frame, 2))
     #print("Full frame (hex):", full_frame_print)
     print("Full frame without FCS that works with not black magic: ", full_frame)
