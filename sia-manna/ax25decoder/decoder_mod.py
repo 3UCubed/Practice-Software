@@ -1,5 +1,24 @@
 import struct
 
+def hexToASCII(hexx):
+ 
+    # initialize the ASCII code string as empty.
+    ascii = ""
+ 
+    for i in range(0, len(hexx), 2):
+ 
+        # extract two characters from hex string
+        part = hexx[i : i + 2]
+ 
+        # change it into base 16 and
+        # typecast as the character 
+        ch = chr(int(part, 16))
+ 
+        # add this char to final ASCII string
+        ascii += ch
+     
+    return ascii
+
 def binary_to_hexadecimal(binary_str):
     # Ensure the binary string length is a multiple of 4
     while len(binary_str) % 4 != 0:
@@ -38,9 +57,56 @@ def destruct_ax25_frame(encoded_frame):
     bit_destuffed_frame_hex = binary_to_hexadecimal(bit_destuffed_frame)
     print("Bit_decoded_frame_hex: ", bit_destuffed_frame_hex)
 
+    position = 0
+    dest_ssid = ""
+    src_ssid = ""
+    control = ""
+    pid = ""
+    dest_addr_array = []
+    src_addr_array = []
+    payload_array = []
 
+    for i in range(0, len(bit_destuffed_frame_hex), 2):
+        position += 1
+        hex_pair = bit_destuffed_frame_hex[i:i+2]
+        hex_pair_in_ascii = hexToASCII(hex_pair)
+        if position <= 6:
+            dest_addr_array += hex_pair_in_ascii
+        elif position == 7:
+            dest_ssid = hex_pair
+        elif position >=8 and position <= 13:
+            src_addr_array += hex_pair_in_ascii
+        elif position == 14:
+            src_ssid = hex_pair
+        elif position == 15:
+            control = hex_pair
+        elif position == 16:
+            pid = hex_pair
+        else:
+        #if position >= 17:
+            payload_array += hex_pair_in_ascii
+        
+    dest_addr = ""
+    for i in dest_addr_array:
+        dest_addr += i
+    print("Destination Address: ", dest_addr) 
 
+    print("Destination SSID: ", dest_ssid)
 
+    src_addr = ""
+    for i in src_addr_array:
+        src_addr += i
+    print("Source Address: ", src_addr)       
+
+    print("Source SSID: ", src_ssid)
+
+    print("Control: ", control)
+    print("PID: ", pid)
+
+    payload = ""
+    for i in payload_array:
+        payload += i
+    print("Payload: ", payload)
 
     return bit_destuffed_frame_hex
     
