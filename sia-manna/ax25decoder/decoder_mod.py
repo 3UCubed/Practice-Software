@@ -52,6 +52,7 @@ def bit_destuffing(data):
     return ''.join(destuffed_data)
 
 def destruct_ax25_frame(encoded_frame):
+    
     bit_destuffed_frame = bit_destuffing(encoded_frame)
     print("Bit-destuffed frame: ", bit_destuffed_frame)
     bit_destuffed_frame_hex = binary_to_hexadecimal(bit_destuffed_frame)
@@ -111,6 +112,7 @@ def destruct_ax25_frame(encoded_frame):
     return bit_destuffed_frame_hex
     
 def main():
+    #frame_of_choice = input("What is your value for the encoded frame? ")
     encoded_frame = "0x60 0x60 0x60 0x60 0x86 0xa3 0xc0 0xb0 0xb0 0x60 0xaa 0x90 0x8d 0xc2 0x07 0xd0 0x68 0x65 0x6c 0x6c 0x6f 0x20 0x77 0x6f 0x72 0x6c 0x64"
     hex_encoded_frame = encoded_frame.replace("0x", "").replace(" ", "")
     print("hex_encoded_frame: ", hex_encoded_frame)
