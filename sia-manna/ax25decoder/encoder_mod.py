@@ -1,5 +1,11 @@
 import struct
 import conversions
+import math
+
+#def rev(num):
+    # return int(num != 0) and ((num % 10) * \
+    #         (10**int(math.log(num, 10))) + \
+    #                     rev(num // 10))
 
 def format_hex_string(hex_string):
     # Remove the "0x" prefix and split the string into pairs of characters
@@ -60,6 +66,35 @@ def bit_stuffing(data):
         else:
             count = 0
     return ''.join(stuffed_data)
+
+def hdlc_encoding(init_frame):
+    print ("Initial frame: ", init_frame)
+    hex_encoded_frame = init_frame.replace("0x", "").replace(" ", "")
+
+    #Convert to binary
+    init_frame_bin = conversions.hexadecimal_to_binary(hex_encoded_frame)
+    print("Init_frame to bin: ", init_frame_bin)
+
+
+    # Step 1: Separate into an array of 4-bit segments
+    segments = [init_frame_bin[i:i+8] for i in range(0, len(init_frame_bin), 8)]
+    print ("segments: ", segments)
+    
+    # Step 2: Flip the bits in each segment
+    flipped_segments = []
+    for segment in segments:
+        #flipped_segment = rev(segment)
+        flipped_segment = segment[0::-1]
+        print("flipped segment: ", flipped_segment)
+        #flipped_segment = ''.join('1' if bit == '0' else '0' for bit in segment)
+        #print("flipped segment: ", flipped_segment)
+        flipped_segments.append(flipped_segment)
+    
+    # Step 3: Convert each flipped segment to hexadecimal
+    hex_values = [hex(int(segment, 2))[2:].upper() for segment in flipped_segments]
+    
+    return hex_values
+
 
 
 def construct_ax25_frame(payload_of_choice, destination_address, source_address):
@@ -249,8 +284,13 @@ def main():
     full_frame = construct_ax25_frame(payload_of_choice, dstaddr_of_choice, srcaddr_of_choice)
     #full_frame_print = hex(int(full_frame, 2))
     #print("Full frame (hex):", full_frame_print)
+    #average sample frame = 0xb0 0xb0 0x60 0xaa 0x90 0x8d 0xc0 0x60 0x60 0x60 0x60 0x86 0xa3 0xc2 0x07 0xd0 0x48 0x65 0x6c 0x6c 0x6f 0x20 0x57 0x6f 0x72 0x6c 0x73
     print("Full frame without FCS that works with not black magic: ", full_frame)
+    #lsb_init_frame = msb_to_lsb(full_frame)
+    reversed_frame = hdlc_encoding(full_frame)
+    print("HDLC Encoded: ", reversed_frame)
     format_full_frame = format_hex_string(full_frame)
+
     print("Formatted full frame to put in black magic decoder: ")
     print(format_full_frame)
 
