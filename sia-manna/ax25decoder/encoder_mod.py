@@ -28,16 +28,16 @@ def format_hex_string(hex_string):
     
     return '\n'.join(lines)
 
-def reverse_bits(byte):
+""" def reverse_bits(byte):
     reversed_byte = 0
     for i in range(8):
         reversed_byte <<= 1
         reversed_byte |= (byte & 1)
         byte >>= 1
-    return reversed_byte
+    return reversed_byte 
 
 def convert_msb_to_lsb(buffer):
-    return bytes(reverse_bits(byte) for byte in buffer)
+    return bytes(reverse_bits(byte) for byte in buffer) """
 
 def crc_calc(frame, size_frame):
     shift_register = 0xFFFF  # Initialization of the Shift Register to 0xFFFF
