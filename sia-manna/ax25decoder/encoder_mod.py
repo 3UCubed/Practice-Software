@@ -84,11 +84,13 @@ def hdlc_encoding(init_frame):
     flipped_segments = []
     for segment in segments:
         #flipped_segment = rev(segment)
-        flipped_segment = segment[0::-1]
+        flipped_segment = reverse_bits(segment)
+        #flipped_segment = segment[0::-1]
         print("flipped segment: ", flipped_segment)
         #flipped_segment = ''.join('1' if bit == '0' else '0' for bit in segment)
         #print("flipped segment: ", flipped_segment)
         flipped_segments.append(flipped_segment)
+    print("flipped_segments: ", flipped_segments)
     
     # Step 3: Convert each flipped segment to hexadecimal
     hex_values = [hex(int(segment, 2))[2:].upper() for segment in flipped_segments]
