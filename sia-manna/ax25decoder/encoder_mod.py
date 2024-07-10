@@ -78,17 +78,6 @@ def format_hex_string(hex_val):
     
     return final_answer
 
-""" def reverse_bits(byte):
-    reversed_byte = 0
-    for i in range(8):
-        reversed_byte <<= 1
-        reversed_byte |= (byte & 1)
-        byte >>= 1
-    return reversed_byte 
-
-def convert_msb_to_lsb(buffer):
-    return bytes(reverse_bits(byte) for byte in buffer) """
-
 # correct fcs calculation
 def crc_calc(frame, size_frame):
     shift_register = 0xFFFF  # Initialization of the Shift Register to 0xFFFF
@@ -137,7 +126,7 @@ def hdlc_frame(init_frame):
 
     #Convert to binary
     init_frame_bin = conversions.hexadecimal_to_binary(hex_encoded_frame)
-    print("Init_frame to bin: ", init_frame_bin)
+    print("AX25 frame to binary: ", init_frame_bin)
 
 
     # Step 1: Separate into an array of 4-bit segments
@@ -160,6 +149,14 @@ def hdlc_frame(init_frame):
 
 #write clearer print statements
 def ax25_frame(payload_of_choice, destination_address, source_address):
+
+    """! Construct the AX25 frame from scratch with destination
+    address, destination SSID, source address, source SSID, 
+    control, PID, payload
+    @param hex_val hexadecimal value of ax25 frame
+    @return hexadecimal HDLC frame
+    """
+
     scale = 16
 
     """DESTINATION ADDRESS"""
@@ -274,63 +271,20 @@ def ax25_frame(payload_of_choice, destination_address, source_address):
     #absolute_last_frame = final_frame_without_fcs_in_hex + fcs_swap.hex()
 
 
-    """
-
-    frame_bytes = bytes.fromhex(frame_hex)
-    #frame_bytes = b'0000CQàXX0UHFá\x03\xf0Hello World'
-    print("Pre-bitstuffed frame in bytes: ", frame_bytes)
-
-    # Calculate the FCS for the frame (excluding preamble and flags)
-    crc_value = crc_calc(frame_bytes, len(frame_bytes))
-
-
-    # Split FCS into two bytes
-    fcs = struct.pack('<H', crc_value)
-    print("FCS:" , fcs)
-
-    #Swap FCS bytes
-    fcs_swap = fcs[1:2] + fcs[0:1]
-    print("Swapped: ", fcs_swap)
-
-
-    # Combine frame with FCS
-    fframe = frame_bytes + fcs_swap
-    print("Pre-bit-stuffed: ", fframe.hex())
-    #full_frame = frame_bytes
-
-    
-    #fframe_bin = conversions.hexadecimal_to_binary(fframe.hex())
-    #fframe_bin_bytes = bytes.fromhex(fframe_bin)
-    #print("fframe_bin_bytes: ", fframe_bin_bytes)
-    #fframe_bin_bytes_lsb = convert_msb_to_lsb(test_frame_bin_bytes)
-    #print("fframe_bin_bytes_lsb: ", fframe_bin_bytes_lsb)
-    #fframe_bit_stuffed = bit_stuffing(fframe_bin_bytes_lsb)
-
-
-    test_frame_hex = '303030304351e0585830554846e103f048656c6c6f20576f726c647e80'
-    test_frame_bin = conversions.hexadecimal_to_binary('303030304351e0585830554846e103f048656c6c6f20576f726c647e80')
-    test_frame_bin_bytes = bytes.fromhex(test_frame_bin)
-    print("test_frame_bin_bytes: ", test_frame_bin_bytes)
-    test_frame_bin_bytes_lsb = convert_msb_to_lsb(test_frame_bin_bytes)
-    print("test_frame_bin_bytes_lsb ", test_frame_bin_bytes_lsb)
-    test_frame_bit_stuffed = bit_stuffing(test_frame_bin)
-    print("Bit stuffed test frame: ", test_frame_bit_stuffed)
-
-    print ("final frame: ", hex(int(test_frame_bit_stuffed, 2)))
-
-    # Convert full frame to binary
-    initial_frame_bin = ''.join(format(byte, '08b') for byte in fframe)
-
-    # Perform bit stuffing
-    bit_stuffed_frame = bit_stuffing(initial_frame_bin)
-
-    return bit_stuffed_frame
-    """
-
     return final_frame_without_fcs_in_hex
     #return absolute_last_frame
 
+
 def hdlc_encoding(init_frame):
+
+    """! Construct the AX25 frame from scratch with destination
+    address, destination SSID, source address, source SSID, 
+    control, PID, payload
+    @param hex_val hexadecimal value of ax25 frame
+    @return hexadecimal HDLC frame
+    """
+
+
     print ("AX.25 Frame: ", init_frame)
     hex_encoded_frame = init_frame.replace("0x", "").replace(" ", "")
 
@@ -372,11 +326,7 @@ def main():
     dstaddr_of_choice = input("What is your destination address? ")
     srcaddr_of_choice = input("What is the source address? ")
     full_frame = ax25_frame(payload_of_choice, dstaddr_of_choice, srcaddr_of_choice)
-    #full_frame_print = hex(int(full_frame, 2))
-    #print("Full frame (hex):", full_frame_print)
-    #average sample frame = 0xb0 0xb0 0x60 0xaa 0x90 0x8d 0xc0 0x60 0x60 0x60 0x60 0x86 0xa3 0xc2 0x07 0xd0 0x48 0x65 0x6c 0x6c 0x6f 0x20 0x57 0x6f 0x72 0x6c 0x73
     print("Full frame without FCS that works with not black magic: ", full_frame)
-    #lsb_init_frame = msb_to_lsb(full_frame)
     reversed_frame = hdlc_frame(full_frame)
     print("HDLC Encoded: ") 
     print(reversed_frame)

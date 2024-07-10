@@ -12,6 +12,17 @@ Conversions lib from various datatypes
 
     return res """
 
+""" def reverse_bits(byte):
+    reversed_byte = 0
+    for i in range(8):
+        reversed_byte <<= 1
+        reversed_byte |= (byte & 1)
+        byte >>= 1
+    return reversed_byte 
+
+def convert_msb_to_lsb(buffer):
+    return bytes(reverse_bits(byte) for byte in buffer) """
+
 def format_hex_string(hex_string):
     # Split the string into pairs of two characters
     hex_pairs = [hex_string[i:i+2] for i in range(0, len(hex_string), 2)]
