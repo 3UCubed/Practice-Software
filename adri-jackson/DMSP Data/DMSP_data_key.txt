@@ -1,0 +1,43 @@
+Hour of day for 1st second of data, 0 to 23, hours
+Minute of hour for 1st second of data, 0 to 59, minutes
+Second of minute for 1st second of data, 0 to 60, seconds - If word 2596 equals 1 then float(i)/1000.0
+channel 4, 9450 eV electrons, raw data
+channel 3, 13900 eV electrons, raw data
+channel 2, 20400 eV electrons, raw data
+channel 1, 30000 eV electrons, raw data
+channel 8, 2040 eV electrons, raw data 
+channel 7, 3000 eV electrons, raw data 
+channel 6, 4400 eV electrons, raw data
+channel 5, 6460 eV electrons, raw data 
+channel 12, 646 eV electrons, raw data
+channel 11, 949 eV electrons, raw data; or status word 1 if SSJ5 data
+channel 10, 949 eV electrons, raw data 
+channel 9, 1392 eV electrons, raw data 
+channel 16, 139 eV electrons, raw data 
+channel 15, 204 eV electrons, raw data 
+channel 14, 300 eV electrons, raw data 
+channel 13, 440 eV electrons, raw data 
+channel 20, 30 eV electrons, raw data 
+channel 19, 44 eV electrons, raw data 
+channel 18, 65 eV electrons, raw data 
+channel 17, 95 eV electrons, raw data 
+channel 4, 9450 eV ions, raw data 
+channel 3, 13900 eV ions, raw data
+channel 2, 20400 eV ions, raw data
+channel 1, 30000 eV ions, raw data
+channel 8, 2040 eV ions, raw data 
+channel 7, 3000 eV ions, raw data 
+channel 6, 4400 eV ions, raw data 
+channel 5, 6460 eV ions, raw data 
+channel 12, 646 eV ions, raw data 
+channel 11, 949 eV ions, raw data; or status word 2 if SSJ5 data
+channel 10, 949 eV ions, raw data
+channel 9, 1392 eV ions, raw data
+channel 16, 139 eV ions, raw data
+channel 15, 204 eV ions, raw data
+channel 14, 300 eV ions, raw data
+channel 13, 440 eV ions, raw data
+channel 20, 30 eV ions, raw data
+channel 19, 44 eV ions, raw data
+channel 18, 65 eV ions, raw data
+channel 17, 95 eV ions, raw data 
