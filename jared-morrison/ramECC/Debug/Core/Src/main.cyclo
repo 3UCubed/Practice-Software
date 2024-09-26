@@ -1,0 +1,13 @@
+main.c:124:6:read_RAM	2
+main.c:135:6:write_RAM	2
+main.c:144:6:PerformMemoryCheck	1
+main.c:164:5:main	1
+main.c:210:6:SystemClock_Config	4
+main.c:271:13:MX_ETH_Init	2
+main.c:320:13:MX_RAMECC_Init	13
+main.c:463:13:MX_USART3_UART_Init	5
+main.c:511:13:MX_USB_OTG_FS_PCD_Init	2
+main.c:547:13:MX_GPIO_Init	1
+main.c:609:6:HAL_RAMECC_DetectErrorCallback	3
+main.c:627:6:enable_ramecc_monitor_notifications	3
+main.c:641:6:Error_Handler	1

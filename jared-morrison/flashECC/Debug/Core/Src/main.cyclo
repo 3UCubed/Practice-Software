@@ -1,0 +1,14 @@
+main.c:117:6:init_flash_ecc	1
+main.c:129:6:erase_user_flash	2
+main.c:152:6:cause_flash_single_error	4
+main.c:171:6:cause_flash_double_error	4
+main.c:190:6:HAL_FLASHEx_EccCorrectionCallback	1
+main.c:194:6:HAL_FLASHEx_EccDetectionCallback	1
+main.c:198:10:GetSector	33
+main.c:253:5:main	1
+main.c:302:6:SystemClock_Config	4
+main.c:363:13:MX_ETH_Init	2
+main.c:412:13:MX_USART3_UART_Init	5
+main.c:460:13:MX_USB_OTG_FS_PCD_Init	2
+main.c:496:13:MX_GPIO_Init	1
+main.c:565:6:Error_Handler	1
