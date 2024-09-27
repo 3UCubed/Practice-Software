@@ -18,6 +18,8 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "string.h"
+#include <stdio.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -36,7 +38,7 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-#define I2C_SLAVE_ADDR (0x11<<1)
+
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -45,7 +47,8 @@ I2C_HandleTypeDef hi2c1;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-
+static const uint8_t ADT_ADDR = 0x48 << 1;
+static const uint8_t REG_TEMP = 0x00;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -60,8 +63,6 @@ static void MX_USART1_UART_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-uint8_t test[100];
-
 /* USER CODE END 0 */
 
 /**
@@ -71,9 +72,10 @@ uint8_t test[100];
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	uint8_t buf[5];
-	char log[100];
-	uint16_t log_len;
+	HAL_StatusTypeDef ret;
+	uint8_t buf[12];
+	int16_t val;
+	float temp_c;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -104,13 +106,34 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  buf[0] = REG_TEMP;
+	  ret = HAL_I2C_Master_Transmit(&hi2c1, ADT_ADDR, buf, 1, HAL_MAX_DELAY);
+	  if (ret != HAL_OK) {
+		  strcpy((char*)buf, "Error Tx\r\n");
+	  } else {
+		  ret = HAL_I2C_Master_Receive(&hi2c1, ADT_ADDR, buf, 2, HAL_MAX_DELAY);
+		  if (ret != HAL_OK) {
+		  		  strcpy((char*)buf, "Error Rx\r\n");
+		  } else {
+			  val = ((int16_t)buf[0] << 4 | buf[1] >> 4);
+
+			  if (val > 0x7FF) {
+				  val |= 0xF000;
+			  }
+
+			  temp_c = val * 0.0625;
+
+			  temp_c *= 100;
+			  sprintf((char*)buf, "Sensor 1: %u.%02u C\r\n",
+					  ((unsigned int)temp_c / 100),
+					  ((unsigned int)temp_c %100));
+		  }
+	  }
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  HAL_I2C_Master_Receive(&hi2c1, I2C_SLAVE_ADDR, buf, 5, HAL_MAX_DELAY);
-	  log_len = sprintf(log, "I2C Slave Data: 0x%x, 0x%x, 0x%x, 0x%x, 0x%x\r\n",
-			  buf[0], buf[1], buf[2], buf[3], buf[4]);
-	  HAL_UART_Transmit(&huart1, (uint8_t*)log, log_len, HAL_MAX_DELAY);
+	  HAL_UART_Transmit(&huart1, buf, strlen((char*)buf), HAL_MAX_DELAY);
 	  HAL_Delay(500);
   }
   /* USER CODE END 3 */
