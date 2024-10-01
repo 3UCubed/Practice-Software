@@ -47,7 +47,10 @@ I2C_HandleTypeDef hi2c1;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-static const uint8_t ADT_ADDR = 0x48 << 1;
+static const uint8_t ADT_ADDR1 = 0x48 << 1;
+static const uint8_t ADT_ADDR2 = 0x49 << 1;
+static const uint8_t ADT_ADDR3 = 0x4A << 1;
+static const uint8_t ADT_ADDR4 = 0x4B << 1;
 static const uint8_t REG_TEMP = 0x00;
 /* USER CODE END PV */
 
@@ -73,7 +76,10 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 	HAL_StatusTypeDef ret;
-	uint8_t buf[12];
+	uint8_t buf1[48];
+	uint8_t buf2[48];
+	uint8_t buf3[48];
+	uint8_t buf4[48];
 	int16_t val;
 	float temp_c;
   /* USER CODE END 1 */
@@ -106,16 +112,17 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  buf[0] = REG_TEMP;
-	  ret = HAL_I2C_Master_Transmit(&hi2c1, ADT_ADDR, buf, 1, HAL_MAX_DELAY);
+	  /* SENSOR 1 CODE */
+	  buf1[0] = REG_TEMP;
+	  ret = HAL_I2C_Master_Transmit(&hi2c1, ADT_ADDR1, buf1, 1, HAL_MAX_DELAY);
 	  if (ret != HAL_OK) {
-		  strcpy((char*)buf, "Error Tx\r\n");
+		  strcpy((char*)buf1, "Error Tx\r\n");
 	  } else {
-		  ret = HAL_I2C_Master_Receive(&hi2c1, ADT_ADDR, buf, 2, HAL_MAX_DELAY);
+		  ret = HAL_I2C_Master_Receive(&hi2c1, ADT_ADDR1, buf1, 2, HAL_MAX_DELAY);
 		  if (ret != HAL_OK) {
-		  		  strcpy((char*)buf, "Error Rx\r\n");
+		  		  strcpy((char*)buf1, "Error Rx\r\n");
 		  } else {
-			  val = ((int16_t)buf[0] << 4 | buf[1] >> 4);
+			  val = ((int16_t)buf1[0] << 4 | buf1[1] >> 4);
 
 			  if (val > 0x7FF) {
 				  val |= 0xF000;
@@ -124,7 +131,82 @@ int main(void)
 			  temp_c = val * 0.0625;
 
 			  temp_c *= 100;
-			  sprintf((char*)buf, "Sensor 1: %u.%02u C\r\n",
+			  sprintf((char*)buf1, "ADT7410 Readings\r\n | 1: %u.%02uC |\r\n",
+					  ((unsigned int)temp_c / 100),
+					  ((unsigned int)temp_c %100));
+		  }
+	  }
+
+	  /* SENSOR 2 CODE */
+	  buf2[0] = REG_TEMP;
+	  ret = HAL_I2C_Master_Transmit(&hi2c1, ADT_ADDR2, buf2, 1, HAL_MAX_DELAY);
+	  if (ret != HAL_OK) {
+		  strcpy((char*)buf2, "Error Tx\r\n");
+	  } else {
+		  ret = HAL_I2C_Master_Receive(&hi2c1, ADT_ADDR2, buf2, 2, HAL_MAX_DELAY);
+		  if (ret != HAL_OK) {
+				  strcpy((char*)buf2, "Error Rx\r\n");
+		  } else {
+			  val = ((int16_t)buf2[0] << 4 | buf2[1] >> 4);
+
+			  if (val > 0x7FF) {
+				  val |= 0xF000;
+			  }
+
+			  temp_c = val * 0.0625;
+
+			  temp_c *= 100;
+			  sprintf((char*)buf2, " | 2: %u.%02uC |\r\n",
+					  ((unsigned int)temp_c / 100),
+					  ((unsigned int)temp_c %100));
+		  }
+	  }
+
+	  /* SENSOR 3 CODE */
+	  buf3[0] = REG_TEMP;
+	  ret = HAL_I2C_Master_Transmit(&hi2c1, ADT_ADDR3, buf3, 1, HAL_MAX_DELAY);
+	  if (ret != HAL_OK) {
+		  strcpy((char*)buf3, "Error Tx\r\n");
+	  } else {
+		  ret = HAL_I2C_Master_Receive(&hi2c1, ADT_ADDR3, buf3, 2, HAL_MAX_DELAY);
+		  if (ret != HAL_OK) {
+				  strcpy((char*)buf3, "Error Rx\r\n");
+		  } else {
+			  val = ((int16_t)buf3[0] << 4 | buf3[1] >> 4);
+
+			  if (val > 0x7FF) {
+				  val |= 0xF000;
+			  }
+
+			  temp_c = val * 0.0625;
+
+			  temp_c *= 100;
+			  sprintf((char*)buf3, " | 3: %u.%02uC |\r\n",
+					  ((unsigned int)temp_c / 100),
+					  ((unsigned int)temp_c %100));
+		  }
+	  }
+
+	  /* SENSOR 4 CODE */
+	  buf4[0] = REG_TEMP;
+	  ret = HAL_I2C_Master_Transmit(&hi2c1, ADT_ADDR4, buf4, 1, HAL_MAX_DELAY);
+	  if (ret != HAL_OK) {
+		  strcpy((char*)buf4, "Error Tx\r\n");
+	  } else {
+		  ret = HAL_I2C_Master_Receive(&hi2c1, ADT_ADDR4, buf4, 2, HAL_MAX_DELAY);
+		  if (ret != HAL_OK) {
+				  strcpy((char*)buf4, "Error Rx\r\n");
+		  } else {
+			  val = ((int16_t)buf4[0] << 4 | buf4[1] >> 4);
+
+			  if (val > 0x7FF) {
+				  val |= 0xF000;
+			  }
+
+			  temp_c = val * 0.0625;
+
+			  temp_c *= 100;
+			  sprintf((char*)buf4, " | 4: %u.%02uC |\r\n\r\n",
 					  ((unsigned int)temp_c / 100),
 					  ((unsigned int)temp_c %100));
 		  }
@@ -133,7 +215,10 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  HAL_UART_Transmit(&huart1, buf, strlen((char*)buf), HAL_MAX_DELAY);
+	  HAL_UART_Transmit(&huart1, buf1, strlen((char*)buf1), HAL_MAX_DELAY);
+	  HAL_UART_Transmit(&huart1, buf2, strlen((char*)buf2), HAL_MAX_DELAY);
+	  HAL_UART_Transmit(&huart1, buf3, strlen((char*)buf3), HAL_MAX_DELAY);
+	  HAL_UART_Transmit(&huart1, buf4, strlen((char*)buf4), HAL_MAX_DELAY);
 	  HAL_Delay(500);
   }
   /* USER CODE END 3 */
