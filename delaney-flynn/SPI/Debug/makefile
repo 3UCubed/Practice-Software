@@ -61,7 +61,7 @@ main-build: SPI.elf secondary-outputs
 
 # Tool invocations
 SPI.elf SPI.map: $(OBJS) $(USER_OBJS) C:\Users\delan\STM32CubeIDE\workspace_1.12.0\SPI\STM32F051R8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "SPI.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0 -T"C:\Users\delan\STM32CubeIDE\workspace_1.12.0\SPI\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SPI.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+	arm-none-eabi-gcc -o "SPI.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0 -T"C:\Users\delan\STM32CubeIDE\workspace_1.12.0\SPI\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SPI.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

@@ -71,8 +71,10 @@ static void MX_USART2_UART_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	uint8_t buf[48];
-	uint8_t raw_data = {0};
+	char buf[48];
+	uint8_t inData[2];
+	uint16_t adcValue = 0;
+	float voltage = 0;
 
   /* USER CODE END 1 */
 
@@ -105,18 +107,35 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  // Write high
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_SET);
-
-	  // Receive
-	  HAL_SPI_Receive(&hspi1, (uint8_t*)raw_data, 2, HAL_MAX_DELAY);
-
-	  // Write low to reset
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_RESET);
 
     /* USER CODE BEGIN 3 */
-	  sprintf((char*)buf, "ADC Reading | %uV |\r\n", raw_data);
+	  // Set high
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_SET);
+	  HAL_Delay(1);
 
+	  // Set low
+	  // Begin conversation
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_RESET);
+	  HAL_Delay(1);
+
+	  // Transmit data across
+	  HAL_StatusTypeDef status = HAL_SPI_Receive(&hspi1, inData, sizeof(inData), HAL_MAX_DELAY);
+	  HAL_Delay(1);
+	  if(status != HAL_OK)
+	  {
+		  sprintf(buf, "Error SPI status %d\r\n", status);
+		  HAL_UART_Transmit(&huart2, (const uint8_t*)buf, strlen(buf), 100000);
+	  }
+
+	  // Set high to end data receive
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_SET);
+
+	  // Conversion
+	  adcValue = (inData[0] << 8) | inData[1];
+	  voltage = ((float)adcValue / 65535.0) * 5;
+
+	  // Send to Serial
+	  sprintf((char*)buf, "Voltage | %.01f | \r\n\r\n", voltage);
 	  HAL_UART_Transmit(&huart2, (uint8_t*)buf, strlen((char*)buf), HAL_MAX_DELAY);
 	  HAL_Delay(500);
   }
@@ -175,18 +194,19 @@ static void MX_SPI1_Init(void)
   /* USER CODE END SPI1_Init 1 */
   /* SPI1 parameter configuration*/
   hspi1.Instance = SPI1;
-  hspi1.Init.Mode = SPI_MODE_SLAVE;
-  hspi1.Init.Direction = SPI_DIRECTION_1LINE;
+  hspi1.Init.Mode = SPI_MODE_MASTER;
+  hspi1.Init.Direction = SPI_DIRECTION_2LINES_RXONLY;
   hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi1.Init.NSS = SPI_NSS_SOFT;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
   hspi1.Init.CRCPolynomial = 7;
   hspi1.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
-  hspi1.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
+  hspi1.Init.NSSPMode = SPI_NSS_PULSE_ENABLE;
   if (HAL_SPI_Init(&hspi1) != HAL_OK)
   {
     Error_Handler();
