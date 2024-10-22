@@ -4,6 +4,7 @@ import re
 import os
 import sys
 import argparse
+import platform
 
 # Constants for bootloader protocol
 ENTER_BOOTLOADER_COMMAND = b'\x00\x2A'
@@ -152,9 +153,10 @@ def jump_to_firmware():
 
 # Function to validate the file path
 def validate_file_path(file_path):
-    # Convert relative paths to absolute paths for better clarity
-    abs_path = os.path.abspath(file_path)
-    
+   # Check if the file path is already absolute
+    abs_path = file_path if os.path.isabs(file_path) else os.path.abspath(file_path)
+
+    # Now check if the absolute path exists
     if os.path.exists(abs_path):
         print(f"File path is valid: {abs_path}")
         return True
@@ -162,14 +164,24 @@ def validate_file_path(file_path):
         print(f"Error: The file path {abs_path} does not exist or cannot be accessed.")
         return False
 
-# Function to validate the COM port format
+# Validate the COM port (or serial port on macOS)
 def validate_com_port(com_port):
-    if re.match(r"COM\d+$", com_port):
-        print("COM port format is valid.")
-        return True
+    if platform.system() == "Windows":
+        if re.match(r"COM\d+$", com_port):
+            print(f"COM port {com_port} is valid.")
+            return True
+        else:
+            print(f"COM port {com_port} is invalid.")
+            return False
+    elif platform.system() == "Darwin":  # macOS
+        if com_port.startswith("/dev/tty.") or com_port.startswith("/dev/cu."):
+            print(f"Serial port {com_port} is valid.")
+            return True
+        else:
+            print(f"Serial port {com_port} is invalid.")
+            return False
     else:
-        print("Error: Invalid COM port format. Expected format: COMx (e.g., COM5).")
-        return False
+        raise RuntimeError("Unsupported OS")
 
 # Main function to handle the whole process
 def upload_firmware(firmware_path, com_port):
