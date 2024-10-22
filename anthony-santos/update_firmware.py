@@ -1,5 +1,9 @@
 import serial
 import time
+import re
+import os
+import sys
+import argparse
 
 # Constants for bootloader protocol
 ENTER_BOOTLOADER_COMMAND = b'\x00\x2A'
@@ -145,12 +149,34 @@ def jump_to_firmware():
     response = ser.read(1)
     return response == ACK
 
+
+# Function to validate the file path
+def validate_file_path(file_path):
+    # Convert relative paths to absolute paths for better clarity
+    abs_path = os.path.abspath(file_path)
+    
+    if os.path.exists(abs_path):
+        print(f"File path is valid: {abs_path}")
+        return True
+    else:
+        print(f"Error: The file path {abs_path} does not exist or cannot be accessed.")
+        return False
+
+# Function to validate the COM port format
+def validate_com_port(com_port):
+    if re.match(r"COM\d+$", com_port):
+        print("COM port format is valid.")
+        return True
+    else:
+        print("Error: Invalid COM port format. Expected format: COMx (e.g., COM5).")
+        return False
+
 # Main function to handle the whole process
-def upload_firmware(firmware_path):
+def upload_firmware(firmware_path, com_port):
     global ser
 
     # Step 1: Open UART at 460800 baud with no parity and send 0x2A command
-    ser = configure_serial(port='COM5', baudrate=460800, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE)
+    ser = configure_serial(port=com_port, baudrate=460800, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE)
     print("Configured UART at 460800 baud, no parity.")
     if not send_bootloader_command():
         print("Returning to firmware, try again")
@@ -159,7 +185,7 @@ def upload_firmware(firmware_path):
     ser.close()  # Close the serial port before reconfiguring
 
     # Step 3: Reconfigure UART for bootloader (115200 baud, even parity)
-    ser = configure_serial(port='COM5', baudrate=115200, parity=serial.PARITY_EVEN, stopbits=serial.STOPBITS_ONE)
+    ser = configure_serial(port=com_port, baudrate=115200, parity=serial.PARITY_EVEN, stopbits=serial.STOPBITS_ONE)
     print("Reconfigured UART at 115200 baud, even parity.")
 
     # Step 4: Sync with bootloader
@@ -208,8 +234,32 @@ def upload_firmware(firmware_path):
     else:
         print("Successfully jumped to the new firmware!")
 
-# Call the upload function with your firmware file path
-upload_firmware(r"C:\Users\Santo\STM32CubeIDE\workspace_1.12.1\H7-LQFP100-RTOS - test program\Debug\H7-LQFP100-RTOS - test program.bin")
 
-# Close the serial port
-ser.close()
+# Function to parse and validate command-line arguments
+def parse_arguments():
+    parser = argparse.ArgumentParser(description="Upload firmware to STM32 over UART.")
+    parser.add_argument("firmware_path", help="Path to the firmware .bin file")
+    parser.add_argument("com_port", help="COM port (e.g., COM5)")
+
+    args = parser.parse_args()
+
+    # Validate the file path
+    if not validate_file_path(args.firmware_path):
+        sys.exit("Exiting: Invalid file path.")
+
+    # Validate the COM port
+    if not validate_com_port(args.com_port):
+        sys.exit("Exiting: Invalid COM port.")
+
+    return args
+
+if __name__ == "__main__":
+    # Parse command-line arguments
+    args = parse_arguments()
+
+    # Call the upload function with the provided firmware file path and COM port
+    upload_firmware(args.firmware_path, args.com_port)
+
+    # Close the serial port if open
+    if 'ser' in globals() and ser.is_open:
+        ser.close()
