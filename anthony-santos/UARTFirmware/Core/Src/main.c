@@ -114,13 +114,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 	switch (key)
 	{
 	case 0x2A: {
-		char msg[] = "Program A: Entering Firmware Update Mode\n";
-		HAL_UART_Transmit(&huart1, (uint8_t*)msg, strlen(msg), 1000);
-		SetBootloaderFlag();
-		break;
-	}
-	case 0x2B: {
-		char msg[] = "Program B: Entering Firmware Update Mode\n";
+		char msg[] = "Entering Firmware Update Mode\n";
 		HAL_UART_Transmit(&huart1, (uint8_t*)msg, strlen(msg), 1000);
 		SetBootloaderFlag();
 		break;
@@ -296,7 +290,7 @@ static void MX_USART1_UART_Init(void)
 
   /* USER CODE END USART1_Init 1 */
   huart1.Instance = USART1;
-  huart1.Init.BaudRate = 460800;
+  huart1.Init.BaudRate = 115200;
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
   huart1.Init.StopBits = UART_STOPBITS_1;
   huart1.Init.Parity = UART_PARITY_NONE;
