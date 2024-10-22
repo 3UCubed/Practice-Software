@@ -43,6 +43,8 @@
 
 /* Private variables ---------------------------------------------------------*/
 ADC_HandleTypeDef hadc;
+DMA_HandleTypeDef hdma_adc;
+DMA_HandleTypeDef hdma_usart1_tx;
 
 UART_HandleTypeDef huart1;
 
@@ -53,6 +55,7 @@ UART_HandleTypeDef huart1;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+static void MX_DMA_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_ADC_Init(void);
 /* USER CODE BEGIN PFP */
@@ -62,7 +65,8 @@ static void MX_ADC_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 char buff[100];
-uint16_t raw = 0;
+volatile uint16_t adc_dma_result[1];
+uint8_t adc_conv_complete_flag = 0;
 
 /* USER CODE END 0 */
 
@@ -94,6 +98,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_USART1_UART_Init();
   MX_ADC_Init();
   /* USER CODE BEGIN 2 */
@@ -107,19 +112,14 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  // Use built in ADC functions to read in raw data
-	  HAL_ADC_Start(&hadc);
-	  HAL_ADC_PollForConversion(&hadc, 300);
-	  raw = HAL_ADC_GetValue(&hadc);
-	  HAL_ADC_Stop(&hadc);
-
-	  // Convert raw data to human readable format
-	  float vin = raw*(3.3/4096);
-	  sprintf(buff, "%.2f V\r\n", vin);
-
-	  // Transmit and delay
-	  HAL_UART_Transmit(&huart1, (uint8_t*)buff, strlen(buff), HAL_MAX_DELAY);
-	  HAL_Delay (500);
+	  HAL_ADC_Start_DMA(&hadc, (uint32_t *)adc_dma_result, 1);
+	  if (adc_conv_complete_flag == 1) {
+		  float vin = adc_dma_result[0] * (3.3 / 4096);
+		  sprintf(buff, "%.02f V\r\n", vin);
+		  HAL_UART_Transmit(&huart1, (uint8_t*)buff, strlen(buff), HAL_MAX_DELAY);
+		  adc_conv_complete_flag = 0;
+		  HAL_Delay(500);
+	  }
   }
   /* USER CODE END 3 */
 }
@@ -198,7 +198,7 @@ static void MX_ADC_Init(void)
   hadc.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
   hadc.Init.LowPowerAutoWait = DISABLE;
   hadc.Init.LowPowerAutoPowerOff = DISABLE;
-  hadc.Init.ContinuousConvMode = DISABLE;
+  hadc.Init.ContinuousConvMode = ENABLE;
   hadc.Init.DiscontinuousConvMode = DISABLE;
   hadc.Init.ExternalTrigConv = ADC_SOFTWARE_START;
   hadc.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
@@ -260,6 +260,22 @@ static void MX_USART1_UART_Init(void)
 }
 
 /**
+  * Enable DMA controller clock
+  */
+static void MX_DMA_Init(void)
+{
+
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA1_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA1_Channel1_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Channel1_IRQn);
+
+}
+
+/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -278,6 +294,9 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc){
+	adc_conv_complete_flag = 1;
+}
 
 /* USER CODE END 4 */
 

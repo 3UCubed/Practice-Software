@@ -60,8 +60,8 @@ all: main-build
 main-build: ADC\ With\ DMA.elf secondary-outputs
 
 # Tool invocations
-ADC\ With\ DMA.elf ADC\ With\ DMA.map: $(OBJS) $(USER_OBJS) C:\Users\delan\STM32CubeIDE\workspace_1.12.0\ADC\ With\ DMA\STM32F051R8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "ADC With DMA.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0 -T"C:\Users\delan\STM32CubeIDE\workspace_1.12.0\ADC With DMA\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ADC With DMA.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+ADC\ With\ DMA.elf ADC\ With\ DMA.map: $(OBJS) $(USER_OBJS) C:\Users\delan\Desktop\UNH24\3UCUBED\Practice-Software\delaney-flynn\ADC\ With\ DMA\STM32F051R8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "ADC With DMA.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0 -T"C:\Users\delan\Desktop\UNH24\3UCUBED\Practice-Software\delaney-flynn\ADC With DMA\STM32F051R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ADC With DMA.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
