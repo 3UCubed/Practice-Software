@@ -43,6 +43,7 @@ def send_bootloader_command():
     ser.write(ENTER_BOOTLOADER_COMMAND)
     response = ser.read(100)
     print(f"Received response: {response}")
+    return response == b'Entering Firmware Update Mode\n'
 
 # Function to sync with the bootloader
 def sync_with_bootloader():
@@ -81,7 +82,7 @@ def erase_flash():
 
 # Function to send a memory write command and a chunk of data
 def send_firmware_chunk(address, data_chunk):
-    print(f"Writing {len(data_chunk)} bytes to address {hex(address)}...")
+    # print(f"Writing {len(data_chunk)} bytes to address {hex(address)}...")
     # Step 1: Send the Write Memory command (0x31) and its complement (0xCE)
     ser.write(WRITE_COMMAND)
 
@@ -151,7 +152,9 @@ def upload_firmware(firmware_path):
     # Step 1: Open UART at 460800 baud with no parity and send 0x2A command
     ser = configure_serial(port='COM5', baudrate=460800, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE)
     print("Configured UART at 460800 baud, no parity.")
-    send_bootloader_command()
+    if not send_bootloader_command():
+        print("Returning to firmware, try again")
+        return
 
     ser.close()  # Close the serial port before reconfiguring
 
@@ -162,6 +165,8 @@ def upload_firmware(firmware_path):
     # Step 4: Sync with bootloader
     if not sync_with_bootloader():
         print("Failed to sync with the bootloader.")
+        print("Jumping back to firmware, try again")
+        jump_to_firmware()
         return
 
     # Step 5: Erase flash memory
@@ -170,8 +175,12 @@ def upload_firmware(firmware_path):
         return
     
     
-    send_command(SYNC_COMMAND)
+    # Command / bytes are offset after previous command, reset here using sync
+    response = send_command(SYNC_COMMAND)
+    
+    
     # Step 6: Read the firmware file
+    print("Writing new firmware...")
     with open(firmware_path, 'rb') as f:
         firmware = f.read()
     
@@ -200,7 +209,7 @@ def upload_firmware(firmware_path):
         print("Successfully jumped to the new firmware!")
 
 # Call the upload function with your firmware file path
-upload_firmware("ENTER FILE PATH OF NEW FIRMWARE HERE")
+upload_firmware(r"C:\Users\Santo\STM32CubeIDE\workspace_1.12.1\H7-LQFP100-RTOS - test program\Debug\H7-LQFP100-RTOS - test program.bin")
 
 # Close the serial port
 ser.close()
