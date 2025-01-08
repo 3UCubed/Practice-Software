@@ -48,7 +48,7 @@ def send_bootloader_command():
     ser.write(ENTER_BOOTLOADER_COMMAND)
     response = ser.read(100)
     print(f"Received response: {response}")
-    return response == b'Entering Firmware Update Mode\n'
+    return response == b'\x79'
 
 # Function to sync with the bootloader
 def sync_with_bootloader():
